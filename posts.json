@@ -1,0 +1,38 @@
+[
+  {
+    "title": "AWS Security Tips for Startups",
+    "date": "2025-10-22",
+    "summary": "Practical, low-cost AWS security wins founders can implement this week.",
+    "slug": "aws-security-tips-for-startups",
+    "tags": "AWS,Security,Startups",
+    "url": "posts/2025-10-22-aws-security-tips-for-startups.md"
+  },
+  {
+    "title": "CI/CD Performance Tuning",
+    "date": "2025-10-22",
+    "summary": "",
+    "slug": "ci-cd-performance-tuning",
+    "tags": null,
+    "url": "posts/2025-10-22-ci-cd-performance-tuning.md"
+  },
+  {
+    "title": "My Next Cloud Article",
+    "date": "2025-10-22",
+    "summary": "Exploring hybrid architectures with AWS Outposts",
+    "slug": "my-next-cloud-article",
+    "tags": [
+      "AWS",
+      "Hybrid",
+      "Cloud"
+    ],
+    "url": "posts/2025-10-22-my-next-cloud-article.md"
+  },
+  {
+    "title": "# Update or create index.html",
+    "date": "2025-10-22",
+    "summary": "$IndexPath = Join-Path $Root \"index.html",
+    "slug": "update-or-create-index-html",
+    "tags": "$RelativeLink = \"posts/$FileName\"",
+    "url": "posts/2025-10-22-update-or-create-index-html.md"
+  }
+]
