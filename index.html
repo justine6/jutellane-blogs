@@ -50,12 +50,43 @@
         <h1>Jutellane Blogs</h1>
         <div class="sub">AWS, Security, Startups — practical notes and patterns.</div>
       </div>
-      <nav style="margin-left:auto">
-        <a href="feed.xml">RSS</a>
-        <a href="sitemap.xml">Sitemap</a>
-        <a href="tags/">Tags</a>
-        <a href="https://github.com/justine6/jutellane-blogs">GitHub</a>
-      </nav>
+<nav style="margin-left:auto">
+  <a href="feed.xml">RSS</a>
+  <a href="sitemap.xml">Sitemap</a>
+  <a href="tags/" id="nav-tags">Tags</a>
+  <a href="https://github.com/justine6/jutellane-blogs">GitHub</a>
+</nav>
+
+<style>
+  nav a {
+    color: var(--link);
+    text-decoration: none;
+    margin-left: 18px;
+    transition: all 0.25s ease-in-out;
+  }
+  /* soft glow for hover on all links */
+  nav a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 6px rgba(59,130,246,0.5);
+  }
+  /* Highlight for active Tags page */
+  #nav-tags.active {
+    font-weight: 600;
+    color: #3b82f6;
+    text-shadow: 0 0 10px rgba(59,130,246,0.7);
+  }
+</style>
+
+<script>
+  // highlight "Tags" when on /tags/ page
+  const path = window.location.pathname;
+  if (path.includes("/tags")) {
+    const link = document.getElementById("nav-tags");
+    if (link) link.classList.add("active");
+  }
+</script>
+
+
     </div>
   </header>
 
