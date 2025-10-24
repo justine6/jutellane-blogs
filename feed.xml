@@ -3,5 +3,23 @@
   <title>Jutellane Blogs</title>
   <link>https://justine6.github.io/jutellane-blogs/</link>
   <description>Thoughts on AWS, security, startups, and cloud craftsmanship.</description>
+<<<<<<< HEAD
   <lastBuildDate>Fri, 24 Oct 2025 14:48:37 GMT</lastBuildDate>
+=======
+  <lastBuildDate>Fri, 24 Oct 2025 09:24:44 GMT</lastBuildDate>
+  <item>
+    <title>CI tips</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/</guid>
+    <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
+    <description>fast pipelines</description>
+  </item>
+  <item>
+    <title>Sanity Test Post</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/</guid>
+    <pubDate>Wed, 22 Oct 2025 00:00:00 GMT</pubDate>
+    <description># Sanity Test Post &gt; ## Overview Write your content here.</description>
+  </item>
+>>>>>>> 920d7f2 (wip: local edits)
 </channel></rss>

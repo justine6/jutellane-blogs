@@ -4,13 +4,14 @@ date: 2025-10-22
 tags: [[devops, ci-cd, pipelines]]
 summary: "Tips for improving build speed and reliability."
 canonical: "        # or add Medium/LinkedIn URL later"
-slug: "ci-cd-performance-tuning"
+slug: "ci-cd-performance-tuning-v4"
 ---
-# AWS Security Tips for Startups
+# # Update or create index.html
 
-> Practical, low-cost AWS security wins founders can implement this week.
+> $IndexPath = Join-Path $Root "index.html"
 
 ## Overview
 
 Write your content here.
+
 
