@@ -1,43 +1,5 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tags • Jutellane Blogs</title>
-  <style>
-    :root{--bg:#ffffff;--fg:#0f172a;--muted:#475569;--card:#f8fafc;--chip:#e2e8f0;--link:#2563eb;--br:14px;--max:860px}
-    @media (prefers-color-scheme: dark){
-      :root{--bg:#0b1020;--fg:#e5e7eb;--muted:#93a3b8;--card:#0f162c;--chip:#1d2644;--link:#7aa3ff}
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
-    .wrap{max-width:var(--max);margin:0 auto;padding:28px 20px}
-    a{color:var(--link)}
-    .chip{display:inline-block;margin:6px 8px 6px 0;padding:8px 12px;border-radius:999px;background:var(--chip);text-decoration:none}
-    ul{list-style:none;padding:0;margin:16px 0;display:grid;gap:12px}
-    li{padding:14px 16px;border-radius:var(--br);background:var(--card);border:1px solid var(--chip)}
-    .title{text-decoration:none;color:var(--fg);font-weight:600}
-    .muted{color:var(--muted)}
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <p><a href="../index.html">← Back</a></p>    <h1>Tags</h1>
-    <div id="chips"></div>
-    <script>
-      const tags = " + (ConvertTo-Json (System.Collections.Hashtable.Keys | Sort-Object)) + @";
-      const el = document.getElementById('chips');
-      tags.forEach(t=>{
-        const slug = t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-        const a = document.createElement('a');
-        a.href = slug + '.html';
-        a.className = 'chip';
-        a.textContent = t;
-        el.appendChild(a);
-      });
-    </script>  </main>
-  <script>
-    const fmt = d => new Date(d+'T00:00:00').toLocaleDateString(undefined,{year:'numeric', month:'short', day:'2-digit'});
-  </script>
-</body>
-</html>
+<!doctype html><meta charset="utf-8"><title>Tags — Jutellane Blogs</title>
+<main class="wrap" style="max-width:860px;margin:24px auto;font-family:ui-sans-serif,system-ui">
+<h1>All tags</h1><ul>
+
+</ul><p><a href="../">← Back</a></p></main>

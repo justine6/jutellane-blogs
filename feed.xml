@@ -1,37 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-  <channel>
-    <title>Jutellane Blogs</title>
-    <link>https://your-domain.tld/blog</link>
-    <description>Latest posts from Jutellane Blogs</description>
-    <lastBuildDate>Thu, 23 Oct 2025 00:05:21 GMT</lastBuildDate>
-    <item>
-      <title>AWS Security Tips for Startups</title>
-      <link>https://your-domain.tld/blog/posts/2025-10-22-aws-security-tips-for-startups.md</link>
-      <guid isPermaLink="true">https://your-domain.tld/blog/posts/2025-10-22-aws-security-tips-for-startups.md</guid>
-      <pubDate>Wed, 22 Oct 2025 05:00:00 GMT</pubDate>
-      <description>Practical, low-cost AWS security wins founders can implement this week.</description>
-    </item>
-    <item>
-      <title>CI/CD Performance Tuning</title>
-      <link>https://your-domain.tld/blog/posts/2025-10-22-ci-cd-performance-tuning.md</link>
-      <guid isPermaLink="true">https://your-domain.tld/blog/posts/2025-10-22-ci-cd-performance-tuning.md</guid>
-      <pubDate>Wed, 22 Oct 2025 05:00:00 GMT</pubDate>
-      <description></description>
-    </item>
-    <item>
-      <title>My Next Cloud Article</title>
-      <link>https://your-domain.tld/blog/posts/2025-10-22-my-next-cloud-article.md</link>
-      <guid isPermaLink="true">https://your-domain.tld/blog/posts/2025-10-22-my-next-cloud-article.md</guid>
-      <pubDate>Wed, 22 Oct 2025 05:00:00 GMT</pubDate>
-      <description>Exploring hybrid architectures with AWS Outposts</description>
-    </item>
-    <item>
-      <title># Update or create index.html</title>
-      <link>https://your-domain.tld/blog/posts/2025-10-22-update-or-create-index-html.md</link>
-      <guid isPermaLink="true">https://your-domain.tld/blog/posts/2025-10-22-update-or-create-index-html.md</guid>
-      <pubDate>Wed, 22 Oct 2025 05:00:00 GMT</pubDate>
-      <description>$IndexPath = Join-Path $Root &quot;index.html</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0"><channel>
+  <title>Jutellane Blogs</title>
+  <link>https://justine6.github.io/jutellane-blogs/</link>
+  <description>Thoughts on AWS, security, startups, and cloud craftsmanship.</description>
+  <lastBuildDate>Fri, 24 Oct 2025 14:48:37 GMT</lastBuildDate>
+</channel></rss>

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://your-domain.tld/blog/</loc></url>
-  <url><loc>https://your-domain.tld/blog/posts/2025-10-22-aws-security-tips-for-startups.md</loc></url>
-  <url><loc>https://your-domain.tld/blog/posts/2025-10-22-ci-cd-performance-tuning.md</loc></url>
-  <url><loc>https://your-domain.tld/blog/posts/2025-10-22-my-next-cloud-article.md</loc></url>
-  <url><loc>https://your-domain.tld/blog/posts/2025-10-22-update-or-create-index-html.md</loc></url>
+  <url><loc>https://justine6.github.io/jutellane-blogs/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://justine6.github.io/jutellane-blogs/tags/</loc><changefreq>weekly</changefreq></url>
 </urlset>
