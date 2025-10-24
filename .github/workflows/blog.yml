@@ -66,8 +66,7 @@ jobs:
             tags/**
           delete-branch: true
           labels: ci, metadata
-          draft: false*
-
+          draft: false   # no quotes, lowercase, 2-space indent under `with:`
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
