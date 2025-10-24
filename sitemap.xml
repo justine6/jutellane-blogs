@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://justine6.github.io/jutellane-blogs/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/</loc><changefreq>weekly</changefreq></url>
+<<<<<<< HEAD
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5B%5B%5D%5D/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5B%5Bdevops%5D%5D/</loc><changefreq>weekly</changefreq></url>
+=======
+  <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5B%5D/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5Bdevops%5D/</loc><changefreq>weekly</changefreq></url>
+>>>>>>> 753833d (chore: rebuild metadata after rebase)
 </urlset>

@@ -3,7 +3,11 @@
   <title>Jutellane Blogs</title>
   <link>https://justine6.github.io/jutellane-blogs/</link>
   <description>Thoughts on AWS, security, startups, and cloud craftsmanship.</description>
+<<<<<<< HEAD
   <lastBuildDate>Fri, 24 Oct 2025 15:10:57 GMT</lastBuildDate>
+=======
+  <lastBuildDate>Fri, 24 Oct 2025 10:11:44 GMT</lastBuildDate>
+>>>>>>> 753833d (chore: rebuild metadata after rebase)
   <item>
     <title>CI tips</title>
     <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/</link>
