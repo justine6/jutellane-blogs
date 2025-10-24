@@ -2,7 +2,7 @@ name: Build & Deploy Jutellane Blogs
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, your-branch-name ]
   workflow_dispatch:
 
 permissions:
@@ -53,17 +53,20 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: ci/metadata-update
           commit-message: "chore(blog): fix/validate/build metadata"
           title: "chore(blog): update generated metadata"
           body: |
             Automated update of posts.json, feed.xml, sitemap.xml, and tags/.
-          branch: ci/metadata-update
-          delete-branch: true
           add-paths: |
             posts.json
             feed.xml
             sitemap.xml
             tags/**
+          delete-branch: true
+          labels: ci, metadata
+          draft: false*
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
