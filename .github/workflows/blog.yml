@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
   pages: write
   id-token: write
 
@@ -21,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Show PowerShell version
         shell: pwsh
@@ -46,27 +49,24 @@ jobs:
         shell: pwsh
         run: pwsh -NoProfile -File ./tools/Generate-Metadata.ps1 -SiteUrl "${{ env.SITE_URL }}"
 
-      - name: Commit updated metadata
-        shell: pwsh
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add posts.json feed.xml sitemap.xml tags/
-          if (!(git diff --staged --quiet)) {
-            git commit -m "chore(blog): fix/validate/build metadata [skip ci]"
-            git push
-          } else {
-            echo "No metadata changes to commit."
-          }
+      - name: Create metadata update PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(blog): fix/validate/build metadata"
+          title: "chore(blog): update generated metadata"
+          body: |
+            Automated update of posts.json, feed.xml, sitemap.xml, and tags/.
+          branch: ci/metadata-update
+          delete-branch: true
+          add-paths: |
+            posts.json
+            feed.xml
+            sitemap.xml
+            tags/**
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
