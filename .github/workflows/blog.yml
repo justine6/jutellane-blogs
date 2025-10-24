@@ -26,18 +26,25 @@ jobs:
         shell: pwsh
         run: '$PSVersionTable'
 
-      - name: Fix front matter
+      - name: Verify scripts exist
         shell: pwsh
         run: |
-          ./tools/fix-frontmatter.ps1 -SiteUrl "${{ env.SITE_URL }}"
+          Get-ChildItem tools | Select-Object Name, Length
+          if (-not (Test-Path ./tools/fix-frontmatter.ps1))   { throw "Missing tools/fix-frontmatter.ps1" }
+          if (-not (Test-Path ./tools/validate.ps1))          { throw "Missing tools/validate.ps1" }
+          if (-not (Test-Path ./tools/Generate-Metadata.ps1)) { throw "Missing tools/Generate-Metadata.ps1" }
+
+      - name: Fix front matter
+        shell: pwsh
+        run: pwsh -NoProfile -File ./tools/fix-frontmatter.ps1 -SiteUrl "${{ env.SITE_URL }}"
 
       - name: Validate posts
         shell: pwsh
-        run: ./tools/validate.ps1
+        run: pwsh -NoProfile -File ./tools/validate.ps1
 
       - name: Generate metadata
         shell: pwsh
-        run: ./tools/Generate-Metadata.ps1 -SiteUrl "${{ env.SITE_URL }}"
+        run: pwsh -NoProfile -File ./tools/Generate-Metadata.ps1 -SiteUrl "${{ env.SITE_URL }}"
 
       - name: Commit updated metadata
         shell: pwsh
@@ -67,3 +74,4 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
