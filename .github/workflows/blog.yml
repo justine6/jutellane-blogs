@@ -1,0 +1,69 @@
+name: Build & Deploy Jutellane Blogs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  SITE_URL: https://justine6.github.io/jutellane-blogs
+
+jobs:
+  build:
+    name: Fix, Validate, Build
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show PowerShell version
+        shell: pwsh
+        run: '$PSVersionTable'
+
+      - name: Fix front matter
+        shell: pwsh
+        run: |
+          ./tools/fix-frontmatter.ps1 -SiteUrl "${{ env.SITE_URL }}"
+
+      - name: Validate posts
+        shell: pwsh
+        run: ./tools/validate.ps1
+
+      - name: Generate metadata
+        shell: pwsh
+        run: ./tools/Generate-Metadata.ps1 -SiteUrl "${{ env.SITE_URL }}"
+
+      - name: Commit updated metadata
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add posts.json feed.xml sitemap.xml tags/
+          if (!(git diff --staged --quiet)) {
+            git commit -m "chore(blog): fix/validate/build metadata [skip ci]"
+            git push
+          } else {
+            echo "No metadata changes to commit."
+          }
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
