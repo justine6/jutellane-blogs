@@ -3,13 +3,20 @@
   <title>Jutellane Blogs</title>
   <link>https://justine6.github.io/jutellane-blogs/</link>
   <description>Thoughts on AWS, security, startups, and cloud craftsmanship.</description>
-  <lastBuildDate>Fri, 24 Oct 2025 19:35:23 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 24 Oct 2025 20:15:50 GMT</lastBuildDate>
   <item>
     <title>CI tips</title>
     <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/</link>
     <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/</guid>
     <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
     <description>fast pipelines</description>
+  </item>
+  <item>
+    <title>CI/CD Performance Tuning</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-cd-performance-tuning-v2/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-cd-performance-tuning-v2/</guid>
+    <pubDate>Wed, 22 Oct 2025 00:00:00 GMT</pubDate>
+    <description>Practical steps to accelerate build times, cut bottlenecks, and make your CI/CD pipeline more predictable and self-healing.</description>
   </item>
   <item>
     <title>Sanity Test Post</title>

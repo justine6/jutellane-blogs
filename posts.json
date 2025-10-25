@@ -10,6 +10,20 @@
     "cover": null
   },
   {
+    "title": "CI/CD Performance Tuning",
+    "date": "2025-10-22",
+    "tags": [
+      "devops",
+      "ci-cd",
+      "pipelines",
+      "performance",
+      "automation"
+    ],
+    "summary": "Practical steps to accelerate build times, cut bottlenecks, and make your CI/CD pipeline more predictable and self-healing.",
+    "url": "/posts/2025/10/ci-cd-performance-tuning-v2/",
+    "cover": "/assets/css/CI-CD-performance-tuning.PNG"
+  },
+  {
     "title": "Sanity Test Post",
     "date": "2025-10-22",
     "tags": [
