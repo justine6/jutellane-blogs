@@ -3,7 +3,7 @@
     "title": "CI tips",
     "date": "2025-10-24",
     "tags": [
-      "devops"
+      "[devops]"
     ],
     "summary": "fast pipelines",
     "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/",
@@ -20,7 +20,7 @@
       "Automation"
     ],
     "summary": null,
-    "url": "/posts/2025/10/aws-security-tips-for-startups/",
+    "url": "/jutellane-blogs/posts/2025/10/aws-security-tips-for-startups/",
     "cover": null
   },
   {
@@ -34,7 +34,7 @@
       "CI/CD"
     ],
     "summary": null,
-    "url": "/posts/2025/10/my-next-cloud-article/",
+    "url": "/jutellane-blogs/posts/2025/10/my-next-cloud-article/",
     "cover": null
   },
   {
@@ -48,7 +48,7 @@
       "Workflow"
     ],
     "summary": null,
-    "url": "/posts/2025/10/update-or-create-index-html/",
+    "url": "/jutellane-blogs/posts/2025/10/update-or-create-index-html/",
     "cover": null
   },
   {
@@ -62,7 +62,7 @@
       "Automation"
     ],
     "summary": null,
-    "url": "/posts/2025/10/building-a-self-healing-blog-pipeline/",
+    "url": "/jutellane-blogs/posts/2025/10/building-a-self-healing-blog-pipeline/",
     "cover": null
   },
   {
@@ -76,7 +76,7 @@
       "CI/CD"
     ],
     "summary": null,
-    "url": "/posts/2025/10/lessons-from-automating-my-blog/",
+    "url": "/jutellane-blogs/posts/2025/10/lessons-from-automating-my-blog/",
     "cover": null
   },
   {
@@ -90,14 +90,14 @@
       "automation"
     ],
     "summary": "Practical steps to accelerate build times, cut bottlenecks, and make your CI/CD pipeline more predictable and self-healing.",
-    "url": "/posts/2025/10/ci-cd-performance-tuning-v2/",
+    "url": "/jutellane-blogs/posts/2025/10/ci-cd-performance-tuning-v2/",
     "cover": "/assets/css/CI-CD-performance-tuning.PNG"
   },
   {
     "title": "Sanity Test Post",
     "date": "2025-10-22",
     "tags": [
-      ""
+      "[]"
     ],
     "summary": "# Sanity Test Post > ## Overview Write your content here.",
     "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/",

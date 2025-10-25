@@ -2,11 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://justine6.github.io/jutellane-blogs/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags//</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5B%5D/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5Bdevops%5D/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/Automation/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/ci-cd/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/CI%2FCD/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/devops/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://justine6.github.io/jutellane-blogs/tags/DevOps/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/GitHub%20Actions/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/GitHub%20Pages/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://justine6.github.io/jutellane-blogs/tags/Mindset/</loc><changefreq>weekly</changefreq></url>
