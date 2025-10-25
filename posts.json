@@ -3,18 +3,20 @@
     "title": "CI tips",
     "date": "2025-10-24",
     "tags": [
-      "[[devops]]"
+      "[devops]"
     ],
     "summary": "fast pipelines",
-    "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/"
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/",
+    "cover": null
   },
   {
     "title": "Sanity Test Post",
     "date": "2025-10-22",
     "tags": [
-      "[[]]"
+      "[]"
     ],
     "summary": "# Sanity Test Post > ## Overview Write your content here.",
-    "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/"
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/",
+    "cover": null
   }
 ]
