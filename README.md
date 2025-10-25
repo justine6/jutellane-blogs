@@ -1,4 +1,6 @@
 # 🧩 Jutellane Blogs CI/CD Workflow
+[![Content Status](https://img.shields.io/github/last-commit/justine6/jutellane-blogs/main)](https://github.com/justine6/jutellane-blogs/commits/main)
+[![Site](https://img.shields.io/badge/site-live-blue)](https://justine6.github.io/jutellane-blogs/)
 
 This repository automates the process of fixing, validating, and deploying blog content to GitHub Pages.  
 It ensures each post is properly formatted, metadata is up-to-date, and all site artifacts are published automatically.
