@@ -3,13 +3,48 @@
   <title>Jutellane Blogs</title>
   <link>https://justine6.github.io/jutellane-blogs/</link>
   <description>Thoughts on AWS, security, startups, and cloud craftsmanship.</description>
-  <lastBuildDate>Fri, 24 Oct 2025 20:15:50 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 24 Oct 2025 21:13:51 GMT</lastBuildDate>
   <item>
     <title>CI tips</title>
     <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/</link>
     <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/</guid>
     <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
     <description>fast pipelines</description>
+  </item>
+  <item>
+    <title>Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/aws-security-tips-for-startups/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/aws-security-tips-for-startups/</guid>
+    <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
+    <description></description>
+  </item>
+  <item>
+    <title>Lessons from Automating My Blog: DevOps Principles in Everyday Projects</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/my-next-cloud-article/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/my-next-cloud-article/</guid>
+    <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
+    <description></description>
+  </item>
+  <item>
+    <title>From Commit to Publish: A Complete GitHub Pages CI/CD Flow</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/update-or-create-index-html/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/update-or-create-index-html/</guid>
+    <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
+    <description></description>
+  </item>
+  <item>
+    <title>Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/building-a-self-healing-blog-pipeline/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/building-a-self-healing-blog-pipeline/</guid>
+    <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
+    <description></description>
+  </item>
+  <item>
+    <title>Lessons from Automating My Blog: DevOps Principles in Everyday Projects</title>
+    <link>https://justine6.github.io/jutellane-blogs/posts/2025/10/lessons-from-automating-my-blog/</link>
+    <guid isPermaLink="true">https://justine6.github.io/jutellane-blogs/posts/2025/10/lessons-from-automating-my-blog/</guid>
+    <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
+    <description></description>
   </item>
   <item>
     <title>CI/CD Performance Tuning</title>

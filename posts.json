@@ -3,10 +3,80 @@
     "title": "CI tips",
     "date": "2025-10-24",
     "tags": [
-      "[devops]"
+      "devops"
     ],
     "summary": "fast pipelines",
     "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/",
+    "cover": null
+  },
+  {
+    "title": "Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell",
+    "date": "2025-10-24",
+    "tags": [
+      "DevOps",
+      "GitHub Actions",
+      "PowerShell",
+      "CI/CD",
+      "Automation"
+    ],
+    "summary": null,
+    "url": "/posts/2025/10/aws-security-tips-for-startups/",
+    "cover": null
+  },
+  {
+    "title": "Lessons from Automating My Blog: DevOps Principles in Everyday Projects",
+    "date": "2025-10-24",
+    "tags": [
+      "DevOps",
+      "Productivity",
+      "Automation",
+      "Mindset",
+      "CI/CD"
+    ],
+    "summary": null,
+    "url": "/posts/2025/10/my-next-cloud-article/",
+    "cover": null
+  },
+  {
+    "title": "From Commit to Publish: A Complete GitHub Pages CI/CD Flow",
+    "date": "2025-10-24",
+    "tags": [
+      "GitHub Pages",
+      "CI/CD",
+      "DevOps",
+      "PowerShell",
+      "Workflow"
+    ],
+    "summary": null,
+    "url": "/posts/2025/10/update-or-create-index-html/",
+    "cover": null
+  },
+  {
+    "title": "Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell",
+    "date": "2025-10-24",
+    "tags": [
+      "DevOps",
+      "GitHub Actions",
+      "PowerShell",
+      "CI/CD",
+      "Automation"
+    ],
+    "summary": null,
+    "url": "/posts/2025/10/building-a-self-healing-blog-pipeline/",
+    "cover": null
+  },
+  {
+    "title": "Lessons from Automating My Blog: DevOps Principles in Everyday Projects",
+    "date": "2025-10-24",
+    "tags": [
+      "DevOps",
+      "Productivity",
+      "Automation",
+      "Mindset",
+      "CI/CD"
+    ],
+    "summary": null,
+    "url": "/posts/2025/10/lessons-from-automating-my-blog/",
     "cover": null
   },
   {
@@ -27,7 +97,7 @@
     "title": "Sanity Test Post",
     "date": "2025-10-22",
     "tags": [
-      "[]"
+      ""
     ],
     "summary": "# Sanity Test Post > ## Overview Write your content here.",
     "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/",
