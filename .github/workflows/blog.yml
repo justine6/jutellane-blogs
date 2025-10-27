@@ -2,8 +2,13 @@ name: Build & Deploy Jutellane Blogs
 
 on:
   push:
-    branches: [ main, your-branch-name ]
-  workflow_dispatch:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [main]
+
 
 permissions:
   contents: write

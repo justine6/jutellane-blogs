@@ -6,8 +6,29 @@
   <nav><a href="/jutellane-blogs/">← Back</a></nav>
   <article>
     <h1></h1>
+    
+  <!-- Brand bar -->
+  <div class="brand-bar" style="
+    display:flex; align-items:center; gap:.6rem;
+    margin:.75rem 0 1.25rem; font: 14px/1.4 ui-sans-serif,system-ui;">
+    <img src="/jutellane-blogs/assets/img/logo.svg"
+        alt="Jutellane" width="20" height="20"
+        style="display:block;border-radius:6px;object-fit:contain;">
+    <a href="/jutellane-blogs/" style="color:#2563eb; text-decoration:none;">
+      Jutellane Blogs
+    </a>
+  </div>
 
     <!-- COVER -->   <!-- 👈 the script will replace this with your cover HTML -->
+
+    <!-- inside the cover block -->
+  <div style="position:relative; display:inline-block;">
+    <img src="{{ post.cover }}" alt="{{ post.title }} cover"
+        style="max-width: 95%; height: auto; border-radius: 10px; box-shadow: 0 6px 22px rgba(0,0,0,.25);" />
+    <img src="/jutellane-blogs/assets/css/favicon.ico" alt="Jutellane"
+        style="position:absolute; right:16px; bottom:16px; width:28px; height:28px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,.35); background:#0f172a;">
+  </div>
+
 
     <div class="meta">2025-10-24 · </div>
     <div class="content"><pre style="white-space:pre-wrap"></pre></div>

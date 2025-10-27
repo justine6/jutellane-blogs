@@ -1,0 +1,13 @@
+# .github/workflows/verify-content.yml (jutellane-blogs)
+name: Verify Content
+on:
+  push:
+    branches: [ main ]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure index.html exists
+        run: |
+          test -f index.html || (echo "index.html missing"; exit 1)
