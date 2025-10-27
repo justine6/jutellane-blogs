@@ -61,9 +61,17 @@
   </style>
 </head>
 <body>
+  
   <header>
     <div class="wrap brand">
-      <img class="logo" src="assets/css/favicon.ico" alt="Jutellane logo" width="36" height="36" />
+      <img
+        class="logo"
+        src="assets/img/logo.png"
+        alt="Jutellane logo"
+        width="40"
+        height="40"
+        style="border-radius:8px;object-fit:contain;"
+      />
       <div>
         <h1>Jutellane Blogs</h1>
         <div class="sub">AWS, Security, Startups — practical notes and patterns.</div>
@@ -77,16 +85,60 @@
     </div>
   </header>
 
-  <!-- Hero banner -->
-  <section class="hero">
-    <div class="hero-wrap">
-      <img
-        src="assets/css/selfhealing-pipeline.png"
-        alt="Self-Healing Blog Pipeline — Jutellane Blogs"
-        width="1600" height="900"
-        loading="eager" decoding="async" />
-      <h2>Self-Healing Blog Pipeline</h2>
-      <p>Automation. Validation. Confidence.</p>
+
+<section class="hero" style="
+  position: relative;
+  background: radial-gradient(circle at top, #0b1020 10%, #0f172a 80%);
+  color: #f8fafc;
+  overflow: hidden;
+  border-bottom: 1px solid #1e293b;
+">
+  <!-- Background logo -->
+  <img
+    src="assets/img/logo.png"
+    alt="Jutellane Logo"
+    loading="eager"
+    decoding="async"
+    style="
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      filter: blur(6px) brightness(0.8);
+      z-index: 0;
+    "
+  />
+
+    <div class="hero-wrap" style="position: relative; z-index: 1; text-align: center; padding: 4rem 1rem;">
+      <!-- Small badge -->
+      <div style="
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 72px;
+        height: 72px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        margin-bottom: 1rem;
+      ">
+        <img
+          src="assets/img/logo.png"
+          alt="Jutellane Blogs"
+          width="48"
+          height="48"
+          style="object-fit: contain;"
+        />
+      </div>
+
+      <h2 style="font-size: clamp(24px, 3.5vw, 36px); margin: 0.75rem 0 0.5rem;">
+        Jutellane Blogs
+      </h2>
+      <p style="color: #cbd5e1; font-size: 1.05rem;">
+        DevSecOps • Cloud • Sustainability
+      </p>
     </div>
   </section>
 
