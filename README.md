@@ -146,3 +146,15 @@ Once configured:
 - GitHub Pages deploys only after validation succeeds.
 
 > This ensures a clean, reliable, and traceable publishing workflow for Jutellane Blogs 🚀
+
+<!-- SCRIPTS-TABLE:START -->
+## Developer Scripts
+
+| Script | Purpose | Example |
+|---|---|---|
+| Safe-Rebase.ps1 | Safe rebase of feature branch | `./scripts/Safe-Rebase.ps1 -Base main -Branch feature/xyz` |
+| Add-Post.ps1 | Scaffold a new blog post | `./scripts/Add-Post.ps1 -Title "Hello"` |
+| Generate-Metadata.ps1 | Build/refresh metadata | `./scripts/Generate-Metadata.ps1 -Path ./content/posts` |
+| Cut-Release.ps1 | Tag & publish release | `./scripts/Cut-Release.ps1 -Version 1.2.14` |
+<!-- SCRIPTS-TABLE:END -->
+
