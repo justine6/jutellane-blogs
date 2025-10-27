@@ -1,0 +1,1 @@
+<<PASTE the "5) README Consistency Checklist (docs/readme-consistency.md)" from the canvas>>
