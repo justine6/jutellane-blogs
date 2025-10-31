@@ -4,11 +4,20 @@ on:
   push:
     branches: [main]
     paths:
-      - 'src/**'
+      - 'docs/**'
+      - 'posts/**'
+      - 'content/**'
+      - 'tools/**'
+      - 'tags/**'
+      - 'feed.xml'
+      - 'sitemap.xml'
       - '.github/workflows/**'
   pull_request:
     branches: [main]
 
+concurrency:
+  group: blog-pages-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -16,6 +25,7 @@ permissions:
   pages: write
   id-token: write
 
+# Default; will be overridden dynamically if CNAME exists.
 env:
   SITE_URL: https://justine6.github.io/jutellane-blogs
 
@@ -25,19 +35,33 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # Detect custom domain from CNAME and override SITE_URL for the job
+      - name: Resolve SITE_URL (CNAME-aware)
+        shell: pwsh
+        run: |
+          $default = "https://justine6.github.io/jutellane-blogs"
+          $cname   = "docs/jutellane-blogs/CNAME"
+          if (Test-Path $cname) {
+            $domain = (Get-Content $cname | Select-Object -First 1).Trim()
+            if ($domain) { $url = "https://$domain" }
+          }
+          if (-not $url) { $url = $default }
+          "SITE_URL=$url" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host "Resolved SITE_URL: $url"
 
       - name: Show PowerShell version
         shell: pwsh
         run: '$PSVersionTable'
 
-      - name: Verify scripts exist
+      - name: Verify tools directory
         shell: pwsh
         run: |
-          Get-ChildItem tools | Select-Object Name, Length
+          if (-not (Test-Path ./tools)) { throw "❌ Missing ./tools folder" }
           if (-not (Test-Path ./tools/fix-frontmatter.ps1))   { throw "Missing tools/fix-frontmatter.ps1" }
           if (-not (Test-Path ./tools/validate.ps1))          { throw "Missing tools/validate.ps1" }
           if (-not (Test-Path ./tools/Generate-Metadata.ps1)) { throw "Missing tools/Generate-Metadata.ps1" }
@@ -54,7 +78,37 @@ jobs:
         shell: pwsh
         run: pwsh -NoProfile -File ./tools/Generate-Metadata.ps1 -SiteUrl "${{ env.SITE_URL }}"
 
+      # Normalize generator output to Pages-friendly routes
+      - name: Normalize blog output for Pages
+        shell: pwsh
+        run: |
+          if (-not (Test-Path ./Normalize-BlogOutput.ps1)) {
+            throw "Normalize-BlogOutput.ps1 not found at repo root."
+          }
+          pwsh -File ./Normalize-BlogOutput.ps1
+
+      # AFTER generation/normalization: rewrite any hard-coded base URLs to resolved SITE_URL
+      - name: Rewrite base URLs in metadata
+        shell: pwsh
+        run: |
+          $site = $env:SITE_URL.TrimEnd('/')
+          Write-Host "🔧 Rewriting base URLs to use $site"
+          $targets = @(
+            'feed.xml',
+            'sitemap.xml',
+            'posts.json',
+            'tags/index.html',
+            'tags/feed.xml'
+          ) | Where-Object { Test-Path $_ }
+          foreach ($file in $targets) {
+            (Get-Content $file -Raw) -replace 'https://justine6.github.io/jutellane-blogs', $site |
+              Set-Content -Encoding UTF8 $file
+            Write-Host "✓ Updated: $file"
+          }
+
+      # Only create the PR on PR events (so pushes to main don’t create PRs)
       - name: Create metadata update PR
+        if: github.event_name == 'pull_request'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -71,20 +125,83 @@ jobs:
             tags/**
           delete-branch: true
           labels: ci, metadata
-          draft: false   # no quotes, lowercase, 2-space indent under `with:`
+          draft: false
 
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
+      # Upload ONLY the site root
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: docs/jutellane-blogs
+
+      # Human-friendly summary with URL audit
+      - name: Write GitHub Actions summary (detailed)
+        shell: pwsh
+        run: |
+          $root = "docs/jutellane-blogs"
+          $site = "${{ env.SITE_URL }}".TrimEnd('/')
+
+          # Collect posts
+          $posts = Get-ChildItem -Path "$root/posts" -Recurse -Filter "index.html" |
+                   Sort-Object FullName
+
+          $rows = @()
+          foreach ($p in $posts) {
+            $relFolder = ($p.Directory.FullName.Substring((Join-Path $root "").Length)).TrimStart('\','/')
+            $url = "$site/$relFolder/"
+            $sizeKB = [math]::Round($p.Length / 1024.0, 1)
+            $last = $p.LastWriteTime.ToString("yyyy-MM-dd HH:mm")
+            $rows += "| /$relFolder/ | $sizeKB KB | $last | [$url]($url) |"
+          }
+
+          $count = $posts.Count
+
+          $summary = @"
+          ## 📘 Jutellane Blogs Deployment Summary
+          **Deployed Site:** [$site]($site)
+
+          - Total published posts: **$count**
+          - Site root: \`$root\`
+
+          ### 📄 Post audit
+          | Route | Size | Last Modified | URL |
+          |---|---:|---:|---|
+          $($rows -join "`n")
+          "@
+
+          $summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8
+          Write-Host "🧾 Summary written to GitHub Actions UI"
+
+      # Non-blocking probes for a few canonical URLs
+      - name: Probe canonical URLs
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $site = "${{ env.SITE_URL }}".TrimEnd('/')
+          $urls = @("$site/")
+
+          # Add up to 5 posts to probe
+          Get-ChildItem -Path "docs/jutellane-blogs/posts" -Recurse -Filter "index.html" |
+            Select-Object -First 5 |
+            ForEach-Object {
+              $rel = ($_.Directory.FullName.Substring((Join-Path "docs/jutellane-blogs" "").Length)).TrimStart('\','/')
+              $urls += "$site/$rel/"
+            }
+
+          foreach ($u in $urls) {
+            try {
+              $r = Invoke-WebRequest -Uri $u -Method Head -MaximumRedirection 5 -TimeoutSec 20
+              "OK  $($r.StatusCode)  $u"
+            } catch { "ERR $u  -> $($_.Exception.Message)" }
+          }
 
   deploy:
     name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
