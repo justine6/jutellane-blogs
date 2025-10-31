@@ -1,0 +1,44 @@
+name: Sync Badges (Blogs)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * *"   # daily at 06:17 UTC
+  push:
+    paths:
+      - "CNAME"
+      - "docs/jutellane-blogs/CNAME"
+      - "Update-ReadmeBadges.ps1"
+      - "README.md"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run updater
+        shell: pwsh
+        run: |
+          pwsh -File ./Update-ReadmeBadges.ps1 `
+            -RepoKind blogs `
+            -Owner justine6 `
+            -Repo jutellane-blogs `
+            -WorkflowFileName blog.yml `
+            -DefaultBlogUrl "https://justine6.github.io/jutellane-blogs" `
+            -DetectCNAME
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- README.md; then
+            git add README.md
+            git commit -m "docs(badges): auto-sync README badges (blogs)"
+            git push
+          else
+            echo "No changes to commit."
+          fi

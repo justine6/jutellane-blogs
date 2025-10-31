@@ -1,3 +1,12 @@
+
+<!-- CI/CD & Site Badges -->
+[![Build & Deploy — Jutellane Blogs](https://github.com/justine6/jutellane-blogs/actions/workflows/blog.yml/badge.svg?branch=main)](https://github.com/justine6/jutellane-blogs/actions/workflows/blog.yml)
+[![GitHub Pages](https://img.shields.io/website?url=https%3A%2F%2Fjustine6.github.io%2Fjutellane-blogs)](https://justine6.github.io/jutellane-blogs/)
+[![Last commit](https://img.shields.io/github/last-commit/justine6/jutellane-blogs/main)](https://github.com/justine6/jutellane-blogs/commits/main)
+[![RSS](https://img.shields.io/badge/RSS-feed.xml-orange)](https://justine6.github.io/jutellane-blogs/feed.xml)
+
+**Live site:** https://justine6.github.io/jutellane-blogs/
+
 # 🧩 Jutellane Blogs CI/CD Workflow
 [![Content Status](https://img.shields.io/github/last-commit/justine6/jutellane-blogs/main)](https://github.com/justine6/jutellane-blogs/commits/main)
 [![Site](https://img.shields.io/badge/site-live-blue)](https://justine6.github.io/jutellane-blogs/)
@@ -157,4 +166,39 @@ Once configured:
 | Generate-Metadata.ps1 | Build/refresh metadata | `./scripts/Generate-Metadata.ps1 -Path ./content/posts` |
 | Cut-Release.ps1 | Tag & publish release | `./scripts/Cut-Release.ps1 -Version 1.2.14` |
 <!-- SCRIPTS-TABLE:END -->
+
+# Blog Normalize Kit
+
+Use this if your generator outputs flat HTML posts like:
+```
+docs/jutellane-blogs/posts/2025-10-24-my-article.html
+```
+This script converts them to GitHub Pages–friendly routes:
+```
+docs/jutellane-blogs/posts/2025/10/my-article/index.html
+```
+
+## Usage
+From the repository root:
+```powershell
+pwsh .\Normalize-BlogOutput.ps1
+# or, to purge empty month folders:
+pwsh .\Normalize-BlogOutput.ps1 -PurgeOtherMonths
+```
+
+Then commit:
+```powershell
+git add docs/jutellane-blogs
+git commit -m "docs(blog): normalize posts for GitHub Pages"
+git push
+```
+
+## CI Integration
+Add this step after your generator in your GitHub Actions workflow:
+```yaml
+- name: Normalize blog output for Pages
+  shell: pwsh
+  run: |
+    pwsh ./Normalize-BlogOutput.ps1
+```
 
