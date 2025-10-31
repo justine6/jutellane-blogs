@@ -3,7 +3,7 @@
     "title": "CI tips",
     "date": "2025-10-24",
     "tags": [
-      "[devops]"
+      "[[devops]]"
     ],
     "summary": "fast pipelines",
     "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/",
@@ -13,91 +13,91 @@
     "title": "Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell",
     "date": "2025-10-24",
     "tags": [
-      "DevOps",
+      "[DevOps",
       "GitHub Actions",
       "PowerShell",
       "CI/CD",
-      "Automation"
+      "Automation]"
     ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/aws-security-tips-for-startups/",
+    "summary": "## Introduction Automation isn’t just for production systems — it’s for creators, too. In this post, I’ll walk you through how I built a **self-healing blog pip...",
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025-10-22-aws-security-tips-for-startups.md",
     "cover": null
   },
   {
     "title": "Lessons from Automating My Blog: DevOps Principles in Everyday Projects",
     "date": "2025-10-24",
     "tags": [
-      "DevOps",
+      "[DevOps",
       "Productivity",
       "Automation",
       "Mindset",
-      "CI/CD"
+      "CI/CD]"
     ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/my-next-cloud-article/",
+    "summary": "## Introduction DevOps isn’t limited to enterprise systems — it’s a mindset that improves *any* workflow. By applying CI/CD to my personal blog, I discovered ho...",
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025-10-22-my-next-cloud-article.md",
     "cover": null
   },
   {
     "title": "From Commit to Publish: A Complete GitHub Pages CI/CD Flow",
     "date": "2025-10-24",
     "tags": [
-      "GitHub Pages",
+      "[GitHub Pages",
       "CI/CD",
       "DevOps",
       "PowerShell",
-      "Workflow"
+      "Workflow]"
     ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/update-or-create-index-html/",
+    "summary": "## Overview In this guide, we’ll recreate a complete **commit-to-publish pipeline** for a static blog hosted on **GitHub Pages**. You’ll learn how to integrate ...",
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025-10-22-update-or-create-index-html.md",
     "cover": null
   },
   {
     "title": "Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell",
     "date": "2025-10-24",
     "tags": [
-      "DevOps",
+      "[DevOps",
       "GitHub Actions",
       "PowerShell",
       "CI/CD",
-      "Automation"
+      "Automation]"
     ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/building-a-self-healing-blog-pipeline/",
+    "summary": "## Introduction Automation isn’t just for production systems — it’s for creators, too. In this post, I’ll walk you through how I built a **self-healing blog pip...",
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025-10-24-Building a Self-Healing Blog Pipeline.md",
     "cover": null
   },
   {
     "title": "Lessons from Automating My Blog: DevOps Principles in Everyday Projects",
     "date": "2025-10-24",
     "tags": [
-      "DevOps",
+      "[DevOps",
       "Productivity",
       "Automation",
       "Mindset",
-      "CI/CD"
+      "CI/CD]"
     ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/lessons-from-automating-my-blog/",
+    "summary": "## Introduction DevOps isn’t limited to enterprise systems — it’s a mindset that improves *any* workflow. By applying CI/CD to my personal blog, I discovered ho...",
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025-10-24-Lessons from Automating My Blog.md",
     "cover": null
   },
   {
     "title": "CI/CD Performance Tuning",
     "date": "2025-10-22",
     "tags": [
-      "devops",
+      "[devops",
       "ci-cd",
       "pipelines",
       "performance",
-      "automation"
+      "automation]"
     ],
     "summary": "Practical steps to accelerate build times, cut bottlenecks, and make your CI/CD pipeline more predictable and self-healing.",
-    "url": "/jutellane-blogs/posts/2025/10/ci-cd-performance-tuning-v2/",
-    "cover": "/assets/css/CI-CD-performance-tuning.PNG"
+    "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-cd-performance-tuning-v2/",
+    "cover": null
   },
   {
     "title": "Sanity Test Post",
     "date": "2025-10-22",
     "tags": [
-      "[]"
+      "[[]]"
     ],
     "summary": "# Sanity Test Post > ## Overview Write your content here.",
     "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/",
