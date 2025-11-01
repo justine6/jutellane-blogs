@@ -52,3 +52,4 @@ main.wrap > h1:first-child{ margin-top:.25rem }
 .search{ flex:1; padding:12px; border:1px solid var(--line); background:#fff; color:var(--fg); border-radius:12px; outline:none; }
 .rss{ padding:10px 14px; border-radius:12px; background:#fff; border:1px solid var(--line); color:var(--fg); text-decoration:none; }
 main.wrap > h1:first-child{ margin-top:.25rem }
+
