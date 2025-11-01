@@ -1,0 +1,24 @@
+:root { --fg:#0f172a; --muted:#64748b; --bg:#ffffff; --line:#e2e8f0; --link:#2563eb; }
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.site-header{border-bottom:1px solid var(--line); background:#fff; position:sticky; top:0; z-index:10}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:600}
+.nav a{margin-left:16px;text-decoration:none;color:var(--fg)}
+.nav a:hover{color:var(--link)}
+main.wrap{padding:24px 16px}
+h1,h2,h3{line-height:1.25}
+h1{font-size:2rem;margin:.2rem 0 1rem}
+h2{font-size:1.25rem;margin:1.25rem 0 .5rem}
+.meta{color:var(--muted);font-size:.95rem;margin:.25rem 0 1rem}
+.postlist a{color:var(--link);text-decoration:none}
+.postlist a:hover{text-decoration:underline}
+.site-footer{margin-top:40px;border-top:1px solid var(--line);padding:24px 0;color:var(--muted);background:#fff}
+.site-footer .links a{color:var(--muted);text-decoration:none}
+.site-footer .links a:hover{color:var(--link)}
+img{max-width:100%;height:auto}
+pre,code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+pre{background:#0b1220;color:#e2e8f0;padding:12px;border-radius:8px;overflow:auto}
+table{border-collapse:collapse;width:100%} td,th{border:1px solid var(--line);padding:8px}
+@media (max-width:700px){ .nav a{margin-left:10px;font-size:.95rem} }
