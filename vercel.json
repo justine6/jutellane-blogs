@@ -1,12 +1,4 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "public/**/*", "use": "@vercel/static" }
-  ],
-  "redirects": [
-    { "source": "/", "destination": "/posts/", "permanent": false }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/public/$1" }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
