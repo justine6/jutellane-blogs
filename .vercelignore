@@ -1,0 +1,9 @@
+node_modules
+.vscode
+.vercel
+scripts
+drafts
+*.md
+*.ps1
+*.psm1
+src

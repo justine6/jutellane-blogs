@@ -1,0 +1,4 @@
+.vercel
+# Ignore local DNS propagation logs
+DNS-watch.log
+

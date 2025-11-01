@@ -1,37 +1,51 @@
-# .github/workflows/blog.yml  (name can vary)
-name: Build & Deploy Jutellane Blogs
+name: Deploy Jutellane Blogs to Pages
+
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
+  contents: read
   pages: write
   id-token: write
-  contents: read
 
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Ensure helper files exist (you already have these in the repo; this is just belt & suspenders).
-      - name: Prepare payload
+      # (Optional safety) Ensure the docs payload exists and looks sane
+      - name: Sanity check docs payload
         run: |
-          mkdir -p docs
-          echo "blogs.jutellane.com" > docs/CNAME
-          touch docs/.nojekyll
+          ls -la docs || true
+          test -f docs/index.html || { echo "::error :: docs/index.html missing"; exit 1; }
+          test -d docs/posts || { echo "::error :: docs/posts folder missing"; exit 1; }
+          # Keep these files committed in the repo if possible, but verify anyway:
+          test -f docs/CNAME || { echo "blogs.jutellane.com" > docs/CNAME; }
+          test -f docs/.nojekyll || { touch docs/.nojekyll; }
 
+      # Upload the *folder you want served as the site root*
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-  path: docs
+          path: ./docs
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
-
-
