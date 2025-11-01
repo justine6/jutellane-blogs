@@ -1,13 +1,11 @@
-<!-- layout:footer v1 -->
 <footer class="site-footer">
   <div class="wrap">
-    <p>© 2025 Jutellane Solutions · Cloud Confidence. Delivered.</p>
-    <p class="links">
-      <a href="https://jutellane.com/privacy">Privacy</a>
-      <span>·</span>
-      <a href="https://jutellane.com/terms">Terms</a>
-      <span>·</span>
+    <div>© <span id="year"></span> Jutellane Solutions · Cloud Confidence. Delivered.</div>
+    <div class="links" style="margin-top:8px">
+      <a href="/privacy">Privacy</a> ·
+      <a href="/terms">Terms</a> ·
       <a href="/posts/">Blog</a>
-    </p>
+    </div>
   </div>
+  <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 </footer>
