@@ -98,3 +98,16 @@ main.wrap > h1:first-child{ margin-top:.25rem }
 .wrap { max-width:1100px; margin:0 auto; padding:0 16px; }
 
 /* === JL layout patch END === */
+.site-header{
+  position:sticky; top:0; z-index:60;
+  background:rgba(17,24,39,.85); backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(148,163,184,.25);
+}
+.site-header .wrap, .site-footer .wrap{
+  max-width:1100px; margin:0 auto; padding:10px 16px;
+}
+.site-header .nav a{ margin-left:14px; }
+.site-footer{
+  border-top:1px solid rgba(148,163,184,.25);
+  background:#0b1020; color:#cbd5e1; padding:18px 0;
+}
