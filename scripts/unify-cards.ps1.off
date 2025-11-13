@@ -1,0 +1,104 @@
+<# 
+  unify-cards.ps1
+  - Unifies blog/projects index pages to use cards-grid + .card
+  - Adds/normalizes <main class="container"> if missing
+  - Safe, idempotent, timestamped backups
+#>
+
+[CmdletBinding()]
+param(
+  [string]$Root = ".",
+  [string[]]$Pages = @("blog/index.html","projects/index.html"),
+  [switch]$WhatIf
+)
+
+$ErrorActionPreference = "Stop"
+function Say ($m){ Write-Host "› $m" -ForegroundColor Cyan }
+function Good($m){ Write-Host "✓ $m" -ForegroundColor Green }
+function Warn($m){ Write-Host "! $m" -ForegroundColor Yellow }
+
+function Ensure-MainContainer {
+  param([string]$Html)
+
+  # If there's no <main>, inject one right after <body> and close before </body>
+  if ($Html -notmatch '(?is)<main\b') {
+    # Ensure <body> remains intact
+    $Html = $Html -replace '(?is)(<body\b[^>]*>)', "`$1`r`n  <main class=""container"">"
+    $Html = $Html -replace '(?is)</body>', "  </main>`r`n</body>"
+    return $Html
+  }
+
+  # If <main> exists but lacks 'container', add it to the class attribute (first <main> only)
+  $Html = [regex]::Replace($Html,'(?is)<main([^>]*)\bclass\s*=\s*"([^"]*)"([^>]*)>',{
+    param($m)
+    if ($m.Groups[2].Value -notmatch '\bcontainer\b') {
+      "<main{0} class=""{1} container""{2}>" -f $m.Groups[1].Value,$m.Groups[2].Value,$m.Groups[3].Value
+    } else { $m.Value }
+  },1)
+
+  return $Html
+}
+
+function Ensure-CardsGrid {
+  param([string]$Html)
+
+  # Convert <ul id="list"> to .cards-grid (preserve other attrs)
+  $Html = [regex]::Replace($Html,'(?is)<ul([^>]*)\bid\s*=\s*["'']list["'']([^>]*)>',{
+    param($m) "<ul$($m.Groups[1].Value) id=""list"" class=""cards-grid""$($m.Groups[2].Value)>"
+  },1)
+
+  return $Html
+}
+
+function Ensure-CardLisAndWrappers {
+  param([string]$Html)
+
+  # Make each dynamically created <li> a .card
+  # Replace: const li = document.createElement('li');
+  # With:    const li = document.createElement('li'); li.className = 'card';
+  $Html = $Html -replace "const\s+li\s*=\s*document\.createElement\('li'\);\s*",
+                        "const li = document.createElement('li'); li.className = 'card'; "
+
+  # Normalize description wrapper to .desc (if present)
+  $Html = $Html -replace "\+x\.description\?\s*'\<div\>'\+x\.description\+'\</div\>'\s*:\s*''",
+                        "+x.description ? '<div class=""desc"">'+x.description+'</div>' : ''"
+
+  # Ensure any class="tags" remains as .tags (so CSS hooks it)
+  $Html = $Html -replace 'class=["'']tags["'']', 'class="tags"'
+
+  return $Html
+}
+
+$stamp = Get-Date -Format "yyyyMMdd-HHmmss"
+$patched = 0
+
+# Resolve page paths under root and filter existing ones
+$targets = @()
+foreach ($p in $Pages) {
+  $full = Join-Path $Root $p
+  if (Test-Path $full) { $targets += $full } else { Warn "Skip: $p (not found under $Root)" }
+}
+if (-not $targets) { Warn "No target pages found." ; return }
+
+Say "Targets: $($targets.Count) | Backups=*.bak-$stamp | WhatIf=$($WhatIf.IsPresent)"
+
+foreach ($f in $targets) {
+  $html = Get-Content -Raw -Path $f
+  $orig = $html
+
+  $html = Ensure-MainContainer -Html $html
+  $html = Ensure-CardsGrid -Html $html
+  $html = Ensure-CardLisAndWrappers -Html $html
+
+  if ($html -ne $orig) {
+    if ($WhatIf) { Warn "[WhatIf] Would patch: $f"; continue }
+    Copy-Item $f "$f.bak-$stamp"
+    Set-Content -Path $f -Value $html -Encoding UTF8
+    Good "Patched: $f"
+    $patched++
+  } else {
+    Warn "No change: $f"
+  }
+}
+
+Say "Processed $($targets.Count) file(s). Patched: $patched (WhatIf=$($WhatIf.IsPresent))"

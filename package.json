@@ -1,0 +1,21 @@
+{
+  "name": "jutellane-blogs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "prebuild": "node scripts/generate-indexes.mjs",
+    "build": "npm run prebuild",
+    "serve": "npx serve . -l 3000",
+    "deploy": "echo \"(optional) run your gh-pages deploy here\""
+  },
+  "devDependencies": {
+    "cheerio": "^1.1.2",
+    "fast-glob": "^3.3.3",
+    "globby": "^13.2.2",
+    "gray-matter": "^4.0.3",
+    "htmlparser2": "^10.0.0",
+    "serve": "^14.2.5",
+    "slugify": "^1.6.6"
+  }
+}

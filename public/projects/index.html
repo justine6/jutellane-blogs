@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{--bg:#fff;--text:#0f172a;--muted:#64748b;--card:#f8fafc;--ring:rgba(2,132,199,.15)}
+    html,body{height:100%}
+    body{
+      margin:0;
+      padding:2rem 1.5rem 3rem;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
+      color:var(--text);
+      background:var(--bg);
+    }
+    .container{max-width:960px;margin:0 auto}
+    h1{font-size:2rem;margin:0 0 1.25rem}
+    ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+    li{background:var(--card);border:1px solid #e5e7eb;border-radius:14px;padding:1rem;transition:transform .12s ease, box-shadow .12s ease}
+    li:hover{transform:translateY(-1px);box-shadow:0 6px 18px var(--ring)}
+    a{font-weight:600;text-decoration:none;color:#0ea5e9}
+    a:hover{text-decoration:underline}
+    .desc{color:var(--muted);margin-top:.35rem}
+    .tags{color:var(--muted);font-size:.875rem;margin-top:.35rem}
+    .empty{color:var(--muted);font-style:italic}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Projects</h1>
+    <ul id="list"></ul>
+  </main>
+  <script type="module">
+    async function main() {
+      const res = await fetch("/_data/projects.json");
+      if (!res.ok) {
+        console.error("Failed to load index data", res.status);
+        document.getElementById("list").innerHTML =
+          '<li class="empty">Unable to load posts.</li>';
+        return;
+      }
+      const data = await res.json();
+      const list = document.querySelector('#list');
+      if (!data.length) {
+        list.innerHTML = '<li class="empty">No entries yet.</li>';
+        return;
+      }
+      data.forEach(x => {
+        const li = document.createElement('li');
+        li.innerHTML =
+          `<a href="${x.url}">${x.title}</a>` +
+          (x.description ? `<div class="desc">${x.description}</div>` : "") +
+          (x.tags?.length ? `<div class="tags"># ${x.tags.join(", ")}</div>` : "");
+        list.appendChild(li);
+      });
+    }
+    main().catch(console.error);
+  </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Observability in Motion — Jutellane Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- SEO meta -->
+  <meta name="description"
+        content="How I wired observability into my static blog pipeline." />
+  <meta name="tags"
+        content="devops, observability, logging" />
+
+  <!-- Global blog styles -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Site header -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="Jutellane logo" />
+        <span class="brand-title">Jutellane Blog</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main article -->
+  <main id="content" class="container prose">
+
+  <p>
+    Every great engineering workflow begins with one defining moment —
+    a point where clarity replaces chaos. For Jutellane Solutions,
+    that moment was the creation of the <strong>Perfect Build</strong>:
+    a clean, deterministic, fully repeatable pipeline that transforms
+    raw ideas into production-ready HTML with zero manual effort.
+  </p>
+
+  <p>
+    Before this system existed, publishing posts involved small inconsistencies:
+    missed folders, forgotten links, mismatched timestamps, or an unnoticed typo
+    that forced a rerun. These tiny imperfections added friction to what should
+    have been a smooth creative and technical experience.
+  </p>
+
+  <p>
+    The Perfect Build solved that problem by transforming every step into a
+    predictable, observable, and idempotent flow.
+  </p>
+
+  <h2>A Pipeline Designed to Remove Doubt</h2>
+
+  <p>
+    The build system works the same way every time —
+    no surprises, no variance, no drifting structure.
+    Using PowerShell, a fixed directory strategy, and a
+    unified HTML template, each post is generated with:
+  </p>
+
+  <ul>
+    <li>Consistent metadata (title, slug, tags, date)</li>
+    <li>A standard layout drawn from a single HTML template</li>
+    <li>Automatic folder creation under <code>/posts/YYYY/MM/</code></li>
+    <li>Clean, human-readable URLs</li>
+  </ul>
+
+  <p>
+    This ensures that whether the site contains five posts or five hundred,
+    the structure remains stable and predictable.
+  </p>
+
+  <h2>Markdown → HTML, with Discipline</h2>
+
+  <p>
+    The heart of the Perfect Build is the new post generator.
+    It receives inputs (title, description, tags), then creates a
+    production-ready HTML file using the golden template.
+  </p>
+
+  <p>
+    Timestamped values, SEO fields, and accessible markup
+    are inserted automatically. Nothing is left for humans to fix manually.
+    And because the generator produces clean HTML every time,
+    every post looks identical to the rest — by design.
+  </p>
+
+  <h2>CI/CD Visibility That Builds Trust</h2>
+
+  <p>
+    Each stage of the pipeline emits clear signals:
+  </p>
+
+  <ul>
+    <li><strong>Say()</strong> markers show progress in the console</li>
+    <li>Warnings and errors follow a uniform visual pattern</li>
+    <li>Post-generation logs confirm file paths and timestamps</li>
+    <li>Index builders regenerate the blog list deterministically</li>
+  </ul>
+
+  <p>
+    When the system explains what it is doing at every step,
+    confidence increases — dramatically.
+  </p>
+
+  <h2>Idempotence at the Core</h2>
+
+  <p>
+    A clean build must behave the same way every time, no matter
+    how many times it runs. The Perfect Build protects this principle by:
+  </p>
+
+  <ul>
+    <li>Preventing accidental overwrites</li>
+    <li>Recreating missing directories automatically</li>
+    <li>Regenerating indexes from source, not cached artifacts</li>
+    <li>Ensuring every output depends on deterministic inputs</li>
+  </ul>
+
+  <p>
+    If a file is missing, it’s recreated. If a path exists, it’s respected.
+    If something goes wrong, the console makes it immediately clear.
+  </p>
+
+  <h2>What This Means Going Forward</h2>
+
+  <p>
+    Today, creating a new post is as simple as running one command.
+    Tomorrow, this foundation opens the door for automated previews,
+    post linting, scheduled publishing, and even AI-assisted writing.
+  </p>
+
+  <p>
+    The Perfect Build isn’t just a pipeline — it’s a promise:
+    <strong>no matter how big the site grows, the workflow remains simple, elegant, and reliable.</strong>
+  </p>
+
+
+  </main>
+
+  <!-- Global footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <a class="brand small" href="/">
+          <img class="brand-logo small" src="/logo.png" alt="Jutellane logo" />
+          <span class="brand-title small">Jutellane Blog</span>
+        </a>
+
+        <p class="copyright">
+          © <span id="y"></span> <strong>Jutellane Solutions</strong>. All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>

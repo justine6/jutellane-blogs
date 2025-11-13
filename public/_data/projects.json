@@ -1,0 +1,26 @@
+[
+  {
+    "title": "self-healing-pipeline",
+    "description": "",
+    "tags": [],
+    "url": "/projects/2025/11/self-healing-pipeline/",
+    "slug": "self-healing-pipeline",
+    "kind": "project"
+  },
+  {
+    "title": "audit-containers-with-powershell",
+    "description": "",
+    "tags": [],
+    "url": "/projects/2025/11/audit-containers-with-powershell/",
+    "slug": "audit-containers-with-powershell",
+    "kind": "project"
+  },
+  {
+    "title": "Projects & Deep Dives",
+    "description": "",
+    "tags": [],
+    "url": "/projects/",
+    "slug": "projects-and-deep-dives",
+    "kind": "project"
+  }
+]

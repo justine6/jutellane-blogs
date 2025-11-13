@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Jutellane – Unified Cards Grid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --page-bg: #020617;           /* slate-950 */
+      --page-fg: #e5e7eb;           /* gray-200 */
+      --muted-fg: #9ca3af;          /* gray-400 */
+      --accent: #38bdf8;            /* sky-400 */
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --card-bg: rgba(15, 23, 42, 0.92);  /* slate-900-ish */
+      --card-border: rgba(148, 163, 184, 0.25); /* slate-400/30 */
+      --card-radius: 18px;
+      --card-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
+
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.16), transparent 60%),
+        var(--page-bg);
+      color: var(--page-fg);
+      line-height: 1.5;
+    }
+
+    .page-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem 4.5rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+
+    .page-kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted-fg);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.75rem;
+      justify-content: space-between;
+    }
+
+    .page-title {
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
+      font-weight: 650;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted-fg);
+      max-width: 28rem;
+    }
+
+    /* Shared grid layout for posts + projects */
+    .cards-grid {
+      display: grid;
+      gap: 1.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card {
+      position: relative;
+      border-radius: var(--card-radius);
+      border: 1px solid var(--card-border);
+      background:
+        linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.88)),
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%);
+      box-shadow: var(--card-shadow);
+      padding: 1.3rem 1.3rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      transition:
+        transform 160ms ease-out,
+        box-shadow 160ms ease-out,
+        border-color 160ms ease-out,
+        background 160ms ease-out;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.35), transparent 55%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease-out;
+      mix-blend-mode: screen;
+    }
+
+    .card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.55);
+      background:
+        linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.94)),
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%);
+    }
+
+    .card:hover::before {
+      opacity: 0.6;
+    }
+
+    .card-eyebrow {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted-fg);
+    }
+
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted-fg);
+    }
+
+    .card-meta-dot::before {
+      content: "•";
+      margin: 0 0.3rem;
+      opacity: 0.7;
+    }
+
+    .card-excerpt {
+      font-size: 0.88rem;
+      color: #cbd5f5;
+      margin-top: 0.2rem;
+    }
+
+    /* Tags – works for both posts & projects */
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(56,189,248,0.14), rgba(15,23,42,0.95));
+      color: var(--page-fg);
+      white-space: nowrap;
+    }
+
+    .card-footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--muted-fg);
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .card-cta span {
+      transform: translateY(1px);
+      transition: transform 150ms ease-out;
+    }
+
+    .card:hover .card-cta span {
+      transform: translate(2px, 1px);
+    }
+
+    @media (max-width: 640px) {
+      .page-shell {
+        padding-top: 2.5rem;
+      }
+      .page-header {
+        margin-bottom: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <div class="page-kicker">Jutellane</div>
+      <div class="page-title-row">
+        <!-- For /posts/ you might say “DevOps Journal” etc. -->
+        <h1 class="page-title">Projects & Deep Dives</h1>
+        <p class="page-subtitle">
+          One shared grid for both blog posts and projects — tuned for clean scans,
+          quick discovery, and a subtle glow on hover.
+        </p>
+      </div>
+    </header>
+
+    <!-- Shared cards grid: reuse this for /posts/ and /projects/ -->
+    <section class="cards-grid">
+
+      <!-- Card example: PROJECT -->
+      <a class="card-link" href="/projects/2025/11/self-healing-pipeline.html">
+        <article class="card">
+          <div class="card-eyebrow">Project • AWS · CI/CD</div>
+          <h2 class="card-title">Self-Healing Delivery Pipeline for Legacy Apps</h2>
+
+          <div class="card-meta">
+            <span>Updated Nov 2025</span>
+            <span class="card-meta-dot"></span>
+            <span>Jutellane Projects</span>
+          </div>
+
+          <p class="card-excerpt">
+            Designing a fault-tolerant pipeline with auto-rollback, health probes,
+            and observability baked into every stage.
+          </p>
+
+          <div class="card-tags">
+            <span class="card-tag">GitHub Actions</span>
+            <span class="card-tag">Kubernetes</span>
+            <span class="card-tag">Resilience</span>
+          </div>
+
+          <div class="card-footer-row">
+            <span>5 min read</span>
+            <span class="card-cta">View build notes <span>↗</span></span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Card example: BLOG POST -->
+      <a class="card-link" href="/posts/2025/11/audit-containers-with-powershell.html">
+        <article class="card">
+          <div class="card-eyebrow">Blog • PowerShell</div>
+          <h2 class="card-title">Auditing Static HTML with PowerShell & Regex</h2>
+
+          <div class="card-meta">
+            <span>Nov 2025</span>
+            <span class="card-meta-dot"></span>
+            <span>Story + Scripts</span>
+          </div>
+
+          <p class="card-excerpt">
+            Turning a messy HTML cleanup into a reusable audit script —
+            containers, broken links, and all your gotchas, automated.
+          </p>
+
+          <div class="card-tags">
+            <span class="card-tag">Automation</span>
+            <span class="card-tag">Static Sites</span>
+            <span class="card-tag">Regex</span>
+          </div>
+
+          <div class="card-footer-row">
+            <span>8 min read</span>
+            <span class="card-cta">Read the post <span>↗</span></span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Duplicate / extend cards as needed -->
+    </section>
+  </main>
+</body>
+</html>

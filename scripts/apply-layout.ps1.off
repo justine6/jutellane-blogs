@@ -1,0 +1,147 @@
+<# 
+  apply-layout.ps1 (minimal & stable)
+  - Adds CSS link, enforces <main class="container">, unifies posts/projects → cards-grid
+  - Works across docs, blog, projects
+#>
+
+param(
+  [ValidateSet('docs','blog','projects','all')]
+  [string]$Scope = 'all',
+  [string]$Root = '.',
+  [switch]$WhatIf
+)
+
+$ErrorActionPreference = 'Stop'
+function Say ($m){ Write-Host "› $m" -ForegroundColor Cyan }
+function Good($m){ Write-Host "✓ $m" -ForegroundColor Green }
+function Warn($m){ Write-Host "! $m" -ForegroundColor Yellow }
+
+# --- config ---
+$CssHref   = '/assets/css/main.css'
+$CssNeedle = '<link rel="stylesheet" href="/assets/css/main.css" />'
+
+# regex (single-quoted = literal, no escaping headaches)
+$rxHeadClose        = '(?is)</head>'
+$rxMainWithClass    = '(?is)<main([^>]*)\bclass\s*=\s*"([^"]*)"([^>]*)>'
+$rxMainHasClass     = '(?is)<main\b(?:(?!>).)*\bclass\s*='
+$rxMainOpen         = '(?is)<main((?:(?!>).)*)>'
+$rxUlPostsProjects  = '(?is)<ul([^>]*)\bclass\s*=\s*"([^"]*)\b(posts-grid|projects-grid)\b([^"]*)"([^>]*)>'
+$rxUlIdGuides       = '(?is)<ul([^>]*)\bid\s*=\s*"guides"([^>]*)>'
+$rxUlDocsGuidesAny  = '(?is)<ul([^>]*)\bclass\s*=\s*"([^"]*)\b(docs-grid|guides-grid|cards)\b([^"]*)"([^>]*)>'
+
+function Get-Targets {
+  param([string]$Scope,[string]$Root)
+  $dirs = switch ($Scope) {
+    'docs'     { @("$Root/docs") }
+    'blog'     { @("$Root/blog") }
+    'projects' { @("$Root/projects") }
+    'all'      { @("$Root/docs","$Root/blog","$Root/projects") }
+  }
+  $list = @()
+  foreach ($d in $dirs) {
+    if (Test-Path $d) {
+      $list += Get-ChildItem -Path $d -Recurse -Include *.html -File |
+        Where-Object { $_.FullName -notmatch '\\node_modules\\|\\dist\\|\\.vercel\\|\\out\\|\\_site\\' }
+    }
+  }
+  $list
+}
+
+function Add-CssIfMissing {
+  param([string]$html)
+  if ($html -match [regex]::Escape($CssHref)) { return $html }
+  if ($html -notmatch $rxHeadClose)          { return $html }
+  $html -replace $rxHeadClose, "  $CssNeedle`r`n</head>"
+}
+
+function Ensure-MainContainer {
+  param([string]$html)
+
+  # A) main has class="..." → append " container" if missing
+  $changed = $false
+  $out = [regex]::Replace($html, $rxMainWithClass, {
+    param($m)
+    $pre  = $m.Groups[1].Value
+    $cls  = $m.Groups[2].Value
+    $post = $m.Groups[3].Value
+    if ($cls -notmatch '\bcontainer\b') {
+      $script:changed = $true
+      "<main$pre class=""$cls container""$post>"
+    } else { $m.Value }
+  }, 1)
+  if ($changed) { return $out }
+
+  # B) main without class → add class="container"
+  if ($html -notmatch $rxMainHasClass -and $html -match '(?is)<main\b') {
+    return [regex]::Replace($html, $rxMainOpen, {
+      param($m) "<main{0} class=""container"">" -f $m.Groups[1].Value
+    }, 1)
+  }
+  $html
+}
+
+function Normalize-Lists {
+  param([string]$html)
+  $u = $html
+
+  # posts-grid/projects-grid → cards-grid
+  $u = [regex]::Replace($u, $rxUlPostsProjects, {
+    param($m)
+    $pre  = $m.Groups[1].Value
+    $clsL = $m.Groups[2].Value
+    $clsR = $m.Groups[4].Value
+    $post = $m.Groups[5].Value
+    $cls = ($clsL + ' ' + $clsR) -replace '\bposts-grid\b','cards-grid' -replace '\bprojects-grid\b','cards-grid'
+    "<ul$pre class=""$cls""$post>"
+  })
+
+  # <ul id="guides"> → class="cards-grid" (only if no class already)
+  $u = [regex]::Replace($u, $rxUlIdGuides, {
+    param($m)
+    if ($m.Value -match '\bclass\s*=') { $m.Value }
+    else { "<ul{0}class=""cards-grid""{1}>" -f $m.Groups[1].Value,$m.Groups[2].Value }
+  })
+
+  # lists containing docs-grid|guides-grid|cards → ensure cards-grid present
+  $u = [regex]::Replace($u, $rxUlDocsGuidesAny, {
+    param($m)
+    $pre  = $m.Groups[1].Value
+    $clsL = $m.Groups[2].Value
+    $clsR = $m.Groups[4].Value
+    $post = $m.Groups[5].Value
+    $combo = $clsL + ' ' + $clsR
+    if ($combo -match '\bcards-grid\b') { $m.Value }
+    else { "<ul$pre class=""$clsL cards-grid $clsR""$post>" }
+  })
+
+  $u
+}
+
+# --- main ---
+$files = Get-Targets -Scope $Scope -Root $Root
+if (-not $files) { Warn "No HTML files for scope '$Scope'."; exit }
+
+$stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+Say "Scope=$Scope | Files=$($files.Count) | Backups=*.bak-$stamp | WhatIf=$($WhatIf.IsPresent)"
+
+$patched = 0
+foreach ($f in $files) {
+  $html = Get-Content -Raw -Path $f.FullName
+  $orig = $html
+
+  $html = Add-CssIfMissing    $html
+  $html = Ensure-MainContainer $html
+  $html = Normalize-Lists      $html
+
+  if ($html -ne $orig) {
+    if ($WhatIf) { Warn "[WhatIf] Would patch: $($f.FullName)"; continue }
+    Copy-Item $f.FullName "$($f.FullName).bak-$stamp"
+    Set-Content -Path $f.FullName -Value $html -Encoding UTF8
+    $patched++
+    Good "Patched: $($f.FullName)"
+  } else {
+    Warn "No change: $($f.FullName)"
+  }
+}
+
+Say "Processed $($files.Count) file(s). Patched: $patched (WhatIf=$($WhatIf.IsPresent))"

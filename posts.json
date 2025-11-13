@@ -1,106 +1,74 @@
 [
   {
-    "title": "CI tips",
-    "date": "2025-10-24",
-    "tags": [
-      "[devops]"
-    ],
-    "summary": "fast pipelines",
-    "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/ci-tips/",
-    "cover": null
+    "title": "unfinished-ideas",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/unfinished-ideas/",
+    "slug": "unfinished-ideas",
+    "kind": "post"
   },
   {
-    "title": "Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell",
-    "date": "2025-10-24",
-    "tags": [
-      "DevOps",
-      "GitHub Actions",
-      "PowerShell",
-      "CI/CD",
-      "Automation"
-    ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/aws-security-tips-for-startups/",
-    "cover": null
+    "title": "perfect-build",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/perfect-build/",
+    "slug": "perfect-build",
+    "kind": "post"
   },
   {
-    "title": "Lessons from Automating My Blog: DevOps Principles in Everyday Projects",
-    "date": "2025-10-24",
-    "tags": [
-      "DevOps",
-      "Productivity",
-      "Automation",
-      "Mindset",
-      "CI/CD"
-    ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/my-next-cloud-article/",
-    "cover": null
+    "title": "observability-basics",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/observability-basics/",
+    "slug": "observability-basics",
+    "kind": "post"
   },
   {
-    "title": "From Commit to Publish: A Complete GitHub Pages CI/CD Flow",
-    "date": "2025-10-24",
-    "tags": [
-      "GitHub Pages",
-      "CI/CD",
-      "DevOps",
-      "PowerShell",
-      "Workflow"
-    ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/update-or-create-index-html/",
-    "cover": null
+    "title": "observability-basics-ii",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/observability-basics-ii/",
+    "slug": "observability-basics-ii",
+    "kind": "post"
   },
   {
-    "title": "Building a Self-Healing Blog Pipeline with GitHub Actions and PowerShell",
-    "date": "2025-10-24",
-    "tags": [
-      "DevOps",
-      "GitHub Actions",
-      "PowerShell",
-      "CI/CD",
-      "Automation"
-    ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/building-a-self-healing-blog-pipeline/",
-    "cover": null
+    "title": "new-devops-insights",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/new-devops-insights/",
+    "slug": "new-devops-insights",
+    "kind": "post"
   },
   {
-    "title": "Lessons from Automating My Blog: DevOps Principles in Everyday Projects",
-    "date": "2025-10-24",
-    "tags": [
-      "DevOps",
-      "Productivity",
-      "Automation",
-      "Mindset",
-      "CI/CD"
-    ],
-    "summary": null,
-    "url": "/jutellane-blogs/posts/2025/10/lessons-from-automating-my-blog/",
-    "cover": null
+    "title": "kubernetes-101",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/kubernetes-101/",
+    "slug": "kubernetes-101",
+    "kind": "post"
   },
   {
-    "title": "CI/CD Performance Tuning",
-    "date": "2025-10-22",
-    "tags": [
-      "devops",
-      "ci-cd",
-      "pipelines",
-      "performance",
-      "automation"
-    ],
-    "summary": "Practical steps to accelerate build times, cut bottlenecks, and make your CI/CD pipeline more predictable and self-healing.",
-    "url": "/jutellane-blogs/posts/2025/10/ci-cd-performance-tuning-v2/",
-    "cover": "/assets/css/CI-CD-performance-tuning.PNG"
+    "title": "hello-world",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/hello-world/",
+    "slug": "hello-world",
+    "kind": "post"
   },
   {
-    "title": "Sanity Test Post",
-    "date": "2025-10-22",
-    "tags": [
-      "[]"
-    ],
-    "summary": "# Sanity Test Post > ## Overview Write your content here.",
-    "url": "https://justine6.github.io/jutellane-blogs/posts/2025/10/sanity-test-post/",
-    "cover": null
+    "title": "first-post",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/first-post/",
+    "slug": "first-post",
+    "kind": "post"
+  },
+  {
+    "title": "ci-cd-pipeline",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/ci-cd-pipeline/",
+    "slug": "ci-cd-pipeline",
+    "kind": "post"
   }
 ]

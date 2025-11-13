@@ -1,0 +1,159 @@
+[
+  {
+    "title": "Why Every Engineer Needs a Reproducible Environment",
+    "description": "Reproducible environments turn fragile builds into reliable systems. Why every engineer should care about deterministic setups, repeatable pipelines, and confident releases.",
+    "tags": [
+      "devops",
+      "reproducibility",
+      "ci/cd",
+      "automation",
+      "environments",
+      "reliability"
+    ],
+    "url": "/posts/2025/11/reproducible-environments/",
+    "slug": "why-every-engineer-needs-a-reproducible-environment",
+    "kind": "post"
+  },
+  {
+    "title": "observability-in-motion",
+    "description": "How I wired observability into my static blog pipeline.",
+    "tags": [
+      "devops",
+      "observability",
+      "logging"
+    ],
+    "url": "/posts/2025/11/observability-in-motion/",
+    "slug": "observability-in-motion",
+    "kind": "post"
+  },
+  {
+    "title": "observability-basics-ii",
+    "description": "Deepening the foundations of logs, metrics, and traces for reliable systems.",
+    "tags": [
+      "devops",
+      "observability",
+      "logging",
+      "tracing"
+    ],
+    "url": "/posts/2025/11/observability-basics-ii/",
+    "slug": "observability-basics-ii",
+    "kind": "post"
+  },
+  {
+    "title": "new-devops-insights",
+    "description": "Reflections from real-world pipelines, outages, and continuous improvement.",
+    "tags": [
+      "devops",
+      "culture",
+      "pipelines",
+      "reliability"
+    ],
+    "url": "/posts/2025/11/new-devops-insights/",
+    "slug": "new-devops-insights",
+    "kind": "post"
+  },
+  {
+    "title": "Kubernetes 101",
+    "description": "A practical introduction to Kubernetes: pods, nodes, services, and why orchestration matters for real-world workloads.",
+    "tags": [
+      "kubernetes",
+      "containers",
+      "devops",
+      "orchestration",
+      "cloud"
+    ],
+    "url": "/posts/2025/11/kubernetes-101/",
+    "slug": "kubernetes-101",
+    "kind": "post"
+  },
+  {
+    "title": "CI/CD Pipeline",
+    "description": "How the Jutellane CI/CD pipeline keeps changes safe, repeatable, and observable from commit to production.",
+    "tags": [
+      "ci/cd",
+      "devops",
+      "github actions",
+      "pipelines",
+      "automation",
+      "reproducible builds"
+    ],
+    "url": "/posts/2025/11/ci-cd-pipeline/",
+    "slug": "cicd-pipeline",
+    "kind": "post"
+  },
+  {
+    "title": "Audit Containers With PowerShell — A DevOps Story",
+    "description": "How I audited and corrected HTML containers across a static site using PowerShell, regex, and a touch of Node.js — turning a tedious task into a DevOps automation exercise.",
+    "tags": [
+      "powershell",
+      "automation",
+      "regex",
+      "nodejs",
+      "devops",
+      "static-sites",
+      "productivity"
+    ],
+    "url": "/posts/2025/11/audit-containers-with-powershell/",
+    "slug": "audit-containers-with-powershell-a-devops-story",
+    "kind": "post"
+  },
+  {
+    "title": "Unfinished Ideas",
+    "description": "A collection of emerging concepts, rough sketches, and ideas worth revisiting for future engineering work.",
+    "tags": [
+      "ideas",
+      "devops",
+      "drafts",
+      "engineering"
+    ],
+    "url": "/posts/2025/10/unfinished-ideas/",
+    "slug": "unfinished-ideas",
+    "kind": "post"
+  },
+  {
+    "title": "The Perfect Build",
+    "description": "Why every engineer needs a reproducible, trustworthy build pipeline — and how the Jutellane approach makes CI/CD deterministic, observable, and safe to rerun.",
+    "tags": [
+      "devops",
+      "ci/cd",
+      "pipelines",
+      "reproducible builds",
+      "automation",
+      "reliability"
+    ],
+    "url": "/posts/2025/10/perfect-build/",
+    "slug": "the-perfect-build",
+    "kind": "post"
+  },
+  {
+    "title": "Observability Basics",
+    "description": "An introduction to logs, metrics, and traces — the three pillars of observability and how they help you understand modern systems.",
+    "tags": [
+      "observability",
+      "logs",
+      "metrics",
+      "traces",
+      "devops",
+      "monitoring"
+    ],
+    "url": "/posts/2025/10/observability-basics/",
+    "slug": "observability-basics",
+    "kind": "post"
+  },
+  {
+    "title": "New DevOps Insights",
+    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
+    "tags": [],
+    "url": "/posts/2025/10/new-devops-insights/",
+    "slug": "new-devops-insights",
+    "kind": "post"
+  },
+  {
+    "title": "Projects & Deep Dives",
+    "description": "",
+    "tags": [],
+    "url": "/posts/2025/",
+    "slug": "projects-and-deep-dives",
+    "kind": "post"
+  }
+]

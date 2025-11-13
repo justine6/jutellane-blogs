@@ -1,1 +1,0 @@
-<<PASTE the "2) CI/CD Documentation Standard (docs/ci-cd.md)" from the canvas>>

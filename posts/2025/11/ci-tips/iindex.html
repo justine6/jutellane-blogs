@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CI Tips — Jutellane Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- SEO meta -->
+  <meta name="description"
+        content="Practical CI tips for cleaner pipelines, reproducible builds, and predictable automation." />
+  <meta name="tags"
+        content="ci, devops, pipelines, automation, reproducibility" />
+
+  <!-- Global Jutellane Blog stylesheet -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="Jutellane logo" />
+        <span class="brand-title">Jutellane Blog</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Article -->
+  <main id="content" class="container prose">
+
+    <p class="post-meta">
+      By Justine Longla · 2 min read ·
+      <time datetime="2025-11-12">Nov 12, 2025</time>
+    </p>
+
+    <h1>CI Tips</h1>
+
+    <p>
+      Continuous Integration (CI) is the beating heart of modern software
+      workflows. When your CI pipeline is clean, predictable, and consistent,
+      everything else in the engineering chain becomes easier — deployments are
+      smoother, features move faster, and debugging becomes painless.
+    </p>
+
+    <p>
+      At Jutellane, CI isn't just a tool. It's a discipline — a way of ensuring
+      that every change is tested, validated, and delivered with confidence.
+      These practical CI tips are distilled from real project experience across
+      pipelines, automation tools, and reproducible builds.
+    </p>
+
+    <h2>1. Keep Your CI Steps Small and Atomic</h2>
+
+    <p>
+      A good pipeline is a sequence of small, independent steps. Each one should
+      perform one action, validate its result, and fail loudly if anything goes
+      wrong.
+    </p>
+
+    <ul>
+      <li>Install dependencies</li>
+      <li>Run linters</li>
+      <li>Run tests</li>
+      <li>Build artifacts</li>
+      <li>Deploy or publish</li>
+    </ul>
+
+    <p>
+      Avoid giant steps that combine multiple operations — they make it much
+      harder to know <em>where</em> a failure occurred.
+    </p>
+
+    <h2>2. Fail Fast, Fail Clearly</h2>
+
+    <p>
+      CI should never hide information. Every failure must reveal:
+    </p>
+
+    <ul>
+      <li>Which step broke</li>
+      <li>Why it broke</li>
+      <li>What the expected vs actual result was</li>
+    </ul>
+
+    <p>
+      Human-readable logs are gold. The Jutellane CI scripts use clear console
+      markers, timestamps, and structured messages — making every issue
+      self-explanatory.
+    </p>
+
+    <h2>3. Cache Wisely, Not Blindly</h2>
+
+    <p>
+      Caching can speed up pipelines dramatically, but improper caching leads to
+      stale artifacts and confusing build results. The key is intentional caching.
+    </p>
+
+    <p>Cache only:</p>
+    <ul>
+      <li>Package managers (npm, pip, NuGet, Maven, etc.)</li>
+      <li>Large build dependencies</li>
+      <li>Reusable generated assets</li>
+    </ul>
+
+    <p>Never cache:</p>
+    <ul>
+      <li>Configuration files</li>
+      <li>Compiled binaries tied to current commits</li>
+      <li>Anything that can drift silently</li>
+    </ul>
+
+    <p>
+      A fast pipeline is good.  
+      A fast and correct pipeline is better.
+    </p>
+
+    <h2>4. Make Local Development Match CI</h2>
+
+    <p>
+      The number one cause of “It works on my machine” is mismatch between local
+      dev and CI environments. CI tools must not surprise developers.
+    </p>
+
+    <p>
+      To eliminate that friction, Jutellane follows a simple rule:
+      <strong>Everything CI does must be runnable locally.</strong>
+    </p>
+
+    <p>
+      Local PowerShell helpers mirror the CI steps:
+    </p>
+
+    <ul>
+      <li><code>build-serve.ps1</code></li>
+      <li><code>generate-indexes.mjs</code></li>
+      <li><code>new-post.ps1</code></li>
+      <li>Project-specific automated tasks</li>
+    </ul>
+
+    <p>
+      When your local tools and CI tools share the same logic and folder
+      structure, surprises disappear.
+    </p>
+
+    <h2>5. Treat CI Logs as a Knowledge Base</h2>
+
+    <p>
+      Logs are not just for debugging. When stored properly, they become:
+    </p>
+
+    <ul>
+      <li>A timeline of your engineering evolution</li>
+      <li>A record of performance regressions and improvements</li>
+      <li>A guide for onboarding new engineers</li>
+    </ul>
+
+    <p>
+      At Jutellane, CI logs reflect the entire build-and-serve pipeline. When
+      something improves, the logs show it. When something breaks, the logs
+      capture it in detail.
+    </p>
+
+    <h2>6. Reproducibility Is the True Measure of CI Excellence</h2>
+
+    <p>
+      A CI pipeline is excellent when it produces the exact same output —
+      100% identical — regardless of:
+    </p>
+
+    <ul>
+      <li>Which machine runs it</li>
+      <li>Which developer triggered it</li>
+      <li>What time of day it executes</li>
+    </ul>
+
+    <p>
+      That reproducibility is what makes release engineering safe and elegant.
+    </p>
+
+    <p>
+      With consistent folder structure, clean separation of concerns, and
+      reliable scripts, the Jutellane pipeline now achieves this reproducibility
+      across all blog posts and static assets.
+    </p>
+
+    <h2>Final Thoughts</h2>
+
+    <p>
+      CI isn’t about automation alone — it’s about discipline, clarity,
+      and engineering maturity. These principles help ensure every build is:
+    </p>
+
+    <ul>
+      <li>Predictable</li>
+      <li>Understandable</li>
+      <li>Fast</li>
+      <li>Traceable</li>
+      <li>Safe to rerun</li>
+    </ul>
+
+    <p><strong>When your CI pipeline is clean, your engineering becomes unstoppable.</strong></p>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <a class="brand small" href="/">
+          <img class="brand-logo small" src="/logo.png" alt="Jutellane logo" />
+          <span class="brand-title small">Jutellane Blog</span>
+        </a>
+
+        <p class="copyright">
+          © <span id="y"></span> <strong>Jutellane Solutions</strong>. All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+
+</body>
+</html>

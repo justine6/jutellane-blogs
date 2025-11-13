@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Observability Basics II — Jutellane Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- SEO meta -->
+  <meta name="description"
+        content="Deepening the foundations of logs, metrics, and traces for reliable systems." />
+  <meta name="tags"
+        content="devops, observability, logging, tracing" />
+
+  <!-- Global blog styles -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Site header -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="Jutellane logo" />
+        <span class="brand-title">Jutellane Blog</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main article -->
+  <main id="content" class="container prose">
+<p>
+  In the first part of this series, we explored the fundamentals of observability
+  — why it matters, how it differs from monitoring, and what it means for a modern
+  DevOps workflow. In this second edition, we go deeper into the engineering layers
+  that bring observability to life: <strong>logs, metrics, and traces</strong>.
+  These three pillars work together to transform your system from a black box into
+  a living, transparent organism you can understand and improve.
+</p>
+
+<h2>1. Logs — The Storytellers of the System</h2>
+
+<p>
+  Logs form the narrative of what happens inside your application.
+  But raw logs alone don’t create observability — structure does.
+</p>
+
+<p>Good engineering practices include:</p>
+
+<ul>
+  <li><strong>Using JSON or key-value format</strong> so logs can be parsed</li>
+  <li><strong>Including timestamps</strong> in a consistent ISO 8601 format</li>
+  <li><strong>Embedding context</strong> like request ID, user ID, or pipeline step</li>
+  <li><strong>Using explicit severity levels</strong>: debug, info, warn, error</li>
+</ul>
+
+<p>
+  When logs follow structure and conventions, you gain the ability to search,
+  filter, correlate, and replay system behavior. This supports faster diagnosis
+  and makes your pipelines self-explanatory.
+</p>
+
+<h2>2. Metrics — The Pulse of Your Architecture</h2>
+
+<p>
+  While logs reveal individual events, <strong>metrics show patterns</strong>.
+  They quantify behavior across time, giving a top-level understanding of the
+  system’s health.
+</p>
+
+<p>Common DevOps metrics include:</p>
+
+<ul>
+  <li>CPU and memory utilization</li>
+  <li>Disk I/O and network throughput</li>
+  <li>Request success rate and latency distribution</li>
+  <li>Pipeline duration and failure frequency</li>
+</ul>
+
+<p>
+  Metrics help you detect emerging problems before they become incidents.
+  They are ideal for dashboards, SLAs, and alerting because they produce a
+  clear, predictable signal.
+</p>
+
+<h2>3. Traces — Seeing the Entire Journey</h2>
+
+<p>
+  Tracing completes the picture. It reveals how a single request flows through
+  your system — across services, pipelines, caches, databases, and external APIs.
+</p>
+
+<p>
+  A trace helps answer questions such as:
+</p>
+
+<ul>
+  <li>Where is the request spending most of its time?</li>
+  <li>Which upstream or downstream service is slowing things down?</li>
+  <li>Is there an unexpected external dependency?</li>
+</ul>
+
+<p>
+  For distributed systems or multi-step pipelines, traces act like a GPS map:
+  you see every turn, every hop, and every delay.
+</p>
+
+  <h2>Bringing Logs, Metrics, and Traces Together</h2>
+
+  <p>
+    Each pillar plays a different role — but their true power comes from
+    correlation. A single issue might start as a log entry, appear as a warning
+    spike in metrics, and become fully understood thanks to a detailed trace.
+  </p>
+
+  <p>
+    Together, they create a unified feedback loop that allows systems to be
+    not only monitored, but <em>explained</em>.
+  </p>
+
+  <h2>Practical Application in the Jutellane Pipeline</h2>
+
+  <p>
+    As the blog pipeline evolved, observability became a built-in requirement.
+    Each PowerShell script emits structured markers, timestamps, and clear
+    progress signals. The index generator surfaces paths, durations, and
+    skipped steps. Even the static HTML output can be traced back to the exact
+    source Markdown or template that produced it.
+  </p>
+
+  <p>
+    This consistency enables faster debugging, safer refactoring, and a smoother
+    publishing experience. Instead of guessing what happened, you see it.
+  </p>
+
+  <h2>A Culture of Visibility</h2>
+
+  <p>
+    Observability Basics II is more than just a technical expansion —
+    it is a shift in mindset. It is the belief that systems should openly
+    communicate their state to the engineers who build and maintain them.
+    When visibility becomes a habit, reliability becomes the natural outcome.
+  </p>
+
+  <p><strong>Observability empowers you to anticipate issues, iterate confidently,
+  and evolve your architecture with clarity.</strong></p>
+
+  </main>
+
+  <!-- Global footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <a class="brand small" href="/">
+          <img class="brand-logo small" src="/logo.png" alt="Jutellane logo" />
+          <span class="brand-title small">Jutellane Blog</span>
+        </a>
+
+        <p class="copyright">
+          © <span id="y"></span> <strong>Jutellane Solutions</strong>. All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>
+

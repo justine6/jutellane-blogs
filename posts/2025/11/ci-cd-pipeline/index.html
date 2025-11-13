@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CI/CD Pipeline — Jutellane Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- SEO meta -->
+  <meta name="description"
+        content="How the Jutellane CI/CD pipeline keeps changes safe, repeatable, and observable from commit to production." />
+  <meta name="tags"
+        content="ci/cd, devops, github actions, pipelines, automation, reproducible builds" />
+
+  <!-- Global blog styles -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Site header -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="Jutellane logo" />
+        <span class="brand-title">Jutellane Blog</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main article -->
+  <main id="content" class="container prose">
+
+    <p class="post-meta">
+      By Justine Longla · 4 min read ·
+      <time datetime="2025-11-13">Nov 13, 2025</time>
+    </p>
+
+    <h1>CI/CD Pipeline</h1>
+
+    <p>
+      Modern software delivery is built on one powerful idea:
+      <strong>every change should move from development to production through a consistent, automated, and trustworthy pipeline.</strong>
+      That pipeline is CI/CD — the backbone of DevOps practice and the engine behind safe, fast, and repeatable releases.
+    </p>
+
+    <p>
+      At Jutellane Solutions, CI/CD isn’t just a “developer convenience.”
+      It’s the system that keeps projects predictable, observably consistent, and continuously shippable.
+      This post breaks CI/CD down into practical, real-world pieces.
+    </p>
+
+    <h2>What CI/CD Really Means</h2>
+
+    <p>
+      CI/CD is often explained as a single idea, but it is actually two distinct stages tightly woven together:
+    </p>
+
+    <ul>
+      <li><strong>Continuous Integration (CI)</strong> — Every commit is validated through automated builds, tests, linting, and consistency checks.</li>
+      <li><strong>Continuous Delivery / Deployment (CD)</strong> — Successfully validated changes move automatically (or semi-automatically) to staging and production.</li>
+    </ul>
+
+    <p>
+      When the two stages operate together, engineering becomes faster, safer, and more scalable.
+    </p>
+
+    <h2>Continuous Integration (CI)</h2>
+
+    <p>
+      CI is the discipline of merging work frequently and validating every change with automation.
+      A strong CI phase answers one question clearly:
+    </p>
+
+    <p><strong>“Is this change safe to integrate?”</strong></p>
+
+    <p>Typical Jutellane-style CI steps include:</p>
+
+    <ul>
+      <li>Dependency installation with integrity checks.</li>
+      <li>Static analysis: formatting, linting, security scans.</li>
+      <li>Unit and integration tests.</li>
+      <li>Build validation (HTML, pipelines, scripts, assets).</li>
+      <li>Metadata generation for posts or projects.</li>
+      <li>Artifacts produced deterministically.</li>
+    </ul>
+
+    <p>
+      The rule is simple: <em>if anything breaks, the commit doesn’t proceed.</em>
+      A clean CI run is a green signal that the change is structurally sound and ready for the delivery stage.
+    </p>
+
+    <h2>Continuous Delivery (CD)</h2>
+
+    <p>
+      CD takes the validated output from CI and gets it onto real infrastructure with zero manual guesswork.
+      With CD, the question becomes:
+    </p>
+
+    <p><strong>“Can this change safely reach production?”</strong></p>
+
+    <p>Typical CD steps include:</p>
+
+    <ul>
+      <li>Generating optimized build artifacts.</li>
+      <li>Pushing images or bundles to registries or storage.</li>
+      <li>Deploying to staging environments for final checks.</li>
+      <li>Applying configuration, migrations, or environment changes.</li>
+      <li>Rolling updates with automatic verification.</li>
+    </ul>
+
+    <p>
+      CD ensures that deployments are not events — they are routine operations.
+    </p>
+
+    <h2>Together: A Unified Pipeline</h2>
+
+    <p>
+      The true power of CI/CD appears when both phases run as one cohesive pipeline,
+      taking every commit from developer laptop → CI validation → deployment artifact → production rollout.
+    </p>
+
+    <p>
+      A healthy CI/CD pipeline provides:
+    </p>
+
+    <ul>
+      <li><strong>Speed</strong> — changes ship within minutes, not days.</li>
+      <li><strong>Quality</strong> — regressions are caught early.</li>
+      <li><strong>Consistency</strong> — every change follows the same path.</li>
+      <li><strong>Audibility</strong> — logs, metrics, and traces tell the pipeline’s story.</li>
+      <li><strong>Confidence</strong> — teams deploy without fear.</li>
+    </ul>
+
+    <h2>CI/CD in Real Engineering Work</h2>
+
+    <p>
+      CI/CD isn’t a tool — it’s a safety net.
+      It protects engineers from accidental mistakes,
+      protects users from broken deployments,
+      and protects product teams from slow delivery cycles.
+    </p>
+
+    <p>At Jutellane Solutions, every project uses a pipeline that:</p>
+
+    <ul>
+      <li>Is fully reproducible locally using PowerShell scripts.</li>
+      <li>Generates deterministic outputs for posts, pages, and assets.</li>
+      <li>Uses structured logs for visibility.</li>
+      <li>Automates even the smallest build steps to eliminate drift.</li>
+    </ul>
+
+    <p>
+      When a release goes live, it isn’t a gamble — it is simply the final step of a proven process.
+    </p>
+
+    <h2>Building Your Own CI/CD Pipeline</h2>
+
+    <p>You don’t need a massive toolchain to start. Begin with:</p>
+
+    <ol>
+      <li>A clean CI stage with linting, testing, and builds.</li>
+      <li>A delivery script that deploys artifacts in a predictable sequence.</li>
+      <li>Logs + metrics to confirm that each stage behaves as expected.</li>
+    </ol>
+
+    <p>
+      From there, you can add caching, parallelization, rollout strategies, preview environments, and security scanning.
+    </p>
+
+    <h2>Final Thoughts</h2>
+
+    <p>
+      CI/CD turns engineering into a reliable system instead of a collection of manual steps.
+      Once your pipeline becomes the source of truth, you gain speed, safety, and engineering maturity.
+    </p>
+
+    <p>
+      <strong>A good CI/CD pipeline doesn’t just deploy code — it builds confidence.</strong>
+    </p>
+
+  </main>
+
+  <!-- Global footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <a class="brand small" href="/">
+          <img class="brand-logo small" src="/logo.png" alt="Jutellane logo" />
+          <span class="brand-title small">Jutellane Blog</span>
+        </a>
+
+        <p class="copyright">
+          © <span id="y"></span> <strong>Jutellane Solutions</strong>. All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+
+</body>
+</html>

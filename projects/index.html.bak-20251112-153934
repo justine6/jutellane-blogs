@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;line-height:1.6;margin:2rem;max-width:960px}
+    h1{font-size:2rem;margin:0 0 1rem}
+    ul{list-style:none;padding:0}
+    li{margin:.5rem 0;padding:.75rem 1rem;border:1px solid #e5e7eb;border-radius:.75rem}
+    a{font-weight:600;text-decoration:none}
+    .tags{font-size:.85rem;color:#555;margin-top:.25rem}
+  </style>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <main class="container">
+  <h1>Projects</h1>
+  <ul     id="list" class="cards-grid" class="cards-grid" class="cards-grid" class="cards-grid"></ul>
+  <script type="module">
+    const res = await fetch('/projects.json');
+    const data = await res.json();
+    const list = document.querySelector('#list');
+    data.forEach(x => {
+      const li = document.createElement('li'); li.className = 'card'; li.className = 'card'; li.className = 'card'; li.className = 'card'; li.innerHTML = `<a href="${x.url}">${x.title}</a>${x.description ? '<div>'+x.description+'</div>' : ''}${x.tags?.length ? '<div class="tags"># '+x.tags.join(', ')+'</div>' : ''}`;
+      list.appendChild(li);
+    });
+  </script>
+  </main>
+</body>
+</html>
+
+
+
+

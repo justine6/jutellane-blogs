@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Audit Containers With PowerShell — Jutellane Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <meta name="description"
+        content="How I audited and corrected HTML containers across a static site using PowerShell, regex, and a touch of Node.js — turning a tedious task into a DevOps automation exercise." />
+
+  <meta name="tags"
+        content="powershell, automation, regex, nodejs, devops, static-sites, productivity" />
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="Jutellane logo" />
+        <span class="brand-title">Jutellane Blog</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container prose">
+
+    <p class="post-meta">
+      By Justine Longla · 3 min read ·
+      <time datetime="2025-11-12">Nov 12, 2025</time>
+    </p>
+
+    <h1>Audit Containers With PowerShell — A DevOps Story</h1>
+
+    <p>
+      This month, I turned what looked like a tedious HTML cleanup into one of my
+      favorite automation challenges. Using a combination of PowerShell,
+      regex-based scanning, and even a small Node.js helper, I audited entire static-site
+      pages for missing containers, alignment issues, and inconsistent markup.
+    </p>
+
+    <p>
+      DevOps is not only about CI/CD pipelines or Kubernetes clusters. It’s also
+      about clean systems, automation discipline, and the joy of writing scripts
+      that transform repetitive work into repeatable workflows.
+    </p>
+
+    <h2>Why This Audit Was Necessary</h2>
+
+    <p>
+      Over time, static sites accumulate small HTML inconsistencies: a missing
+      <code>&lt;div&gt;</code>, an unclosed container, a mismatched indentation, or
+      fragments left from quick edits. These tiny cracks eventually cause layout
+      problems or prevent automated build tools from generating consistent output.
+    </p>
+
+    <p>
+      I wanted a reproducible way to scan every page and detect:
+    </p>
+
+    <ul>
+      <li>missing container wrappers,</li>
+      <li>duplicated tags,</li>
+      <li>misaligned indentation,</li>
+      <li>HTML patterns that were silently breaking structure.</li>
+    </ul>
+
+    <h2>Enter PowerShell + Regex</h2>
+
+    <p>
+      PowerShell made it surprisingly easy. With just a few lines of code, I
+      recursively scanned HTML files and applied regex-based rules to detect
+      structural issues. The script highlighted:
+    </p>
+
+    <ul>
+      <li>imbalanced <code>&lt;div&gt;</code> counts,</li>
+      <li>incorrect container sequences,</li>
+      <li>lines where indentation suggested missing closures.</li>
+    </ul>
+
+    <p>
+      This wasn’t just a cleanup; it became a deeper introspection into how small
+      patterns across a codebase can reveal bigger architectural drift.
+    </p>
+
+    <h2>A Touch of Node.js</h2>
+
+    <p>
+      For deeper parsing, I used Node to run DOM-based analysis on specific
+      problematic files. PowerShell handled the recursive sweep and regex
+      validation. Node confirmed DOM integrity when required.
+    </p>
+
+    <p>
+      It became a neat hybrid automation setup: PowerShell for filesystem-level
+      scanning, Node.js for structural introspection.
+    </p>
+
+    <h2>A Key DevOps Reminder</h2>
+
+    <p>
+      Through this exercise, I rediscovered something important:
+    </p>
+
+    <blockquote>
+      <strong>DevOps isn’t just CI/CD or container orchestration.</strong>  
+      It’s about creating predictable, reproducible, and maintainable systems — even
+      for small tasks like HTML audits.
+    </blockquote>
+
+    <p>
+      PowerShell proved itself again not only as an administrative shell but as a
+      versatile DevOps automation companion.
+    </p>
+
+    <h2>Want to Explore More?</h2>
+
+    <p>
+      I shared the shorter version of this story on LinkedIn, and the full write-up
+      now lives here on the blog. Whether you’re into scripting, automation, or
+      reproducible workflows, I’d love to hear your perspective.
+    </p>
+
+    <p>
+      👉 <a href="https://projects.jutellane.com/booking" target="_blank">Book a quick intro call</a><br />
+      🌐 <a href="https://jutellane.com" target="_blank">Visit the main site</a><br />
+      📘 <a href="https://docs.jutellane.com" target="_blank">Explore documentation</a>
+    </p>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <a class="brand small" href="/">
+          <img class="brand-logo small" src="/logo.png" alt="Jutellane logo" />
+          <span class="brand-title small">Jutellane Blog</span>
+        </a>
+        <p class="copyright">
+          © <span id="y"></span> <strong>Jutellane Solutions</strong>.  
+          All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>

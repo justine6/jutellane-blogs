@@ -1,1 +1,0 @@
-<<PASTE the "3) Release Process (docs/release-process.md)" from the canvas>>

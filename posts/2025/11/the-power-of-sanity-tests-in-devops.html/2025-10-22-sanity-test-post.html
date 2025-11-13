@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Power of Sanity Tests in DevOps — Jutellane Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- SEO meta -->
+  <meta name="description"
+        content="Sanity tests are a fast, ruthless safety net at the front of your CI/CD pipeline. How a tiny layer of checks can save you from noisy failures and wasted runner minutes." />
+  <meta name="tags"
+        content="devops, sanity tests, ci/cd, automation, powershell, quality gates" />
+
+  <!-- Global blog styles -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Site header -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="Jutellane logo" />
+        <span class="brand-title">Jutellane Blog</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main article -->
+  <main id="content" class="container prose">
+
+    <p class="post-meta">
+      By Justine Longla · 7 min read ·
+      <time datetime="2025-10-22">Oct 22, 2025</time>
+    </p>
+
+    <h1>The Power of Sanity Tests in DevOps</h1>
+
+    <p>
+      Sanity tests are one of the simplest layers you can add to a CI/CD pipeline,
+      and yet they are often missing. They don’t replace unit tests or integration
+      tests — they sit <em>in front</em> of them as a fast, ruthless gate that answers
+      a single question:
+      <strong>“Is this build even worth testing?”</strong>
+    </p>
+
+    <p>
+      In a world of frequent commits and automated pipelines, the cost of letting a
+      broken build travel too far is real: wasted runner minutes, noisy failures,
+      and frustrated engineers staring at logs for issues that could have been
+      caught in the first few seconds.
+    </p>
+
+    <h2>What is a sanity test?</h2>
+
+    <p>
+      A sanity test (sometimes called a smoke gate or pre-quality gate) is a
+      <strong>small suite of automated checks</strong> that run immediately after the
+      code is fetched. They don’t aim to prove the application is correct — only
+      that it is <em>structurally sane</em> enough to justify deeper testing.
+    </p>
+
+    <p>Typical sanity checks verify that:</p>
+    <ul>
+      <li>The project can be loaded and basic commands can run.</li>
+      <li>Critical files and directories exist where the pipeline expects them.</li>
+      <li>Configuration and JSON files are at least syntactically valid.</li>
+      <li>There hasn’t been a “file explosion” or suspicious structural change.</li>
+    </ul>
+
+    <p>
+      These tests are intentionally narrow. They are not about business logic or
+      feature behavior. They are about <strong>pipeline safety</strong>.
+    </p>
+
+    <blockquote>
+      A good sanity suite finishes in under 30 seconds, is deterministic, and fails fast on anything suspicious.
+    </blockquote>
+
+    <h2>Why sanity tests matter in real pipelines</h2>
+
+    <p>
+      If you run pipelines every day, you’ve likely seen this pattern:
+    </p>
+
+    <ul>
+      <li>A commit lands on <code>main</code> or a feature branch.</li>
+      <li>Your CI job spins up, pulls the repo, installs dependencies…</li>
+      <li>
+        Three or four minutes later, everything fails because of a missing file,
+        a typo in a config path, or a broken JSON document.
+      </li>
+    </ul>
+
+    <p>
+      The problem is not that the pipeline caught the issue — that’s good. The
+      problem is that it took <em>so long</em> to fail on something that could have
+      been detected almost instantly.
+    </p>
+
+    <p>
+      Sanity tests give you that early feedback. They reduce noise, save runner
+      minutes, and keep developers from waiting on builds that were doomed from
+      the start.
+    </p>
+
+    <h2>Characteristics of a good sanity suite</h2>
+
+    <p>
+      When I design sanity checks for a project, I use these criteria as guardrails:
+    </p>
+
+    <ul>
+      <li><strong>Fast:</strong> Aim for &lt; 30 seconds on a CI runner.</li>
+      <li><strong>Deterministic:</strong> No external network calls, no randomness, no flakiness.</li>
+      <li><strong>Fail-fast:</strong> The moment a critical violation is found, stop and mark the build as failed.</li>
+      <li><strong>High-signal:</strong> Detect issues that would otherwise waste the rest of the pipeline.</li>
+      <li><strong>Quiet when green:</strong> Logs should be short and boring when everything is okay.</li>
+    </ul>
+
+    <h2>A practical PowerShell sanity script</h2>
+
+    <p>
+      Here is a lightweight PowerShell script you can adapt for Node-based or
+      polyglot repositories. It checks for critical files, validates JSON, and
+      guards against file explosions — all in a single, fast step.
+    </p>
+
+<pre><code class="language-powershell">Write-Host "› Running sanity checks..." -ForegroundColor Cyan
+
+# 1) Confirm project root files
+$critical = @("package.json", "README.md", "scripts")
+foreach ($file in $critical) {
+  if (-not (Test-Path $file)) {
+    Write-Host "✗ Missing $file" -ForegroundColor Red
+    exit 1
+  }
+}
+
+# 2) Validate JSON files
+Get-ChildItem -Recurse -Filter *.json | ForEach-Object {
+  try {
+    Get-Content $_.FullName | ConvertFrom-Json | Out-Null
+  }
+  catch {
+    Write-Host "✗ Invalid JSON: $($_.FullName)" -ForegroundColor Red
+    exit 1
+  }
+}
+
+# 3) Detect massive or unexpected changes
+$maxFiles = 2500
+$fileCount = (Get-ChildItem -Recurse | Measure-Object).Count
+if ($fileCount -gt $maxFiles) {
+  Write-Host "✗ File explosion detected: $fileCount files" -ForegroundColor Red
+  exit 1
+}
+
+Write-Host "✓ Sanity checks passed." -ForegroundColor Green
+</code></pre>
+
+    <p>
+      This script is intentionally conservative. It doesn’t know anything about
+      your business logic, but it can still catch:
+    </p>
+
+    <ul>
+      <li>Accidental deletion of <code>scripts</code> or <code>package.json</code>.</li>
+      <li>Broken <code>package.json</code>, <code>tsconfig.json</code>, or other JSON configs.</li>
+      <li>Unintended file explosions caused by a misconfigured generator or build step.</li>
+    </ul>
+
+    <h2>Wiring sanity into GitHub Actions</h2>
+
+    <p>
+      To make sanity checks truly useful, they need to run automatically on every
+      push. The easiest place to put them is at the very beginning of your CI job,
+      before the pipeline spends time on expensive work.
+    </p>
+
+<pre><code class="language-yaml">name: ci
+
+on: [push]
+
+jobs:
+  sanity:
+    name: Run Sanity Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run sanity checks
+        shell: pwsh
+        run: ./scripts/sanity-check.ps1
+</code></pre>
+
+    <p>
+      If the sanity job fails, the rest of the workflow never starts. That’s the
+      point: we refuse to spend more time on a build that is structurally unsound.
+    </p>
+
+    <h2>Common pitfalls to avoid</h2>
+
+    <p>
+      A few patterns will quickly turn sanity tests into a burden instead of a
+      benefit:
+    </p>
+
+    <ul>
+      <li>
+        <strong>Doing too much:</strong> If your sanity suite looks like a full
+        integration test, it will become slow and fragile.
+      </li>
+      <li>
+        <strong>Running them too late:</strong> Sanity tests belong at the front
+        of the pipeline, not after dependency installation or Docker builds.
+      </li>
+      <li>
+        <strong>Tying them to local environments:</strong> They should run
+        identically on every developer machine and every CI runner.
+      </li>
+      <li>
+        <strong>Accepting flakiness:</strong> A flaky sanity test undermines trust
+        in the entire pipeline.
+      </li>
+    </ul>
+
+    <h2>Why this matters for DevOps culture</h2>
+
+    <p>
+      Modern DevOps is not just about having pipelines. It’s about having
+      <strong>trustworthy pipelines</strong> that provide feedback quickly, fail
+      for the right reasons, and stay readable when something goes wrong.
+    </p>
+
+    <p>
+      Sanity tests are a small investment that pay off over time:
+    </p>
+
+    <ul>
+      <li>Less waiting on broken runs.</li>
+      <li>Cleaner execution history in your CI system.</li>
+      <li>Higher confidence when you promote builds to staging or production.</li>
+    </ul>
+
+    <p>
+      If your team runs pipelines regularly and doesn’t yet have a sanity layer,
+      the best time to add one is now. Start small, keep it fast, and iterate as
+      you discover which structural problems hurt you the most.
+    </p>
+
+    <p><strong>
+      Your future self — and your on-call rotation — will thank you.
+    </strong></p>
+
+  </main>
+
+  <!-- Global footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <a class="brand small" href="/">
+          <img class="brand-logo small" src="/logo.png" alt="Jutellane logo" />
+          <span class="brand-title small">Jutellane Blog</span>
+        </a>
+
+        <p class="copyright">
+          © <span id="y"></span> <strong>Jutellane Solutions</strong>. All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+
+</body>
+</html>
