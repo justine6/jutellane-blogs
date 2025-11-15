@@ -386,8 +386,6 @@
     </div>
   </section>
 
-  </header>
-
   <!-- Hero / introduction -->
   <section class="home-hero">
     <div class="home-hero-inner">
@@ -553,6 +551,55 @@
       </div>
     </section>
   </main>
+  
+
+      <div class="home-footer">
+        This home page is a quick tour. For full details, explore the
+        <a href="/blog/">blog</a>, <a href="/projects/">projects &amp; deep dives</a>,
+        and the <a href="/docs/">automation toolkit</a>.
+      </div>
+    </section>
+  </main>
+
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img
+            src="/assets/img/logo.png"
+            alt="Justine Longla T. logo"
+            class="footer-logo"
+            width="40"
+            height="40"
+          />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · Jutellane Solutions.
+          All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="https://jutellane.com/">Main site</a>
+        <a href="https://jutellane.com/projects">Projects</a>
+        <a href="https://jutellane.com/blog">Deep-dive blog</a>
+        <a href="https://jutellane.com/contact">Contact</a>
+      </nav>
+    </div>
+
+    <script>
+      // keep the footer year current
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
 
   <script>
     // ensure the current nav item is highlighted if your main.css supports it
@@ -565,3 +612,4 @@
   </script>
 </body>
 </html>
+
