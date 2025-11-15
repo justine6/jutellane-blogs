@@ -465,3 +465,85 @@ a:hover {
   border-color: #38bdf8;
   box-shadow: 0 20px 46px rgba(15, 23, 42, 0.9);
 }
+/* === Site footer ======================================================== */
+
+.site-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  background: #020617;
+  color: #cbd5f5;
+  margin-top: 3rem;
+}
+
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  object-fit: contain;
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.footer-name {
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.footer-tagline {
+  font-size: 0.78rem;
+  color: #38bdf8;
+}
+
+.footer-copy {
+  margin: 0.6rem 0 0;
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.footer-links a {
+  color: #cbd5f5;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.footer-links a:hover {
+  color: #facc15;
+}
+
+/* Mobile footer layout */
+@media (max-width: 720px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+  }
+}

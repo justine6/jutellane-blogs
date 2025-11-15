@@ -1,28 +1,38 @@
-<footer class="site-footer" id="jl-footer">
-  <div class="container footer-grid">
-
+<footer class="site-footer">
+  <div class="footer-inner">
     <div class="footer-left">
-      <a class="brand small" href="/">
-        <img class="brand-logo small" src="/logo.png" alt="Justine Longla T. logo" />
-        <span class="brand-title small">Justine Longla T.</span>
-      </a>
-
-      <p class="copyright">
-        © <span id="y"></span> <strong>Justine Longla T.</strong>
-        · DevSecOps • Cloud • Sustainability <br />
-        Operating under <span class="muted">Jutellane Solutions</span>.
+      <div class="footer-brand">
+        <img
+          src="/assets/img/logo.png"
+          alt="Justine Longla T. logo"
+          class="footer-logo"
+          width="40"
+          height="40"
+        />
+        <div class="footer-brand-text">
+          <span class="footer-name">Justine Longla T.</span>
+          <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+        </div>
+      </div>
+      <p class="footer-copy">
+        © <span id="footer-year"></span> Justine Longla T. · Jutellane Solutions.
+        All rights reserved.
       </p>
     </div>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="/blog/">Blog</a>
-      <a href="/projects/">Projects</a>
-      <a href="/docs/">Automation Toolkit</a>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="https://jutellane.com/">Main site</a>
+      <a href="https://jutellane.com/projects">Projects</a>
+      <a href="https://jutellane.com/blog">Deep-dive blog</a>
+      <a href="https://jutellane.com/contact">Contact</a>
     </nav>
-
   </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    // keep the year current without rebuilding
+    (function () {
+      var el = document.getElementById("footer-year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
   </script>
 </footer>
