@@ -1,4 +1,4 @@
-name: Deploy Jutellane Blogs to Pages
+name: Deploy Justine Longla T. DevOps Blog to Pages
 
 on:
   push:

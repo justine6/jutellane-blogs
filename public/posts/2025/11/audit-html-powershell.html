@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Auditing &amp; Normalizing HTML With PowerShell —Justine Longla T. DevOps Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <meta name="description"
+        content="How a PowerShell-driven audit system automatically scans, edits, normalizes, and validates HTML and Markdown content in a static blog." />
+  <meta name="tags"
+        content="powershell, automation, html, static-sites, devops, deep-dive" />
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <div class="post-actions">
+  <a class="download-pdf"
+     href="/docs/deep-dives/audit-html-powershell.pdf">
+    Download PDF
+  </a>
+</div>
+
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a href="/" class="site-logo">
+        <img src="/assets/img/justine-logo.png" alt="logo" />
+        <span>Justine Longla T. DevOps Blog</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/blog/">Blog</a>
+        <a href="/projects/">Projects</a>
+        <a href="/tags/deep-dive/">Deep Dive Series</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container">
+    <article class="post post--deep-dive">
+      <header class="post-header">
+        <p class="post-tag">Deep Dive</p>
+        <h1>Auditing &amp; Normalizing HTML With PowerShell</h1>
+        <p class="post-excerpt">
+          Large static blogs accumulate hundreds of tiny HTML quirks over time.
+          A PowerShell audit engine lets you clean, normalize and validate all
+          of them in one repeatable pass.
+        </p>
+        <p class="post-meta">
+          Published 12 November 2025 · PowerShell · Automation
+        </p>
+        <figure class="post-hero">
+          <img src="/assets/img/automated-audit-ps1.PNG" alt="Automated HTML audit with PowerShell" />
+        </figure>
+      </header>
+
+      <div class="post-body">
+        <h2>Pattern-Scanning With Select-String</h2>
+        <p>
+          The audit starts with <code>Select-String</code>, using rich regular
+          expressions to search through all HTML and Markdown files:
+        </p>
+        <ul>
+          <li>Deprecated tags like <code>&lt;font&gt;</code> and <code>&lt;center&gt;</code>.</li>
+          <li>Inline styles where utility classes should be used.</li>
+          <li>Malformed <code>&lt;meta&gt;</code> blocks.</li>
+          <li>Absolute URLs that should be site-relative.</li>
+        </ul>
+
+        <h2>Safe, Automated Rewrites</h2>
+        <p>
+          For patterns that are well understood, the script doesn’t just report
+          — it rewrites:
+        </p>
+        <ul>
+          <li>Normalizes title and description structures in the head.</li>
+          <li>Replaces deprecated tags with semantic equivalents.</li>
+          <li>Fixes double spaces, inconsistent quotation styles and dangling whitespace.</li>
+        </ul>
+        <p>
+          All changes are kept idempotent so running the script multiple times
+          produces the same clean result.
+        </p>
+
+        <h2>Hybrid PowerShell + Node Workflow</h2>
+        <p>
+          PowerShell handles the heavy text processing; Node handles file IO,
+          encoding and integration with the rest of the toolchain. Together
+          they create a powerful but simple pipeline.
+        </p>
+
+        <h2>Audit Reports</h2>
+        <p>
+          Each run generates a log of:
+        </p>
+        <ul>
+          <li>Files touched.</li>
+          <li>Fixes applied automatically.</li>
+          <li>Remaining warnings that need human judgement.</li>
+        </ul>
+
+        <h2>Why an HTML Audit Matters</h2>
+        <p>
+          When you treat HTML as code, you unlock the same advantages:
+          version control, reproducibility and automation. The PowerShell audit
+          keeps your static site clean even as it grows.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Jutellane Solutions — DevSecOps, Cloud &amp; Sustainability.</p>
+    </div>
+  </footer>
+</body>
+</html>

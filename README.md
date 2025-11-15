@@ -1,13 +1,13 @@
 
 <!-- CI/CD & Site Badges -->
-[![Build & Deploy — Jutellane Blogs](https://github.com/justine6/jutellane-blogs/actions/workflows/blog.yml/badge.svg?branch=main)](https://github.com/justine6/jutellane-blogs/actions/workflows/blog.yml)
+[![Build & Deploy — Justine Longla T. DevOps Blog](https://github.com/justine6/jutellane-blogs/actions/workflows/blog.yml/badge.svg?branch=main)](https://github.com/justine6/jutellane-blogs/actions/workflows/blog.yml)
 [![GitHub Pages](https://img.shields.io/website?url=https%3A%2F%2Fjustine6.github.io%2Fjutellane-blogs)](https://justine6.github.io/jutellane-blogs/)
 [![Last commit](https://img.shields.io/github/last-commit/justine6/jutellane-blogs/main)](https://github.com/justine6/jutellane-blogs/commits/main)
 [![RSS](https://img.shields.io/badge/RSS-feed.xml-orange)](https://justine6.github.io/jutellane-blogs/feed.xml)
 
 **Live site:** https://justine6.github.io/jutellane-blogs/
 
-# 🧩 Jutellane Blogs CI/CD Workflow
+# 🧩 Justine Longla T. DevOps Blog CI/CD Workflow
 [![Content Status](https://img.shields.io/github/last-commit/justine6/jutellane-blogs/main)](https://github.com/justine6/jutellane-blogs/commits/main)
 [![Site](https://img.shields.io/badge/site-live-blue)](https://justine6.github.io/jutellane-blogs/)
 
@@ -17,7 +17,7 @@
 This repository automates the process of fixing, validating, and deploying blog content to GitHub Pages.  
 It ensures each post is properly formatted, metadata is up-to-date, and all site artifacts are published automatically.
 
-# Jutellane Blogs · Public Site
+# Justine Longla T. DevOps Blog · Public Site
 
 This is the **live site** built from artifacts generated in:
 - https://github.com/justine6/md-to-html-static
@@ -154,7 +154,7 @@ Once configured:
 - Metadata updates are proposed via pull requests.  
 - GitHub Pages deploys only after validation succeeds.
 
-> This ensures a clean, reliable, and traceable publishing workflow for Jutellane Blogs 🚀
+> This ensures a clean, reliable, and traceable publishing workflow for Justine Longla T. DevOps Blog 🚀
 
 <!-- SCRIPTS-TABLE:START -->
 ## Developer Scripts

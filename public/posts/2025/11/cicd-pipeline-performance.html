@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CI/CD Performance Tuning — Justine Longla T. DevOps Blog/title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <meta name="description"
+        content="A practical guide to optimizing build times, parallelizing workloads, caching dependencies, and measuring delivery efficiency across your CI/CD pipeline." />
+  <meta name="tags"
+        content="ci/cd, devops, performance, pipelines, automation, deep-dive" />
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <div class="post-actions">
+  <a class="download-pdf"
+     href="/docs/deep-dives/cicd-pipeline-performance.pdf">
+    Download PDF
+  </a>
+</div>
+
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a href="/" class="site-logo">
+        <img src="/assets/img/justine-logo.png" alt="logo" />
+        <span>Justine Longla T. DevOps Blog</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/blog/">Blog</a>
+        <a href="/projects/">Projects</a>
+        <a href="/tags/deep-dive/">Deep Dive Series</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container">
+    <article class="post post--deep-dive">
+      <header class="post-header">
+        <p class="post-tag">Deep Dive</p>
+        <h1>CI/CD Performance Tuning</h1>
+        <p class="post-excerpt">
+          Every engineering team wants faster builds, shorter deploy cycles,
+          and high-confidence releases. Performance isn’t magic — it’s the
+          result of measured inputs and targeted optimizations.
+        </p>
+        <p class="post-meta">
+          Published 12 November 2025 · CI/CD · Performance
+        </p>
+        <figure class="post-hero">
+          <img src="/assets/img/cicd-pipeline-performance.PNG" alt="CI/CD Performance Tuning" />
+        </figure>
+      </header>
+
+      <div class="post-body">
+        <h2>Measure Before You Optimize</h2>
+        <p>
+          Before changing anything, expose basic pipeline metrics:
+        </p>
+        <ul>
+          <li>Total build time and queue time.</li>
+          <li>Unit, integration and end-to-end test durations.</li>
+          <li>Deployment latency.</li>
+          <li>Cache hit rates and artifact sizes.</li>
+        </ul>
+        <p>
+          The slowest step is usually not the one people complain about the most.
+          Metrics cut through folklore.
+        </p>
+
+        <h2>Make Caching Do Real Work</h2>
+        <p>High-leverage cache targets include:</p>
+        <ul>
+          <li>Language dependencies (npm, pip, NuGet, Maven, etc.).</li>
+          <li>Docker layers for base images and build stages.</li>
+          <li>Downloaded tools and SDKs.</li>
+          <li>Pre-compiled front-end bundles.</li>
+        </ul>
+        <p>
+          A healthy cache can shrink a 15-minute pipeline to under 5 minutes.
+        </p>
+
+        <h2>Parallelize Relentlessly</h2>
+        <p>
+          Most pipelines start life as a single long linear script. Over time
+          you can split work into parallel stages:
+        </p>
+        <ul>
+          <li>Lint, unit tests and security scans at the same time.</li>
+          <li>Per-service build jobs in a microservices architecture.</li>
+          <li>Fan-out test suites by feature area or directory.</li>
+        </ul>
+
+        <h2>Test Only What Changed</h2>
+        <p>
+          Change-based testing keeps quality high while respecting the clock:
+        </p>
+        <ul>
+          <li>Detect paths touched in a PR.</li>
+          <li>Run targeted suites for those areas.</li>
+          <li>Reserve full regression suites for nightly or pre-release runs.</li>
+        </ul>
+
+        <h2>Make Performance a Habit, Not a Project</h2>
+        <p>
+          Performance tuning isn’t a one-time activity — it’s a discipline.
+          Add simple guards:
+        </p>
+        <ul>
+          <li>Alert when median build time crosses an agreed threshold.</li>
+          <li>Track cache hit rates over time.</li>
+          <li>Watch queue time to know when to add more runners.</li>
+        </ul>
+
+        <blockquote>
+          The team that ships faster learns faster.
+        </blockquote>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Jutellane Solutions — DevSecOps, Cloud &amp; Sustainability.</p>
+    </div>
+  </footer>
+</body>
+</html>

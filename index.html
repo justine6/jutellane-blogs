@@ -1,211 +1,488 @@
 <!doctype html>
 <html lang="en">
-<head> <link rel="icon" href="/jutellane-blogs/assets/css/favicon.ico?v=2">
+<head>
+  <!-- Legacy favicon path for safety (GitHub Pages / project path) -->
+  <link rel="icon" href="/jutellane-blogs/assets/css/favicon.ico?v=2">
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jutellane Blogs</title>
-  <meta name="description" content="Thoughts on AWS, security, startups, and cloud craftsmanship." />
-  <link rel="alternate" type="application/rss+xml" title="Jutellane Blogs RSS" href="feed.xml" />
-  <!-- Favicon (project page path-safe: no leading slash) -->
+
+  <title>Welcome 👋 | Justine Longla T. DevOps Blog</title>
+  <meta
+    name="description"
+    content="DevSecOps, Cloud, and Sustainability notes from Justine Longla T. — practical patterns from real systems."
+  />
+  <meta name="tags" content="devops, cloud, aws, security, automation, static-sites" />
+
+  <!-- RSS feed -->
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Justine Longla T. DevOps Blog RSS"
+    href="feed.xml"
+  />
+
+  <!-- Favicon (path-safe for project root) -->
   <link rel="icon" href="assets/css/favicon.ico" sizes="any" />
+
   <style>
     :root{
-      --bg:#ffffff; --fg:#0f172a; --muted:#475569; --card:#f8fafc; --chip:#e2e8f0; --link:#2563eb; --br:14px; --max:860px
+      --bg:#ffffff;
+      --fg:#0f172a;
+      --muted:#475569;
+      --card:#f8fafc;
+      --chip:#e2e8f0;
+      --link:#2563eb;
+      --br:14px;
+      --max:860px;
     }
     @media (prefers-color-scheme: dark){
-      :root{ --bg:#0b1020; --fg:#e5e7eb; --muted:#93a3b8; --card:#0f162c; --chip:#1d2644; --link:#7aa3ff }
+      :root{
+        --bg:#0b1020;
+        --fg:#e5e7eb;
+        --muted:#93a3b8;
+        --card:#0f162c;
+        --chip:#1d2644;
+        --link:#7aa3ff;
+      }
     }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
-    header{border-bottom:1px solid var(--chip);background:linear-gradient(180deg, rgba(99,102,241,.12), transparent 60%)}
-    .wrap{max-width:var(--max);margin:0 auto;padding:28px 20px}
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo{width:36px;height:36px;border-radius:12px}
-    h1{font-size:clamp(22px,4vw,34px);margin:0}
-    nav a{color:var(--link);text-decoration:none;margin-left:18px;transition:all .25s ease}
-    nav a:hover{text-decoration:underline;text-shadow:0 0 6px rgba(59,130,246,.5)}
-    .sub{color:var(--muted);margin-top:6px}
-    .controls{display:flex;gap:10px;align-items:center;margin:18px 0 10px}
-    .search{flex:1;padding:12px;border:1px solid var(--chip);background:var(--card);color:var(--fg);border-radius:12px;outline:none}
-    .rss{padding:10px 14px;border-radius:12px;background:var(--card);border:1px solid var(--chip)}
-    section#posts{margin-top:12px}
-    ul.postlist{list-style:none;padding:0;margin:0;display:grid;gap:14px}
-    .post{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:var(--br);background:var(--card);border:1px solid var(--chip)}
-    .post a.title{color:var(--fg);text-decoration:none;font-weight:600}
-    .post a.title:hover{color:var(--link)}
-    .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:14px;flex-wrap:wrap}
-    .date{font-variant-numeric:tabular-nums}
-    .tags{display:flex;gap:6px;flex-wrap:wrap}
-    .tag{font-size:12px;padding:3px 8px;border-radius:999px;background:var(--chip);color:var(--fg);opacity:.9}
-    footer{margin-top:40px;border-top:1px solid var(--chip)}
-    .tiny{color:var(--muted);font-size:13px}
-    .hidden{display:none!important}
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    }
+
+    header{
+      border-bottom:1px solid var(--chip);
+      background:linear-gradient(180deg, rgba(99,102,241,.12), transparent 60%);
+    }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 20px;
+    }
+
+    /* Brand row */
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .logo{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      object-fit:contain;
+    }
+
+    h1{
+      font-size:clamp(22px,4vw,34px);
+      margin:0;
+    }
+
+    .sub{
+      color:var(--muted);
+      margin-top:4px;
+      font-size:14px;
+    }
+
+    /* Unified nav */
+    nav a{
+      color:var(--link);
+      text-decoration:none;
+      transition:all .25s ease;
+    }
+    nav a:hover{
+      text-decoration:underline;
+      text-shadow:0 0 6px rgba(59,130,246,.5);
+    }
+
+    .primary-nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      margin-top:16px;
+      flex-wrap:wrap;
+      font-size:14px;
+    }
+
+    .nav-left,
+    .nav-right{
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+    }
+
+    .nav-left a{
+      font-weight:500;
+    }
+
+    .nav-right a{
+      opacity:.9;
+    }
+
+    .nav-right a#nav-tags{
+      font-variant:small-caps;
+      letter-spacing:.02em;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin:18px 0 10px;
+    }
+
+    .search{
+      flex:1;
+      padding:12px;
+      border:1px solid var(--chip);
+      background:var(--card);
+      color:var(--fg);
+      border-radius:12px;
+      outline:none;
+    }
+
+    .rss{
+      padding:10px 14px;
+      border-radius:12px;
+      background:var(--card);
+      border:1px solid var(--chip);
+      font-size:14px;
+    }
+
+    section#posts{ margin-top:12px; }
+
+    ul.postlist{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:14px;
+    }
+
+    .post{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 16px;
+      border-radius:var(--br);
+      background:var(--card);
+      border:1px solid var(--chip);
+    }
+
+    .post a.title{
+      color:var(--fg);
+      text-decoration:none;
+      font-weight:600;
+    }
+    .post a.title:hover{
+      color:var(--link);
+    }
+
+    .meta{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      color:var(--muted);
+      font-size:14px;
+      flex-wrap:wrap;
+    }
+
+    .date{ font-variant-numeric:tabular-nums; }
+
+    .tags{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    .tag{
+      font-size:12px;
+      padding:3px 8px;
+      border-radius:999px;
+      background:var(--chip);
+      color:var(--fg);
+      opacity:.9;
+    }
+
+    footer{
+      margin-top:40px;
+      border-top:1px solid var(--chip);
+    }
+
+    .tiny{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .hidden{ display:none!important; }
 
     /* Hero section */
     .hero{
-      background:linear-gradient(90deg,#0f172a,#1e293b);
+      position:relative;
+      background:radial-gradient(circle at top, #0b1020 10%, #0f172a 80%);
       color:#f8fafc;
-      padding:2.25rem 1rem 2.75rem;
+      overflow:hidden;
       border-bottom:1px solid #1e293b;
     }
-    .hero-wrap{max-width:var(--max);margin:0 auto;text-align:center}
-    .hero img{
-      max-width:100%;
-      height:auto;
-      border-radius:10px;
-      box-shadow:0 6px 22px rgba(0,0,0,.35);
+
+    .hero-wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      text-align:center;
+      padding:4rem 1rem 3rem;
+      position:relative;
+      z-index:1;
     }
-    .hero h2{margin:.9rem 0 .35rem;font-size:clamp(20px,3.5vw,28px)}
-    .hero p{margin:.25rem 0 0;color:#94a3b8}
+
+    .hero-background{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:0.25;
+      filter:blur(6px) brightness(0.8);
+      z-index:0;
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:72px;
+      height:72px;
+      border-radius:9999px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(148,163,184,0.35);
+      margin-bottom:1rem;
+    }
+
+    .hero-badge img{
+      width:48px;
+      height:48px;
+      object-fit:contain;
+    }
+
+    .hero-title{
+      font-size:clamp(24px,3.5vw,36px);
+      margin:.75rem 0 .4rem;
+    }
+
+    .hero-sub{
+      color:#cbd5e1;
+      font-size:1.05rem;
+    }
   </style>
-<link rel="stylesheet" href="/_data/cards.css" />
+
+  <!-- Card styles reused from public/_data -->
+  <link rel="stylesheet" href="/_data/cards.css" />
 </head>
 <body>
-  
-  <header>
-    <div class="wrap brand">
+
+<header>
+  <div class="wrap">
+
+    <!-- Brand -->
+    <div class="brand" style="display:flex; align-items:center; gap:14px;">
       <img
         class="logo"
-        src="assets/img/logo.png"
-        alt="Jutellane logo"
+        src="/assets/img/logo.png"
+        alt="Justine Longla T. personal logo"
         width="40"
         height="40"
-        style="border-radius:8px;object-fit:contain;"
+        style="border-radius:8px; object-fit:contain;"
       />
       <div>
-        <h1>Jutellane Blogs</h1>
-        <div class="sub">AWS, Security, Startups — practical notes and patterns.</div>
+        <h1 style="margin:0; font-size:1.35rem;">
+          Justine Longla T. DevOps Blog
+        </h1>
+        <div class="sub" style="margin:2px 0 0; color:var(--muted); font-size:0.9rem;">
+          DevSecOps • Cloud • Sustainability — practical notes and experiments.
+        </div>
       </div>
-      <nav style="margin-left:auto">
-        <a href="feed.xml">RSS</a>
-        <a href="sitemap.xml">Sitemap</a>
-        <a href="tags/" id="nav-tags">Tags</a>
-        <a href="https://github.com/justine6/jutellane-blogs">GitHub</a>
-      </nav>
     </div>
-  </header>
+
+    <!-- Unified Navigation -->
+    <nav class="primary-nav"
+         aria-label="Primary"
+         style="
+           display:flex;
+           justify-content:space-between;
+           align-items:center;
+           margin-top:18px;
+           padding-top:12px;
+           border-top:1px solid var(--chip);
+         ">
+      
+      <!-- Left side: main pages -->
+      <div class="nav-left" style="display:flex; gap:18px;">
+        <a href="/"         >Home</a>
+        <a href="/blog/"    >All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+        <a href="/docs/"    >Automation Toolkit</a>
+      </div>
+
+      <!-- Right side: utilities -->
+      <div class="nav-right" style="display:flex; gap:18px;">
+        <a href="/feed.xml"     >RSS</a>
+        <a href="/sitemap.xml"  >Sitemap</a>
+        <a href="/tags/"        id="nav-tags">Tags</a>
+        <a href="https://github.com/justine6/jutellane-blogs"
+           target="_blank"
+           rel="noopener">
+          GitHub
+        </a>
+      </div>
+
+    </nav>
+
+  </div>
+</header>
 
 
-<section class="hero" style="
-  position: relative;
-  background: radial-gradient(circle at top, #0b1020 10%, #0f172a 80%);
-  color: #f8fafc;
-  overflow: hidden;
-  border-bottom: 1px solid #1e293b;
-">
-  <!-- Background logo -->
-  <img
-    src="assets/img/logo.png"
-    alt="Jutellane Logo"
-    loading="eager"
-    decoding="async"
-    style="
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.25;
-      filter: blur(6px) brightness(0.8);
-      z-index: 0;
-    "
-  />
+  <!-- Hero with blurred shield in the background -->
+  <section class="hero">
+    <img
+      src="assets/img/logo.png"
+      alt="Justine Longla T. DevOps Blog background"
+      class="hero-background"
+      loading="eager"
+      decoding="async"
+    />
 
-    <div class="hero-wrap" style="position: relative; z-index: 1; text-align: center; padding: 4rem 1rem;">
-      <!-- Small badge -->
-      <div style="
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 72px;
-        height: 72px;
-        border-radius: 9999px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(148, 163, 184, 0.25);
-        margin-bottom: 1rem;
-      ">
+    <div class="hero-wrap">
+      <div class="hero-badge">
         <img
           src="assets/img/logo.png"
-          alt="Jutellane Blogs"
-          width="48"
-          height="48"
-          style="object-fit: contain;"
+          alt="Justine Longla T. logo badge"
         />
       </div>
 
-      <h2 style="font-size: clamp(24px, 3.5vw, 36px); margin: 0.75rem 0 0.5rem;">
-        Jutellane Blogs
-      </h2>
-      <p style="color: #cbd5e1; font-size: 1.05rem;">
-        DevSecOps • Cloud • Sustainability
+      <h2 class="hero-title">Welcome to the Justine Longla T. DevOps Blog</h2>
+      <p class="hero-sub">
+        Deep dives on reproducible environments, observability, secure delivery,
+        and sustainable cloud systems.
       </p>
     </div>
   </section>
 
-   container>
+  <main class="wrap">
     <div class="controls">
-      <input id="q" class="search" type="search" placeholder="Search posts (title or tag)..." autocomplete="off" />
+      <input
+        id="q"
+        class="search"
+        type="search"
+        placeholder="Search posts (title or tag)…"
+        autocomplete="off"
+      />
       <a class="rss" href="feed.xml" title="RSS">Subscribe</a>
     </div>
 
     <section id="posts">
       <h2 class="tiny" style="margin:0 0 8px 2px;">Latest posts</h2>
       <!-- posts:start -->
-      <ul class="postlist"><!-- Fallback list gets replaced if posts.json is available --></ul>
+      <ul class="postlist">
+        <!-- Fallback list gets replaced if posts.json is available -->
+      </ul>
       <!-- posts:end -->
     </section>
 
-    <footer class="wrap" style="padding:14px 0">
-      <div class="tiny">© <span id="y"></span> Jutellane. Built with PowerShell & GitHub Pages.</div>
+    <footer style="padding:14px 0">
+      <div class="tiny">
+        © <span id="y"></span>
+        <strong>Justine Longla T.</strong> · DevSecOps • Cloud • Sustainability
+        <br />
+        Operating under Jutellane Solutions. Built with PowerShell &amp; GitHub Pages.
+      </div>
     </footer>
   </main>
 
   <script>
-    // nav highlight
+    // Highlight tags nav when on /tags
     const path = window.location.pathname;
-    if (path.includes("/tags")) document.getElementById("nav-tags")?.classList.add("active");
-
-    // helpers
-    const $ = s => document.querySelector(s);
-    const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
-
-    // render posts
-    function render(list){
-      const ul = document.createElement('ul'); ul.className = 'postlist';
-      list.forEach(p=>{
-        const li = document.createElement('li'); li.className = 'post';
-        const left = document.createElement('div');
-        const title = document.createElement('a'); title.className='title'; title.href=p.url; title.textContent=p.title;
-        const meta = document.createElement('div'); meta.className='meta';
-        const date = document.createElement('span'); date.className='date'; date.textContent=fmt(p.date);
-        const tags = document.createElement('span'); tags.className='tags';
-        (p.tags||[]).forEach(t=>{ const chip=document.createElement('span'); chip.className='tag'; chip.textContent=t; tags.appendChild(chip); });
-        meta.append(date,tags); left.append(title,meta); li.append(left); ul.append(li);
-      });
-      document.querySelector('#posts .postlist').replaceWith(ul);
+    if (path.includes("/tags")) {
+      document.getElementById("nav-tags")?.classList.add("active");
     }
 
-    // load posts.json if available
-    fetch('posts.json',{cache:'no-store'})
-      .then(r=>r.ok?r.json():Promise.reject())
-      .then(render)
-      .catch(()=>{ /* keep fallback */ });
+    // Helpers
+    const $ = s => document.querySelector(s);
+    const fmt = d =>
+      new Date(d + "T00:00:00").toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      });
 
-    // search
-    const input = $('#q');
-    input?.addEventListener('input', ()=>{
+    // Render posts list
+    function render(list) {
+      const ul = document.createElement("ul");
+      ul.className = "postlist";
+
+      list.forEach(p => {
+        const li = document.createElement("li");
+        li.className = "post";
+
+        const left = document.createElement("div");
+
+        const title = document.createElement("a");
+        title.className = "title";
+        title.href = p.url;
+        title.textContent = p.title;
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+
+        const date = document.createElement("span");
+        date.className = "date";
+        date.textContent = fmt(p.date);
+
+        const tags = document.createElement("span");
+        tags.className = "tags";
+        (p.tags || []).forEach(t => {
+          const chip = document.createElement("span");
+          chip.className = "tag";
+          chip.textContent = t;
+          tags.appendChild(chip);
+        });
+
+        meta.append(date, tags);
+        left.append(title, meta);
+        li.append(left);
+        ul.append(li);
+      });
+
+      document.querySelector("#posts .postlist").replaceWith(ul);
+    }
+
+    // Load posts.json if available
+    fetch("posts.json", { cache: "no-store" })
+      .then(r => (r.ok ? r.json() : Promise.reject()))
+      .then(render)
+      .catch(() => {
+        // keep fallback
+      });
+
+    // Search filter
+    const input = $("#q");
+    input?.addEventListener("input", () => {
       const q = input.value.trim().toLowerCase();
-      document.querySelectorAll('.post').forEach(li=>{
+      document.querySelectorAll(".post").forEach(li => {
         const text = li.innerText.toLowerCase();
-        li.classList.toggle('hidden', q && !text.includes(q));
+        li.classList.toggle("hidden", q && !text.includes(q));
       });
     });
 
-    // year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Year in footer
+    document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
-

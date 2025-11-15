@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Automation Toolkit for Justine Longla T. — DevOps Engineering</title>
+
+</head>
+<head>
+  <meta charset="utf-8" />
+  <title>Automation Toolkit for Justine Longla T. — Justine Longla T. DevOps Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <meta
+    name="description"
+    content="One place for all of Justine Longla T.’s DevOps automation scripts — PowerShell helpers that keep the blog, docs, and projects fast, safe, and reproducible."
+  />
+  <meta
+    name="tags"
+    content="automation, powershell, tooling, blogging, devops, static-sites"
+  />
+
+  <!-- Global blog styles -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+
+
+  <!-- Page-local styling -->
+  <style>
+    .docs-hero {
+      padding: 3.5rem 1.5rem 2.5rem;
+      background: radial-gradient(circle at top left, #0ea5e9 0, #0f172a 45%, #020617 100%);
+      color: #e5f4ff;
+    }
+    .docs-hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1.5rem;
+    }
+    .docs-hero-eyebrow {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      opacity: .8;
+    }
+    .docs-hero h1 {
+      font-size: clamp(2.1rem, 3vw, 2.6rem);
+      margin: .35rem 0 .75rem;
+    }
+    .docs-hero p {
+      margin: 0;
+      max-width: 36rem;
+      color: #dbeafe;
+    }
+    .docs-hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem 1.25rem;
+      font-size: .82rem;
+      margin-top: 1rem;
+      opacity: .9;
+    }
+    .badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-size: .75rem;
+      background: rgba(15, 23, 42, .65);
+      border: 1px solid rgba(148, 163, 184, .4);
+    }
+
+    .docs-hero-actions {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+    .print-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem .85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(191, 219, 254, .9);
+      background: rgba(15, 23, 42, .85);
+      color: #e5f4ff;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .print-cta:hover {
+      background: #020617;
+    }
+    .print-cta span.icon {
+      font-size: .9rem;
+    }
+    .print-note {
+      font-size: .8rem;
+      opacity: .85;
+    }
+
+    .docs-main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3.5rem;
+    }
+    .docs-layout {
+      display: grid;
+      gap: 2.5rem;
+    }
+    @media (min-width: 880px) {
+      .docs-layout {
+        grid-template-columns: minmax(0,2fr) minmax(0,1.2fr);
+        align-items: flex-start;
+      }
+    }
+
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: .35rem;
+    }
+    .section-sub {
+      font-size: .9rem;
+      color: #64748b;
+      margin-bottom: 1.2rem;
+    }
+
+    .tool-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    .tool-card {
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      background: #f8fafc;
+      padding: 1rem 1rem .9rem;
+      box-shadow: 0 10px 30px rgba(15,23,42,.04);
+      page-break-inside: avoid;
+    }
+    .tool-card h3 {
+      font-size: .98rem;
+      margin: 0 0 .25rem;
+    }
+    .tool-kind {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: #94a3b8;
+      margin-bottom: .2rem;
+    }
+    .tool-desc {
+      font-size: .88rem;
+      color: #475569;
+      margin: 0 0 .6rem;
+    }
+    .tool-path {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: .78rem;
+      padding: .25rem .5rem;
+      border-radius: 999px;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .code-cheats {
+      font-size: .86rem;
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      page-break-inside: avoid;
+    }
+    .code-cheats h3 {
+      font-size: .96rem;
+      margin-top: 0;
+      margin-bottom: .4rem;
+    }
+    .code-cheats pre {
+      margin: .3rem 0;
+      padding: .35rem .6rem;
+      border-radius: .6rem;
+      background: #020617;
+      overflow-x: auto;
+      font-size: .8rem;
+    }
+
+    .docs-footer-note {
+      margin-top: 2.25rem;
+      font-size: .8rem;
+      color: #94a3b8;
+    }
+
+    /* ---------- Print-friendly mode ---------- */
+    @media print {
+      /* No background gradients; black on white for the printer */
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+
+      .site-header,
+      .site-footer,
+      .docs-hero-actions {
+        border: 0;
+        box-shadow: none;
+      }
+
+      .docs-hero {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 1.5rem 0 1rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .docs-hero p,
+      .docs-hero-meta .badge-soft {
+        color: #111827 !important;
+        border-color: #d1d5db !important;
+        background: #f9fafb !important;
+      }
+
+      /* Hide interactive-only elements */
+      .print-cta {
+        display: none !important;
+      }
+
+      /* Single-column layout for readability */
+      .docs-main {
+        padding: 1.5rem 0 0;
+      }
+      .docs-layout {
+        display: block;
+      }
+      .docs-layout > * {
+        margin-bottom: 2rem;
+      }
+
+      .tool-card {
+        background: #ffffff;
+        box-shadow: none;
+      }
+      .code-cheats {
+        background: #ffffff;
+        color: #000000;
+        border: 1px solid #e5e7eb;
+      }
+      .code-cheats pre {
+        background: #f9fafb;
+      }
+
+      .docs-footer-note {
+        color: #4b5563;
+      }
+
+      /* Header/footer smaller on paper */
+      .site-header .brand-title,
+      .site-footer .brand-title {
+        font-size: .9rem;
+      }
+      .site-nav a,
+      .footer-nav a {
+        font-size: .8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Hero -->
+  <section class="docs-hero">
+    <div class="docs-hero-inner">
+      <div>
+        <p class="docs-hero-eyebrow">Automation · PowerShell · HTML</p>
+        <h1>Automation Toolkit for Justine Longla T.</h1>
+        <p class="lead">
+          A living collection of DevSecOps automation scripts used by Justine Longla T. —
+          keeping blogs, docs, and project sites fast, safe, reproducible, and effortless to maintain.
+        </p>
+        <div class="docs-hero-meta">
+          <span class="badge-soft">Built with PowerShell</span>
+          <span class="badge-soft">Static HTML&nbsp;+ automation</span>
+          <span class="badge-soft">Last updated 2025</span>
+        </div>
+
+        <div class="docs-hero-actions">
+          <button type="button" class="print-cta" onclick="window.print()">
+            <span class="icon">🖨️</span>
+            <span>Print cheatsheet / Save as PDF</span>
+          </button>
+          <span class="print-note">
+            Tip: In the print dialog, choose <strong>“Save as PDF”</strong> to keep a digital copy.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="content" class="docs-main">
+    <div class="docs-layout">
+      <!-- Left: tools catalog -->
+      <section>
+        <h2 class="section-heading">Core tools</h2>
+        <p class="section-sub">
+          These scripts live under <code>.\tools\</code> and are designed to be idempotent,
+          safe to re-run, and friendly for future contributors.
+        </p>
+
+        <div class="tool-grid">
+          <article class="tool-card">
+            <div class="tool-kind">Content</div>
+            <h3><code>tools\Add-Post.ps1</code></h3>
+            <p class="tool-desc">
+              Adds a new post skeleton in <code>posts\YEAR\MM\slug\index.html</code>, wired
+              to the unified layout and card grid.
+            </p>
+            <span class="tool-path">pwsh .\tools\Add-Post.ps1</span>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-kind">Automation</div>
+            <h3><code>tools\find-post.ps1</code></h3>
+            <p class="tool-desc">
+              Quick search by slug; opens the exact post folder so you never edit the wrong copy.
+            </p>
+            <span class="tool-path">pwsh .\tools\find-post.ps1 new-devops-insights -Open</span>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-kind">Quality</div>
+            <h3><code>tools\check-slugs.ps1</code></h3>
+            <p class="tool-desc">
+              Scans all posts and projects to make sure slugs are unique and match the
+              <code>[a-z0-9-]</code> pattern.
+            </p>
+            <span class="tool-path">pwsh .\tools\check-slugs.ps1</span>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-kind">Quality</div>
+            <h3><code>tools\check-missing-tags.ps1</code></h3>
+            <p class="tool-desc">
+              Finds posts missing <code>&lt;meta name="tags"&gt;</code> and suggests tags
+              based on existing content.
+            </p>
+            <span class="tool-path">pwsh .\tools\check-missing-tags.ps1</span>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-kind">Quality</div>
+            <h3><code>tools\fix-missing-tags.ps1</code></h3>
+            <p class="tool-desc">
+              Applies the suggested tags, creates backups, and keeps metadata consistent.
+            </p>
+            <span class="tool-path">pwsh .\tools\fix-missing-tags.ps1</span>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-kind">Safety</div>
+            <h3><code>tools\Safe-Rebase.ps1</code></h3>
+            <p class="tool-desc">
+              Guarded rebase: checks for a clean working tree, creates a backup branch,
+              then rebases safely.
+            </p>
+            <span class="tool-path">pwsh .\tools\Safe-Rebase.ps1</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- Right: quick cheats + build -->
+      <aside>
+        <h2 class="section-heading">Quick runbook</h2>
+        <p class="section-sub">
+          The minimal commands you need on a normal content day.
+        </p>
+
+        <div class="code-cheats">
+          <h3>Create &amp; find posts</h3>
+          <pre><code>pwsh .\tools\Add-Post.ps1</code></pre>
+          <pre><code>pwsh .\tools\find-post.ps1 new-devops-insights -Open</code></pre>
+
+          <h3>Validate content</h3>
+          <pre><code>pwsh .\tools\check-slugs.ps1</code></pre>
+          <pre><code>pwsh .\tools\check-missing-tags.ps1</code></pre>
+          <pre><code>pwsh .\tools\fix-missing-tags.ps1</code></pre>
+
+          <h3>Build &amp; preview</h3>
+          <pre><code>pwsh .\scripts\build-serve.ps1</code></pre>
+        </div>
+
+        <p class="docs-footer-note">
+          This page is meant to be printed, screenshotted, or shared with collaborators who
+          want to understand how Justine Longla T.’s automation workflow works without reading the code.
+        </p>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Unified footer -->
+  <footer class="site-footer" id="jl-footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <a class="brand small" href="/">
+          <img class="brand-logo small" src="/logo.png" alt="Justine Longla T. logo" />
+          <span class="brand-title small">Justine Longla T.</span>
+        </a>
+
+        <p class="copyright">
+          © <span id="y"></span> <strong>Justine Longla T.</strong>
+          · DevSecOps • Cloud • Sustainability
+          <br />
+          Operating under <span class="muted">Jutellane Solutions</span>.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/blog/">Blog</a>
+        <a href="/projects/">Projects</a>
+        <a href="/docs/">Automation Toolkit</a>
+      </nav>
+    </div>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>

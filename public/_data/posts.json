@@ -40,19 +40,6 @@
     "kind": "post"
   },
   {
-    "title": "new-devops-insights",
-    "description": "Reflections from real-world pipelines, outages, and continuous improvement.",
-    "tags": [
-      "devops",
-      "culture",
-      "pipelines",
-      "reliability"
-    ],
-    "url": "/posts/2025/11/new-devops-insights/",
-    "slug": "new-devops-insights",
-    "kind": "post"
-  },
-  {
     "title": "Kubernetes 101",
     "description": "A practical introduction to Kubernetes: pods, nodes, services, and why orchestration matters for real-world workloads.",
     "tags": [
@@ -142,8 +129,16 @@
   },
   {
     "title": "New DevOps Insights",
-    "description": "Jutellane Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
+    "description": "New DevOps Insights is a living stream of lessons from real pipelines, outages, and experiments — exploring Cloud, DevOps, AI, and sustainability with Jutellane.",
+    "tags": [
+      "devops",
+      "cloud",
+      "automation",
+      "observability",
+      "ai",
+      "sustainability",
+      "culture"
+    ],
     "url": "/posts/2025/10/new-devops-insights/",
     "slug": "new-devops-insights",
     "kind": "post"

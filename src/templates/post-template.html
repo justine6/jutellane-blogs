@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>__TITLE__ — Justine Longla T. DevOps Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO meta -->
+  <meta name="description" content="__DESCRIPTION__" />
+  <meta name="tags" content="__TAGS__" />
+  <meta name="author" content="Justine Longla T." />
+
+  <!-- Global blog styles -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <!-- Compact post hero styling (hybrid C) -->
+  <style>
+    .post-hero {
+      background: linear-gradient(90deg, #0f172a, #1e293b);
+      color: #f8fafc;
+      padding: 1.5rem 1rem 1.7rem;
+      border-bottom: 1px solid #111827;
+    }
+    .post-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .post-hero-kicker {
+      margin: 0 0 .25rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+    }
+    .post-hero-title {
+      margin: 0 0 .4rem;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.2;
+    }
+    .post-hero-meta {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    /* Make sure the main container lines up with the hero */
+    main.container.prose {
+      max-width: 860px;
+      margin: 1.75rem auto 3rem;
+      padding: 0 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- Site header with unified navigation -->
+  <header>
+    <div class="wrap">
+      <!-- Brand row -->
+      <div class="brand">
+        <img
+          class="logo"
+          src="/assets/img/logo.png"
+          alt="Justine Longla T. personal logo"
+        />
+        <div>
+          <h1>Justine Longla T. DevOps Blog</h1>
+          <div class="sub">
+            DevSecOps • Cloud • Sustainability — practical notes and experiments.
+          </div>
+        </div>
+      </div>
+
+      <!-- Unified navigation -->
+      <nav class="primary-nav" aria-label="Primary">
+        <div class="nav-left">
+          <a href="/">Home</a>
+          <a href="/blog/">All Blog Posts</a>
+          <a href="/projects/">Projects</a>
+          <a href="/docs/">Automation Toolkit</a>
+        </div>
+        <div class="nav-right">
+          <a href="/feed.xml">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/tags/" id="nav-tags">Tags</a>
+          <a href="https://github.com/justine6/jutellane-blogs">GitHub</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Compact hero for each post -->
+  <section class="post-hero">
+    <div class="post-hero-inner">
+      <p class="post-hero-kicker">DevSecOps • Cloud • Sustainability</p>
+      <h1 class="post-hero-title">__TITLE__</h1>
+      <p class="post-hero-meta">
+        By Justine Longla · __READTIME__ min read ·
+        <time datetime="__DATE_ISO__">__DATE_HUMAN__</time>
+      </p>
+    </div>
+  </section>
+
+  <!-- Main article body -->
+  <main id="content" class="container prose">
+    <!--
+      Start writing your post content here.
+
+      You can remove this placeholder block after you paste in your article.
+    -->
+    <p><em>Replace this paragraph with your introduction for “__TITLE__”.</em></p>
+    <h2>Why this topic matters</h2>
+    <p>
+      Use this section to set context: the problem, the system, or the story
+      behind this post.
+    </p>
+    <h2>Deep dive</h2>
+    <p>
+      Add architecture diagrams, code snippets, and step-by-step reasoning.
+    </p>
+    <h2>What you can reuse tomorrow</h2>
+    <p>
+      Close with patterns, checklists, or commands your future self (and
+      readers) can copy-paste into real systems.
+    </p>
+  </main>
+
+  <script>
+    // Highlight "Tags" when we're on any /tags/ page
+    const path = window.location.pathname;
+    if (path.includes("/tags")) {
+      document.getElementById("nav-tags")?.classList.add("active");
+    }
+  </script>
+</body>
+</html>

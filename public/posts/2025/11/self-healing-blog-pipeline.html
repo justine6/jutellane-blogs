@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Self-Healing Blog Pipeline — Justine Longla T. DevOps Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <meta name="description"
+        content="How automated validation, structural checks, and regeneration scripts keep your static blog fast, predictable, and error-free." />
+  <meta name="tags"
+        content="devops, automation, pipelines, validation, static-sites, deep-dive" />
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <div class="post-actions">
+  <a class="download-pdf"
+     href="/docs/deep-dives/self-healing-blog-pipeline.pdf">
+    Download PDF
+  </a>
+</div>
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a href="/" class="site-logo">
+        <img src="/assets/img/justine-logo.png" alt="logo" />
+        <span>Justine Longla T. DevOps Blog</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/blog/">Blog</a>
+        <a href="/projects/">Projects</a>
+        <a href="/tags/deep-dive/">Deep Dive Series</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container">
+    <article class="post post--deep-dive">
+      <header class="post-header">
+        <p class="post-tag">Deep Dive</p>
+        <h1>Self-Healing Blog Pipeline</h1>
+        <p class="post-excerpt">
+          Modern engineering teams rely on automation that repairs itself.
+          A self-healing pipeline is not just a convenience — it's a guarantee
+          that your publishing workflow stays stable as your system evolves.
+        </p>
+        <p class="post-meta">
+          Published 12 November 2025 · DevOps · Automation
+        </p>
+        <figure class="post-hero">
+          <img src="/assets/img/self-healing.png" alt="Self-Healing Blog Pipeline" />
+        </figure>
+      </header>
+
+      <div class="post-body">
+        <h2>Automatic Structure Validation</h2>
+        <p>
+          Every change to the blog first passes through a lightweight structural check:
+        </p>
+        <ul>
+          <li>Posts live in a predictable <code>posts/YYYY/MM/slug</code> structure.</li>
+          <li>Front-matter fields like <code>title</code>, <code>date</code>, <code>tags</code> and <code>description</code> are required.</li>
+          <li>Tag index pages are regenerated when new tags appear.</li>
+          <li>Assets stay under <code>/public/assets/img</code> with stable, card-friendly file names.</li>
+        </ul>
+        <p>
+          This prevents malformed entries from silently slipping into production.
+        </p>
+
+        <h2>Regenerating Indexes Automatically</h2>
+        <p>
+          A small Node script rebuilds the pieces that humans should never touch by hand:
+        </p>
+        <ul>
+          <li>Home page featured posts list</li>
+          <li>Tag indexes and Deep Dive grids</li>
+          <li>Month/year archives</li>
+        </ul>
+        <p>
+          If a post is missing from an index, the pipeline adds it automatically
+          the next time the script runs.
+        </p>
+
+        <h2>Self-Repair Rules</h2>
+        <p>
+          The pipeline doesn’t just <em>complain</em> — it fixes what it safely can:
+        </p>
+        <ul>
+          <li>Normalizes dates and slug formats.</li>
+          <li>Fixes inconsistent capitalization in titles.</li>
+          <li>Corrects common image-path mistakes.</li>
+          <li>Upgrades old patterns (like inline styles) to new conventions.</li>
+        </ul>
+
+        <h2>Dead-Link Detection</h2>
+        <p>
+          Internal links are checked for:
+        </p>
+        <ul>
+          <li>Typos in paths or slugs.</li>
+          <li>Links to removed or renamed posts.</li>
+          <li>Missing images and documents.</li>
+        </ul>
+        <p>
+          Anything broken is surfaced before you publish instead of after.
+        </p>
+
+        <h2>Why This Matters</h2>
+        <p>
+          A static blog grows quickly — dozens of posts, hundreds of assets,
+          and a forest of folders. Without automation, drift is guaranteed.
+        </p>
+        <p>
+          With a self-healing pipeline, the system constantly nudges your content
+          back into alignment. You ship quickly, but never recklessly.
+        </p>
+
+        <blockquote>
+          If you find yourself fixing the same mistake twice, automate it.
+        </blockquote>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Jutellane Solutions — DevSecOps, Cloud &amp; Sustainability.</p>
+    </div>
+  </footer>
+</body>
+</html>
