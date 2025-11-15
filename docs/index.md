@@ -22,3 +22,4 @@ summary: "Hands-on scripts and repeatable tasks."
 # Automation Guides
 
 - **PowerShell HTML Audit Automation** → `/docs/automation/powershell-html-audit`
+

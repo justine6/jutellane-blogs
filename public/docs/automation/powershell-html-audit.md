@@ -107,3 +107,4 @@ If you see 404s, ensure your `public/` directory contains an `index.html` and as
 
 > “Automation is elegance repeated—where structure meets intent.”  
 > — *Justine Longla Tekang (Jutellane Solutions)*
+

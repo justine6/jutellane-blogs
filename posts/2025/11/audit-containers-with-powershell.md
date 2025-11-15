@@ -30,3 +30,4 @@ Using a simple wrapper around:
 
 ```powershell
 docker inspect <container>
+

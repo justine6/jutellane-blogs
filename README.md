@@ -217,7 +217,7 @@ Add this step after your generator in your GitHub Actions workflow:
   - “Work with Justine” profile section with CTAs:
     - Intro call → `https://jutellane.com/booking`
     - Contact → `https://jutellane.com/contact`
-    - Résumé → `https://jutellane.com/resume.pdf`
+    - Résumé → `https://www.jutellane.com/resume.pdf`
     - Brochure → `https://jutellane.com/#brochure`
   - Hero section and “Latest writing” / “Featured projects & deep dives” cards.
 
@@ -261,4 +261,5 @@ git reset --hard REF-001
 
 # Or create a new branch from the reference
 git checkout -b fix-from-REF-001 REF-001
+
 
