@@ -201,4 +201,64 @@ Add this step after your generator in your GitHub Actions workflow:
   run: |
     pwsh ./Normalize-BlogOutput.ps1
 ```
+## Reference Checkpoints
+
+### REF-001 — Unified Footer & Homepage Stable
+
+- **Label:** `REF-001`
+- **Branch:** `main`
+- **Commit:** `73bc504` (Jutellane Blogs, unified footer & CTA wiring)  
+  > Update this hash if your latest commit ID is different.
+
+**What’s stable in this reference:**
+
+- `public/index.html` is the **canonical blog home**:
+  - Unified site header with main navigation (`Home`, `All Blog Posts`, `Projects`, `Automation Toolkit`).
+  - “Work with Justine” profile section with CTAs:
+    - Intro call → `https://jutellane.com/booking`
+    - Contact → `https://jutellane.com/contact`
+    - Résumé → `https://jutellane.com/resume.pdf`
+    - Brochure → `https://jutellane.com/#brochure`
+  - Hero section and “Latest writing” / “Featured projects & deep dives” cards.
+
+- Branded site footer is **visible and consistent**:
+  - Pulled from `src/partials/footer.html`.
+  - Shows logo, tagline, and copyright line:
+    - `© <year> Justine Longla T. · Jutellane Solutions. All rights reserved.`
+  - Footer navigation links:
+    - Main site → `https://jutellane.com/`
+    - Projects → `https://jutellane.com/projects`
+    - Deep-dive blog → `https://jutellane.com/blog`
+    - Contact → `https://jutellane.com/contact`
+  - Year is auto-updated via `#footer-year` script.
+
+- Header/CTA links are **synced between**:
+  - `public/index.html`
+  - `src/partials/header.html`
+
+**Why this reference matters**
+
+This checkpoint is a known-good state where:
+
+- DNS + Vercel deployment for `blogs.jutellane.com` is healthy.
+- Homepage layout, CTAs, and footer integration are all working in production.
+- It is safe to branch from here for:
+  - New posts and project pages
+  - Layout refinements
+  - Automation / tooling changes
+
+**How to roll back to this reference**
+
+If a future change breaks the layout or navigation:
+
+```bash
+# View this reference
+git show REF-001
+
+# Reset local branch to the reference (destructive)
+git checkout main
+git reset --hard REF-001
+
+# Or create a new branch from the reference
+git checkout -b fix-from-REF-001 REF-001
 
