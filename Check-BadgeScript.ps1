@@ -21,7 +21,7 @@ $repos = @(
     Owner           = 'justine6'
     Repo            = 'Jutellane-Solutions'
     Workflow        = 'deploy.yml'
-    DefaultSiteUrl  = 'https://jutellane.com'
+    DefaultSiteUrl  = 'https://justinelonglat-lane.com'
     DefaultBlogUrl  = 'https://justine6.github.io/jutellane-blogs'
   }
 )
@@ -81,3 +81,4 @@ foreach ($r in $repos) {
 }
 
 Write-Host "`nAll done. If all checks are ✅, you’re ready to run with -AutoRun to apply changes." -ForegroundColor Cyan
+

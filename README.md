@@ -100,7 +100,7 @@ This script stashes your current work, rebases your branch onto the latest `main
 # ---------------------------------------------------------
 # Purpose: Handles "non-fast-forward" errors automatically
 # Usage  : Run anytime your 'git push' is rejected
-# Author : Jutellane Solutions DevOps Workflow
+# Author : JustineLonglaT-Lane Consulting DevOps Workflow
 # ---------------------------------------------------------
 
 Write-Host "🔄 Saving, rebasing, and pushing..." -ForegroundColor Cyan
@@ -207,7 +207,7 @@ Add this step after your generator in your GitHub Actions workflow:
 
 - **Label:** `REF-001`
 - **Branch:** `main`
-- **Commit:** `73bc504` (Jutellane Blogs, unified footer & CTA wiring)  
+- **Commit:** `73bc504` (JustineLonglaT-Lane Blogs, unified footer & CTA wiring)  
   > Update this hash if your latest commit ID is different.
 
 **What’s stable in this reference:**
@@ -215,21 +215,21 @@ Add this step after your generator in your GitHub Actions workflow:
 - `public/index.html` is the **canonical blog home**:
   - Unified site header with main navigation (`Home`, `All Blog Posts`, `Projects`, `Automation Toolkit`).
   - “Work with Justine” profile section with CTAs:
-    - Intro call → `https://jutellane.com/booking`
-    - Contact → `https://jutellane.com/contact`
-    - Résumé → `https://www.jutellane.com/resume.pdf`
-    - Brochure → `https://jutellane.com/#brochure`
+    - Intro call → `https://justinelonglat-lane.com/booking`
+    - Contact → `https://justinelonglat-lane.com/contact`
+    - Résumé → `https://justinelonglat-lane.com/resume.pdf`
+    - Brochure → `https://justinelonglat-lane.com/#brochure`
   - Hero section and “Latest writing” / “Featured projects & deep dives” cards.
 
 - Branded site footer is **visible and consistent**:
   - Pulled from `src/partials/footer.html`.
   - Shows logo, tagline, and copyright line:
-    - `© <year> Justine Longla T. · Jutellane Solutions. All rights reserved.`
+    - `© <year> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.`
   - Footer navigation links:
-    - Main site → `https://jutellane.com/`
-    - Projects → `https://jutellane.com/projects`
-    - Deep-dive blog → `https://jutellane.com/blog`
-    - Contact → `https://jutellane.com/contact`
+    - Main site → `https://justinelonglat-lane.com/`
+    - Projects → `https://justinelonglat-lane.com/projects`
+    - Deep-dive blog → `https://justinelonglat-lane.com/blog`
+    - Contact → `https://justinelonglat-lane.com/contact`
   - Year is auto-updated via `#footer-year` script.
 
 - Header/CTA links are **synced between**:
@@ -261,5 +261,54 @@ git reset --hard REF-001
 
 # Or create a new branch from the reference
 git checkout -b fix-from-REF-001 REF-001
+
+
+# JustineLonglaT-Lane Automation Toolkit
+
+A growing collection of small, reliable scripts that keep my static sites,
+blog content, and reference documentation in sync.
+
+Each script lives under `scripts/` with a matching description under
+`docs/script_descriptions/`.
+
+## Scripts
+
+### 1. Add-Post.ps1
+- **Purpose:** Scaffold a new blog post (folder, HTML/MDX/JSON, metadata).
+- **Docs:** `docs/script_descriptions/Add-Post.md`
+
+### 2. Find-Post.ps1
+- **Purpose:** Quickly search for posts by title, slug, or tags.
+- **Docs:** `docs/script_descriptions/Find-Post.md`
+
+### 3. Check-Tags.ps1
+- **Purpose:** Validate tags across posts to keep taxonomy clean and avoid duplicates.
+- **Docs:** `docs/script_descriptions/Check-Tags.md`
+
+### 4. git-suture.ps1
+- **Purpose:** Safely stage, commit, push, and optionally tag all modified files.
+- **Docs:** `docs/script_descriptions/Git-Suture.md`
+
+---
+
+## Usage pattern
+
+From the repo root:
+
+```powershell
+# Add a new post
+pwsh ./scripts/Add-Post.ps1 -Title "My New Deep Dive"
+
+# Find a post by slug fragment
+pwsh ./scripts/Find-Post.ps1 -Query "reproducible-environments"
+
+# Check tags across posts
+pwsh ./scripts/Check-Tags.ps1
+
+# Suture and tag a reference state
+pwsh ./scripts/git-suture.ps1 `
+  -Message "style: align hero + logo branding" `
+  -Tag "v-hero-branding-ref" `
+  -TagMessage "Reference state for hero/logo look"
 
 

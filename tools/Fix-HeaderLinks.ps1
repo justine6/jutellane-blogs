@@ -2,10 +2,10 @@ param(
   [string]$Root = "."
 )
 
-$Intro    = "https://jutellane.com/booking"
-$Contact  = "https://jutellane.com/contact"
-$Resume   = "https://jutellane.com/resume.pdf"
-$Brochure = "https://jutellane.com/files/brochure.pdf"
+$Intro    = "https://justinelonglat-lane.com/booking"
+$Contact  = "https://justinelonglat-lane.com/contact"
+$Resume   = "https://justinelonglat-lane.com/resume.pdf"
+$Brochure = "https://justinelonglat-lane.com/files/brochure.pdf"
 
 Write-Host "› Updating header links under $Root\public ..." -ForegroundColor Cyan
 
@@ -24,3 +24,4 @@ Get-ChildItem -Path (Join-Path $Root "public") -Recurse -Filter *.html -File | F
     Write-Host "✓ Patched $path" -ForegroundColor Green
   }
 }
+

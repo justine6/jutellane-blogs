@@ -8,7 +8,7 @@ date: 2025-11-12
 # 🧩 PowerShell HTML Audit Automation
 
 Automate the verification and correction of HTML structures using PowerShell, regex, and Node.js for static-site consistency.  
-This documentation is part of the Jutellane DevOps toolkit.
+This documentation is part of the JustineLonglaT-Lane DevOps toolkit.
 
 ---
 
@@ -52,7 +52,7 @@ Select-String -Path $files.FullName `
 
 The following PowerShell script safely adds `class="container"` to any `<main>` tags that are missing it, while creating backups for each file.
 
-(See the full script in the [blog post](https://blogs.jutellane.com/posts/2025/11/audit-containers-with-powershell))
+(See the full script in the [blog post](https://blogs.justinelonglat-lane.com/posts/2025/11/audit-containers-with-powershell))
 
 ---
 
@@ -98,13 +98,15 @@ If you see 404s, ensure your `public/` directory contains an `index.html` and as
 
 ## 📎 Links & Resources
 
-- 🔗 [Full Blog Post](https://blogs.jutellane.com/posts/2025/11/audit-containers-with-powershell)
-- 🌐 [Main Site](https://jutellane.com)
-- 📘 [Docs](https://docs.jutellane.com)
-- 📅 [Booking Page](https://projects.jutellane.com/booking)
+- 🔗 [Full Blog Post](https://blogs.justinelonglat-lane.com/posts/2025/11/audit-containers-with-powershell)
+- 🌐 [Main Site](https://justinelonglat-lane.com)
+- 📘 [Docs](https://docs.justinelonglat-lane.com)
+- 📅 [Booking Page](https://consulting.justinelonglat-lane.com/booking)
 
 ---
 
 > “Automation is elegance repeated—where structure meets intent.”  
-> — *Justine Longla Tekang (Jutellane Solutions)*
+> — *Justine Longla Tekang (JustineLonglaT-Lane Consulting)*
+
+
 

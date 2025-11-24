@@ -22,7 +22,7 @@ $replacements = @(
   @{ From = "Jutellane Blogs";  To = "Justine Longla T. — DevOps Blog"; },
   @{ From = "Jutellane Blog";   To = "Justine Longla T. — DevOps Blog"; },
   @{ From = "Jutellane Docs";   To = "Justine Longla — DevOps Toolkit"; },
-  @{ From = "Jutellane Solutions"; To = "Justine Longla T."; }
+  @{ From = "JustineLonglaT-Lane Consulting"; To = "Justine Longla T."; }
 )
 
 # 3) Also catch plain 'Jutellane' in text (but NOT in domains like jutellane.com)
@@ -66,3 +66,4 @@ foreach ($file in $files) {
 }
 
 Say "Done. Files changed: $changedCount"
+
