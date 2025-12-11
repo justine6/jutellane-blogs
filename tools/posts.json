@@ -1,0 +1,11 @@
+{
+  "title": "My New Post",
+  "date": "2025-01-14",
+  "tags": [
+    "demo",
+    "testing"
+  ],
+  "summary": "Test post published via the new Add-Post toolchain.",
+  "url": "/jutellane-blogs/posts/2025/01/my-new-post/",
+  "cover": null
+}
