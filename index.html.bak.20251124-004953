@@ -285,40 +285,69 @@
 
   <!-- Card styles reused from public/_data -->
   <link rel="stylesheet" href="/_data/cards.css" />
-  <style id="temp-hide-blog-ctas">
-    .site-cta-nav,
-    .home-profile-buttons {
-      display: none !important;
-    }
-  </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="container header-row">
-    <a class="site-logo" href="/">Jutellane Blog</a>
+<header>
+  <div class="wrap">
 
-    <nav class="nav-right" aria-label="Primary">
-      <!-- existing blog nav links -->
-      <a href="/">Home</a>
-      <a href="/archive.html">Archive</a>
-      <a href="/about.html">About</a>
-
-      <!-- Profile pill for blog -->
-      <div class="nav-profile">
-        <img
-          src="/assets/img/justine-profile.jpg"
-          alt="Justine Longla T."
-          class="nav-profile-avatar"
-        />
-        <div class="nav-profile-text">
-          <span class="nav-profile-eyebrow">BLOGS BY</span>
-          <span class="nav-profile-name">Justine Longla T.</span>
+    <!-- Brand -->
+    <div class="brand" style="display:flex; align-items:center; gap:14px;">
+      <img
+        class="logo"
+        src="/assets/img/logo.png"
+        alt="Justine Longla T. personal logo"
+        width="40"
+        height="40"
+        style="border-radius:8px; object-fit:contain;"
+      />
+      <div>
+        <h1 style="margin:0; font-size:1.35rem;">
+          Justine Longla T. DevOps Blog
+        </h1>
+        <div class="sub" style="margin:2px 0 0; color:var(--muted); font-size:0.9rem;">
+          DevSecOps • Cloud • Sustainability — practical notes and experiments.
         </div>
       </div>
+    </div>
+
+    <!-- Unified Navigation -->
+    <nav class="primary-nav"
+         aria-label="Primary"
+         style="
+           display:flex;
+           justify-content:space-between;
+           align-items:center;
+           margin-top:18px;
+           padding-top:12px;
+           border-top:1px solid var(--chip);
+         ">
+      
+      <!-- Left side: main pages -->
+      <div class="nav-left" style="display:flex; gap:18px;">
+        <a href="/"         >Home</a>
+        <a href="/blog/"    >All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+        <a href="/docs/"    >Automation Toolkit</a>
+      </div>
+
+      <!-- Right side: utilities -->
+      <div class="nav-right" style="display:flex; gap:18px;">
+        <a href="/feed.xml"     >RSS</a>
+        <a href="/sitemap.xml"  >Sitemap</a>
+        <a href="/tags/"        id="nav-tags">Tags</a>
+        <a href="https://github.com/justine6/jutellane-blogs"
+           target="_blank"
+           rel="noopener">
+          GitHub
+        </a>
+      </div>
+
     </nav>
+
   </div>
 </header>
+
 
   <!-- Hero with blurred shield in the background -->
   <section class="hero">
@@ -457,7 +486,6 @@
   </script>
 </body>
 </html>
-
 
 
 

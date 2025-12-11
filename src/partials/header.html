@@ -14,51 +14,28 @@
        Unified sticky header (matches main consulting site)
        ========================================================= -->
 <header class="site-header">
-  <div class="site-header-inner">
-    <!-- Brand -->
-    <a class="site-brand" href="/">
-      <img
-        class="site-logo"
-        src="/assets/img/logo.png"
-        alt="Justine Longla T. logo"
-        width="40"
-        height="40"
-      />
-      <span class="site-brand-text">
-        <span class="site-brand-name">Justine Longla T.</span>
-        <span class="site-brand-tagline">
-          DevSecOps • Cloud • Sustainability
-        </span>
-      </span>
-    </a>
+  <div class="container header-row">
+    <a class="site-logo" href="/">Jutellane Blog</a>
 
-    <!-- Main navigation (internal) -->
-    <nav class="site-nav" aria-label="Main">
+    <nav class="nav-right" aria-label="Primary">
+      <!-- existing blog nav links -->
       <a href="/">Home</a>
-      <a href="/blog/">All Blog Posts</a>
-      <a href="/projects/">Projects</a>
-      <a href="/docs/">Automation Toolkit</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/about.html">About</a>
+
+      <!-- Profile pill for blog -->
+      <div class="nav-profile">
+        <img
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          class="nav-profile-avatar"
+        />
+        <div class="nav-profile-text">
+          <span class="nav-profile-eyebrow">BLOGS BY</span>
+          <span class="nav-profile-name">Justine Longla T.</span>
+        </div>
+      </div>
     </nav>
-
-  <!-- Cross-site CTAs (main site) -->
-  <nav class="site-cta-nav" aria-label="Key actions">
-    <a href="https://justinelonglat-lane.com/booking" class="btn-cta btn-cta-primary">
-      Intro call
-    </a>
-
-    <a href="https://justinelonglat-lane.com/contact" class="btn-cta">
-      Contact
-    </a>
-
-    <a href="https://justinelonglat-lane.com/resume" class="btn-cta" target="_blank" rel="noopener">
-      Résumé
-    </a>
-
-    <a href="https://justinelonglat-lane.com/files/brochure-2025-11.pdf" class="btn-cta" target="_blank" rel="noopener">
-      Brochure
-    </a>
-  </nav>
-
   </div>
 </header>
 
@@ -77,43 +54,54 @@
 
     <div class="home-profile-copy">
       <p class="eyebrow">WORK WITH JUSTINE</p>
-      <h2>Bring this DevSecOps playbook into your systems.</h2>
+
+      <h2>Bring production-grade DevSecOps into your systems.</h2>
+
       <p class="home-profile-blurb">
-        If you’re looking to level-up reliability, security, and observability in real
-        projects, let’s talk. From intro calls to hands-on consulting, everything here
-        is built from production-grade experience.
+        If you’re aiming to level-up reliability, security, and observability in real
+        systems, let’s talk. From one-on-one intro calls to hands-on consulting,
+        everything here is based on production-grade experience—pipelines that
+        self-heal, infrastructure that scales safely, and automation that removes
+        the guesswork.
+      </p>
+
+      <p class="home-profile-blurb" style="margin-top:8px;">
+        You get calm predictability, strong engineering habits, and delivery you can trust.
       </p>
 
       <div class="home-profile-buttons">
         <a
-          href="https://justinelonglat-lane.com/booking"
+          href="https://consulting.justinelonglat-lane.com/booking"
           class="btn-cta btn-cta-primary"
         >
           Intro call
         </a>
+
         <a
-          href="https://justinelonglat-lane.com/resume"
+          href="https://consulting.justinelonglat-lane.com/readme"
           class="btn-cta"
+          target="_blank"
+          rel="noopener"
         >
           Resume (PDF)
         </a>
+
         <a
-          href="https://justinelonglat-lane.com/files/brochure-2025-11.pdf"
+          href="https://consulting.justinelonglat-lane.com/readme"
           class="btn-cta"
+          target="_blank"
+          rel="noopener"
         >
           Brochure (PDF)
         </a>
-        <a
-          href="/docs/"
-          class="btn-cta"
-        >
+
+        <a href="/docs/" class="btn-cta">
           Automation toolkit
         </a>
       </div>
     </div>
   </div>
 </section>
-
 
     <!-- =====================================================
          2) Hero section (dark)
@@ -130,16 +118,17 @@
             <h1>
               DevSecOps, Cloud, and<br />
               sustainable infrastructure —<br />
-              through real-world projects.
+              built through real systems.
             </h1>
 
             <p class="home-hero-lede">
-              I’m Justine Longla T., a DevSecOps and Cloud engineer obsessed
-              with <strong>reproducible systems</strong>, secure automation,
-              and <strong>long-term sustainability</strong>. This space brings
-              together my blog posts, hands-on projects, and the automation
-              toolkit that keeps everything fast, safe, and repeatable.
+              I’m Justine Longla T., a DevSecOps and Cloud engineer focused on
+              <strong>reliability</strong>, <strong>secure automation</strong>,
+              and <strong>reproducible systems</strong>. This platform brings together
+              deep-dive blog posts, real project breakdowns, and the automation
+              toolkit I use to keep delivery predictable, traceable, and sustainable.
             </p>
+
 
             <div class="home-hero-actions">
               <a href="/blog/" class="btn-hero-primary">
@@ -159,25 +148,36 @@
 
           <aside class="home-hero-aside">
             <h2 class="aside-title">What you’ll find here</h2>
+
             <ul class="aside-list">
+
               <li>
                 <strong>Battle-tested DevOps patterns</strong>
-                from real outages and migrations.
+                drawn from real outages, legacy migrations, and performance bottlenecks —
+                not theory, but the lessons that actually keep systems online.
               </li>
+
               <li>
-                <strong>Automation recipes</strong> in PowerShell, YAML,
-                and cloud-native tooling.
+                <strong>Automation recipes</strong> in PowerShell, YAML, and cloud-native
+                tooling that remove manual steps, prevent regressions, and ensure
+                consistent delivery regardless of the environment.
               </li>
+
               <li>
-                <strong>Project deep dives</strong> on pipelines,
-                observability, and self-healing systems.
+                <strong>Deep-dive project walkthroughs</strong> on pipelines, observability,
+                container audits, and self-healing infrastructure — with diagrams and
+                real implementation notes.
               </li>
+
               <li>
-                <strong>Sustainability-minded design</strong>
-                for cloud workloads and data platforms.
+                <strong>Sustainability-minded engineering practices</strong>
+                for reducing cloud waste, improving efficiency, and building systems that
+                are both resilient and environmentally responsible.
               </li>
+
             </ul>
           </aside>
+
         </div>
       </div>
     </section>
@@ -250,71 +250,65 @@
           <h2>Featured projects &amp; deep dives</h2>
           <a href="/projects/">View all projects →</a>
         </header>
-
         <ul class="cards-grid">
+
           <li class="card">
             <h3>Self-Healing Delivery Pipeline for Legacy Apps</h3>
             <p class="desc">
-              A fault-tolerant pipeline with auto-rollback, health probes,
-              and observability baked into every stage — tuned for legacy
-              environments.
+              A delivery pipeline engineered for resilience — automatic rollbacks,
+              real-time health checks, and observability woven throughout each stage.
             </p>
             <p class="tags">AWS • GitHub Actions • Resilience</p>
-            <a
-              href="/projects/2025/11/self-healing-pipeline/"
-              class="read-link"
-            >
-              Walk through the pipeline design →
+            <a href="/projects/2025/11/self-healing-pipeline/" class="read-link">
+              Walk through the design →
             </a>
           </li>
 
           <li class="card">
             <h3>Automation Toolkit for Justine Longla T.</h3>
             <p class="desc">
-              PowerShell scripts that keep posts, docs, and layouts in sync —
-              from adding new content to validating metadata before a release.
+              A collection of PowerShell scripts that keep posts, documentation, and
+              metadata consistent — cutting manual work and preventing release drift.
             </p>
-            <p class="tags">PowerShell • Tooling • Static HTML</p>
+            <p class="tags">PowerShell • Tooling • Static Sites</p>
             <a href="/docs/" class="read-link">
               Open the automation toolkit →
             </a>
           </li>
 
           <li class="card">
-            <h3>Observability Basics &amp; Beyond</h3>
+            <h3>Observability Basics & Beyond</h3>
             <p class="desc">
-              Foundations of logs, metrics, and traces — and how to turn
-              observability into a practical tool for debugging, capacity,
-              and performance.
+              A grounding in logs, metrics, traces — plus the practical habits that turn
+              observability into a powerful debugging, tuning, and capacity-planning tool.
             </p>
             <p class="tags">Observability • Metrics • Tracing</p>
-            <a
-              href="/posts/2025/10/observability-basics/"
-              class="read-link"
-            >
-              Start with the observability series →
+            <a href="/posts/2025/10/observability-basics/" class="read-link">
+              Start the observability series →
             </a>
           </li>
+
         </ul>
+
       </div>
     </section>
 
     <!-- =====================================================
          Simple footer
          ===================================================== -->
-    <footer class="site-footer section-dark">
-      <div class="container">
-        <p>
-          &copy; 2025 Justine Longla T. — DevSecOps • Cloud • Sustainability.
-          Built with static HTML and a lot of PowerShell.
-        </p>
-        <p>
-          Explore the <a href="/blog/">blog</a>,
-          <a href="/projects/">projects</a>, and the
-          <a href="/docs/">automation toolkit</a>.
-        </p>
-      </div>
-    </footer>
-  </main>
-</body>
-</html>
+<footer class="site-footer section-dark">
+  <div class="container">
+    <p>
+      &copy; 2025 Justine Longla T. —
+      DevSecOps • Cloud • Sustainable Infrastructure.
+      Built with clean, static HTML and a strong automation workflow.
+    </p>
+
+    <p>
+      Explore the <a href="/blog/">blog</a>,
+      <a href="/projects/">projects</a>,
+      and the <a href="/docs/">automation toolkit</a>.
+      Operating under JustineLonglaT-Lane Consulting.
+    </p>
+  </div>
+</footer>
