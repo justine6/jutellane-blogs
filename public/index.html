@@ -19,51 +19,55 @@
     <!-- … unchanged CSS … -->
   </style>
 </head>
-
 <body>
 
-<!-- === Site top bar / header === -->
-<header class="site-header">
-  <div class="container header-row">
-    <a class="site-logo" href="/">Jutellane Blog</a>
+  <!-- === Site top bar / header === -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="site-logo" href="/">Jutellane Blog</a>
 
-    <nav class="nav-right" aria-label="Primary">
-      <!-- existing blog nav links -->
-      <a href="/">Home</a>
-      <a href="/archive.html">Archive</a>
-      <a href="/about.html">About</a>
+      <nav class="nav-right" aria-label="Primary">
+        <!-- existing blog nav links -->
+        <a href="/">Home</a>
+        <a href="/archive.html">Archive</a>
+        <a href="/about.html">About</a>
 
-      <!-- Profile pill for blog -->
-      <div class="nav-profile">
+        <!-- Profile pill for blog -->
+        <div class="nav-profile">
+          <img
+            src="/assets/img/justine-profile.jpg"
+            alt="Justine Longla T."
+            class="nav-profile-avatar"
+          />
+          <div class="nav-profile-text">
+            <span class="nav-profile-eyebrow">BLOGS BY</span>
+            <span class="nav-profile-name">Justine Longla T.</span>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- Work with Justine: profile + CTAs -->
+  <section class="home-profile-cta" aria-labelledby="meet-justine">
+    <div class="container home-profile-inner">
+      <!-- Photo -->
+      <div class="home-profile-photo">
         <img
           src="/assets/img/justine-profile.jpg"
-          alt="Justine Longla T."
-          class="nav-profile-avatar"
+          alt="Portrait of Justine Longla T., DevSecOps and Cloud engineer"
+          loading="lazy"
         />
-        <div class="nav-profile-text">
-          <span class="nav-profile-eyebrow">BLOGS BY</span>
-          <span class="nav-profile-name">Justine Longla T.</span>
-        </div>
       </div>
-    </nav>
-  </div>
-</header>
 
-<!-- === Work with Justine: profile + CTAs === -->
-<section class="home-profile-cta" aria-labelledby="meet-justine">
-  <div class="container home-profile-inner">
-
-    <!-- Removed the giant portrait block -->
-
-    <!-- Text + buttons -->
-    <div class="home-profile-copy">
-      <p class="eyebrow">Work with Justine</p>
-      <h2 id="meet-justine">Bring this DevSecOps playbook into your systems.</h2>
-      <p class="home-profile-blurb">
-        If you’re looking to level-up reliability, security, and observability in real projects,
-        let’s talk. From intro calls to hands-on consulting, everything here is built from
-        production-grade experience.
-      </p>
+      <!-- Text + buttons -->
+      <div class="home-profile-copy">
+        <p class="eyebrow">Work with Justine</p>
+        <h2 id="meet-justine">Bring this DevSecOps playbook into your systems.</h2>
+        <p class="home-profile-blurb">
+          If you’re looking to level-up reliability, security, and observability in real projects,
+          let’s talk. From intro calls to hands-on consulting, everything here is built from
+          production-grade experience.
+        </p>
 
         <div class="home-profile-buttons">
           <a
