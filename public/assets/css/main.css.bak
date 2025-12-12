@@ -579,32 +579,3 @@ a:hover {
     justify-content: flex-start;
   }
 }
-$snippet = @"
- 
-/* === Home hero glowing top border ==================================== */
-.home-hero {
-  position: relative;
-}
-
-.home-hero::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    rgba(56, 189, 248, 0),
-    rgba(56, 189, 248, 0.9),
-    rgba(129, 140, 248, 0.9),
-    rgba(56, 189, 248, 0)
-  );
-  box-shadow:
-    0 0 18px rgba(56, 189, 248, 0.7),
-    0 0 34px rgba(15, 23, 42, 0.9);
-  pointer-events: none;
-}
-"@
-
-Add-Content assets\css\main.css $snippet

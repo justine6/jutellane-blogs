@@ -1,6 +1,6 @@
 // scripts/validate-internal-links.mjs
-// Validates internal links across posts + validates static HTML outputs (posts, tags) + validates RSS feed.
-// Designed for classic static sites where HTML is built into /public and posts are date-based (/posts/YYYY/MM/DD/).
+// Validates internal links across posts + validates static HTML outputs (posts, tags) + validates sitemap.xml + validates RSS feed.
+// Designed for classic static sites where HTML is built into /public and posts are date-based: /posts/YYYY/MM/<slug>/index.html
 
 import fs from "node:fs";
 import path from "node:path";
@@ -16,11 +16,12 @@ const POSTS_DIR_CANDIDATES = [
   "app/content/blog",
 ];
 
-// Your RSS is at repo root (based on your tree)
-const PUBLIC_FEED = "feed.xml";
-
 // Static site output root
 const PUBLIC_ROOT = "public";
+
+// In production, /feed.xml and /sitemap.xml must be served from /public
+const PUBLIC_FEED = path.join(PUBLIC_ROOT, "feed.xml");
+const PUBLIC_SITEMAP = path.join(PUBLIC_ROOT, "sitemap.xml");
 
 // These are only used to validate internal links found in markdown/mdx content.
 // Your generated HTML routes are NOT locale-based; this is just for MD(X) link hygiene.
@@ -28,6 +29,22 @@ const LOCALES = ["en", "fr", "ht", "es"];
 const BLOG_BASE = (locale) => `/${locale}/blog`;
 const POST_ROUTE = (locale, slug) => `${BLOG_BASE(locale)}/${slug}`;
 const TAG_ROUTE = (locale, tag) => `${BLOG_BASE(locale)}/tags/${tag}`;
+
+// ------------------------------------------------------------
+// Helpers
+// ------------------------------------------------------------
+function ok(msg) {
+  console.log(`✅ ${msg}`);
+}
+
+function warn(msg) {
+  console.log(`⚠️  ${msg}`);
+}
+
+function fail(msg) {
+  console.error(`\n❌ ${msg}\n`);
+  process.exitCode = 1;
+}
 
 function exists(p) {
   try {
@@ -38,21 +55,8 @@ function exists(p) {
   }
 }
 
-function fail(msg) {
-  console.error(`\n❌ ${msg}\n`);
-  process.exitCode = 1;
-}
-
-function ok(msg) {
-  console.log(`✅ ${msg}`);
-}
-
-function findPostsDir() {
-  for (const rel of POSTS_DIR_CANDIDATES) {
-    const full = path.join(ROOT, rel);
-    if (exists(full) && fs.statSync(full).isDirectory()) return full;
-  }
-  return null;
+function readText(file) {
+  return fs.readFileSync(file, "utf8");
 }
 
 function walk(dir) {
@@ -65,53 +69,21 @@ function walk(dir) {
   return out;
 }
 
-function readText(file) {
-  return fs.readFileSync(file, "utf8");
-}
-
 function slugFromFile(file) {
   const base = path.basename(file);
   return base.replace(/\.(md|mdx)$/i, "");
 }
 
-function extractFrontmatter(text) {
-  // super-light frontmatter parse: only supports `tags:` list in YAML
-  const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
-  if (!m) return {};
-  const fm = m[1];
-
-  const tags = [];
-
-  // tags: ["a", "b"]
-  const inline = fm.match(/^tags:\s*\[(.*)\]\s*$/m);
-  if (inline) {
-    inline[1]
-      .split(",")
-      .map((s) => s.trim().replace(/^["']|["']$/g, ""))
-      .filter(Boolean)
-      .forEach((t) => tags.push(t));
-    return { tags };
+function findPostsDir() {
+  for (const rel of POSTS_DIR_CANDIDATES) {
+    const full = path.join(ROOT, rel);
+    if (exists(full) && fs.statSync(full).isDirectory()) return full;
   }
-
-  // tags:
-  //  - a
-  //  - b
-  const block = fm.match(/^tags:\s*\n([\s\S]*?)(\n[a-zA-Z_]+:|\s*$)/m);
-  if (block) {
-    block[1]
-      .split("\n")
-      .map((l) => l.trim())
-      .filter((l) => l.startsWith("- "))
-      .map((l) => l.slice(2).trim().replace(/^["']|["']$/g, ""))
-      .filter(Boolean)
-      .forEach((t) => tags.push(t));
-  }
-
-  return { tags };
+  return null;
 }
 
 function extractInternalHrefs(markdownOrMdx) {
-  // Finds markdown links: [text](/path) and mdx <Link href="/path">
+  // Finds markdown links: [text](/path) and mdx/html href="/path"
   const hrefs = new Set();
 
   // markdown: [x](/something)
@@ -121,7 +93,7 @@ function extractInternalHrefs(markdownOrMdx) {
     hrefs.add(m[1]);
   }
 
-  // mdx: href="/something"
+  // mdx/html: href="/something"
   for (const m of markdownOrMdx.matchAll(
     /href\s*=\s*["'](\/[^"'\s#]+)(#[^"'\s]+)?["']/g
   )) {
@@ -129,53 +101,127 @@ function extractInternalHrefs(markdownOrMdx) {
   }
 
   // ignore assets
-  return [...hrefs].filter((h) => {
+  const filtered = [...hrefs].filter((h) => {
     if (h.startsWith("/images/")) return false;
     if (h.startsWith("/icons/")) return false;
     if (h.startsWith("/fonts/")) return false;
-    if (/\.(png|jpg|jpeg|gif|webp|svg|ico|pdf)$/i.test(h)) return false;
+    if (h.startsWith("/assets/")) return false;
+    if (/\.(png|jpg|jpeg|gif|webp|svg|ico|pdf|css|js)$/i.test(h)) return false;
     return true;
   });
+
+  return filtered;
 }
 
-/**
- * Robust HTML route collector for /public.
- * It finds every `index.html` under /public and converts its folder to a route.
- * Example:
- *   public/tags/index.html          => /tags
- *   public/posts/2025/10/11/index.html => /posts/2025/10/11
- */
-function collectHtmlRoutesFromPublic() {
-  const publicDir = path.join(ROOT, PUBLIC_ROOT);
-  if (!exists(publicDir)) return new Set();
+function normalizePath(p) {
+  // Normalize any "/x/y/" -> "/x/y" (keep "/" as "/")
+  const norm = (p || "").replace(/\/+$/, "") || "/";
+  return norm;
+}
 
-  const routes = new Set();
-  const files = walk(publicDir);
+function normalizeUrlToPath(urlOrPath) {
+  // sitemap/rss might contain absolute urls; normalize to pathname
+  try {
+    const u = new URL(urlOrPath);
+    return normalizePath(u.pathname);
+  } catch {
+    return normalizePath(urlOrPath);
+  }
+}
 
-  for (const file of files) {
-    if (path.basename(file).toLowerCase() !== "index.html") continue;
+// ------------------------------------------------------------
+// Frontmatter parsing (lightweight)
+// ------------------------------------------------------------
+function extractFrontmatter(text) {
+  // super-light frontmatter parse: supports:
+  // - tags: ["a", "b"] or tags: \n - a \n - b
+  // - date: "YYYY-MM-DD"
+  // - slug: "my-slug"
+  const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+  if (!m) return {};
 
-    const folder = path.dirname(file);
-    const relFolder = path.relative(publicDir, folder); // relative to /public
+  const fm = m[1];
 
-    const route =
-      relFolder === ""
-        ? "/"
-        : "/" + relFolder.replace(/\\/g, "/"); // normalize Windows -> URL
+  const readScalar = (key) => {
+    const mm = fm.match(new RegExp(`^${key}:\\s*(.+?)\\s*$`, "m"));
+    if (!mm) return null;
+    return mm[1].trim().replace(/^["']|["']$/g, "");
+  };
 
-    routes.add(route);
+  const tags = [];
+  const inline = fm.match(/^tags:\s*\[(.*)\]\s*$/m);
+  if (inline) {
+    inline[1]
+      .split(",")
+      .map((s) => s.trim().replace(/^["']|["']$/g, ""))
+      .filter(Boolean)
+      .forEach((t) => tags.push(t));
+  } else {
+    const block = fm.match(/^tags:\s*\n([\s\S]*?)(\n[a-zA-Z_]+:|\s*$)/m);
+    if (block) {
+      block[1]
+        .split("\n")
+        .map((l) => l.trim())
+        .filter((l) => l.startsWith("- "))
+        .map((l) => l.slice(2).trim().replace(/^["']|["']$/g, ""))
+        .filter(Boolean)
+        .forEach((t) => tags.push(t));
+    }
   }
 
-  return routes;
+  const date = readScalar("date");
+  const slug = readScalar("slug");
+
+  return { tags, date, slug };
 }
 
-// ----------------------------
+function parseDateToYearMonth(dateStr) {
+  // Accept YYYY-MM-DD (most common)
+  if (!dateStr) return null;
+  const m = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  return { year: m[1], month: m[2] };
+}
+
+// ------------------------------------------------------------
+// HTML route discovery
+// ------------------------------------------------------------
+function collectHtmlRoutesFromPublic(publicDir) {
+  // Build routes from /public by finding every folder that contains an index.html
+  // Example:
+  //   public/tags/index.html => /tags
+  //   public/posts/2025/10/foo/index.html => /posts/2025/10/foo
+  const results = new Set();
+
+  function recur(dir, base = "") {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      const rel = path.join(base, entry.name);
+
+      if (entry.isDirectory()) {
+        recur(full, rel);
+      } else if (entry.name.toLowerCase() === "index.html") {
+        const route = "/" + base.replace(/\\/g, "/");
+        results.add(route === "/" ? "/" : route);
+      }
+    }
+  }
+
+  recur(publicDir, "");
+  return results;
+}
+
+function parseXmlLocs(xml) {
+  const locs = new Set();
+  for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    locs.add(m[1].trim());
+  }
+  return locs;
+}
+
+// ------------------------------------------------------------
 // Main
-// ----------------------------
-
-const htmlRoutes = collectHtmlRoutesFromPublic();
-ok(`Discovered ${htmlRoutes.size} HTML routes from /public`);
-
+// ------------------------------------------------------------
 const postsDir = findPostsDir();
 if (!postsDir) {
   fail(
@@ -191,131 +237,214 @@ if (postFiles.length === 0) {
   process.exit(1);
 }
 
-ok(`Found posts dir: ${path.relative(ROOT, postsDir)} (${postFiles.length} files)`);
+ok(
+  `Found posts dir: ${path.relative(ROOT, postsDir)} (${postFiles.length} files)`
+);
 
-const slugs = postFiles.map(slugFromFile);
+// Ensure /public exists
+const publicDir = path.join(ROOT, PUBLIC_ROOT);
+if (!exists(publicDir) || !fs.statSync(publicDir).isDirectory()) {
+  fail(`Missing ${PUBLIC_ROOT}/ directory. This validator expects HTML output in /public.`);
+  process.exit(1);
+}
 
-const allTags = new Set();
+const htmlRoutes = collectHtmlRoutesFromPublic(publicDir);
+ok(`Discovered ${htmlRoutes.size} HTML routes from /public`);
+
+// ------------------------------------------------------------
+// Build expected routes from Markdown posts
+// - For link-hygiene (locale blog routes): /{locale}/blog/{slug}, /{locale}/blog/tags/{tag}
+// - For HTML output (date-based): /posts/YYYY/MM/{slug}
+// ------------------------------------------------------------
 const internalLinksFound = [];
+const allTags = new Set();
+const expectedLocalePostPaths = new Set();
+const expectedLocaleTagPaths = new Set();
+const expectedHtmlPostPaths = new Set();
+
+// Keep track of which posts lack a parsable date (we'll warn; can't validate HTML path)
+const noDatePosts = [];
 
 for (const file of postFiles) {
   const txt = readText(file);
-  const { tags } = extractFrontmatter(txt);
-  (tags || []).forEach((t) => allTags.add(t));
+  const fm = extractFrontmatter(txt);
 
+  const slug = (fm.slug && fm.slug.trim()) ? fm.slug.trim() : slugFromFile(file);
+
+  // locale-based routes (used only to validate markdown internal links)
+  for (const locale of LOCALES) {
+    expectedLocalePostPaths.add(POST_ROUTE(locale, slug));
+  }
+
+  // tags
+  (fm.tags || []).forEach((t) => allTags.add(t));
+  for (const locale of LOCALES) {
+    for (const tag of fm.tags || []) expectedLocaleTagPaths.add(TAG_ROUTE(locale, tag));
+  }
+
+  // date-based HTML output expectation: /posts/YYYY/MM/slug
+  const ym = parseDateToYearMonth(fm.date);
+  if (ym) {
+    expectedHtmlPostPaths.add(`/posts/${ym.year}/${ym.month}/${slug}`);
+  } else {
+    noDatePosts.push(path.relative(ROOT, file));
+  }
+
+  // collect internal hrefs from MD/MDX
   const hrefs = extractInternalHrefs(txt);
   for (const h of hrefs) internalLinksFound.push({ from: file, href: h });
 }
 
-ok(`Derived slugs: ${slugs.length}`);
+ok(`Derived slugs: ${postFiles.length}`);
 ok(`Derived tags: ${allTags.size}`);
 
-// ----------------------------
-// 1) Validate internal links inside MDX/MD (posts/tags/routes)
-// ----------------------------
-
-const expectedPostPaths = new Set();
-for (const locale of LOCALES) {
-  for (const slug of slugs) expectedPostPaths.add(POST_ROUTE(locale, slug));
+if (noDatePosts.length > 0) {
+  warn(
+    `Some posts have no parsable frontmatter date (YYYY-MM-DD). ` +
+      `Skipping date-based HTML validation for these:\n  - ${noDatePosts.join("\n  - ")}`
+  );
 }
 
-const expectedTagPaths = new Set();
-for (const locale of LOCALES) {
-  for (const tag of allTags) expectedTagPaths.add(TAG_ROUTE(locale, tag));
-}
+// Also derive expected tag pages if your static site generates them (non-locale):
+// We validate at minimum /tags exists. If you generate per-tag pages, uncomment below.
+// const expectedHtmlTagPaths = new Set([...allTags].map((t) => `/tags/${t}`));
 
-const knownPaths = new Set([
-  ...expectedPostPaths,
-  ...expectedTagPaths,
+// ------------------------------------------------------------
+// Validate internal links in MDX/MD (locale-based link hygiene)
+// ------------------------------------------------------------
+const knownPathsForMd = new Set([
+  ...expectedLocalePostPaths,
+  ...expectedLocaleTagPaths,
   ...LOCALES.map((l) => `/${l}`),
   ...LOCALES.map((l) => BLOG_BASE(l)),
 ]);
 
-let broken = 0;
+let brokenMd = 0;
 for (const { from, href } of internalLinksFound) {
-  const norm = href.replace(/\/+$/, "") || "/";
-  if (!knownPaths.has(norm)) {
-    broken++;
+  const norm = normalizePath(href);
+  if (!knownPathsForMd.has(norm)) {
+    brokenMd++;
     console.error(
-      `❌ Broken internal link: ${href}\n   from: ${path.relative(
-        ROOT,
-        from
-      )}\n   hint: add route or fix slug/tag`
+      `❌ Broken internal link in post content: ${href}\n` +
+        `   from: ${path.relative(ROOT, from)}\n` +
+        `   hint: fix the link, or add the route to knownPathsForMd if it's valid.`
     );
   }
 }
 
-if (broken === 0) ok("All internal links in posts look valid (posts/tags/routes).");
-else fail(`${broken} broken internal link(s) found in posts.`);
+if (brokenMd === 0) ok("All internal links in posts look valid (locale blog/tag routes).");
+else fail(`${brokenMd} broken internal link(s) found in posts.`);
 
-// ----------------------------
-// 2) Validate generated HTML outputs exist
-// ----------------------------
+// ------------------------------------------------------------
+// Validate generated HTML structure
+// ------------------------------------------------------------
+let missingHtml = 0;
 
-let missing = 0;
-
-// Posts are date-based: /posts/YYYY/MM/DD/index.html => route /posts/YYYY/MM/DD
-const postHtmlRoutes = [...htmlRoutes].filter((p) => p.startsWith("/posts/"));
-if (postHtmlRoutes.length === 0) {
-  missing++;
-  console.error("❌ No generated HTML post pages found under /public/posts/");
-} else {
-  ok(`Found ${postHtmlRoutes.length} generated post HTML pages.`);
+// Validate expected post HTML pages exist (only for posts with valid date)
+for (const p of expectedHtmlPostPaths) {
+  if (!htmlRoutes.has(p)) {
+    missingHtml++;
+    console.error(
+      `❌ Missing generated post HTML route: ${p}\n` +
+        `   expected file: ${PUBLIC_ROOT}${p}/index.html`
+    );
+  }
 }
 
-// Tags: your site has a tags index at public/tags/index.html
-// We'll validate it in the most reliable way:
-// Tags index may live either in /public/tags or at repo root (/tags)
-const tagsIndexInPublic = path.join(ROOT, PUBLIC_ROOT, "tags", "index.html");
-const tagsIndexAtRoot = path.join(ROOT, "tags", "index.html");
+if (expectedHtmlPostPaths.size > 0) {
+  const found = [...expectedHtmlPostPaths].filter((p) => htmlRoutes.has(p)).length;
+  ok(`Found ${found} / ${expectedHtmlPostPaths.size} expected post HTML routes.`);
+}
 
-const hasTagsIndex =
-  htmlRoutes.has("/tags") ||
-  exists(tagsIndexInPublic) ||
-  exists(tagsIndexAtRoot);
-
+// Validate /tags index exists
+const hasTagsIndex = htmlRoutes.has("/tags");
 if (!hasTagsIndex) {
-  missing++;
-  console.error("❌ Missing /tags index page.");
+  missingHtml++;
+  console.error(`❌ Missing /tags index page.\n   expected file: ${PUBLIC_ROOT}/tags/index.html`);
 } else {
   ok("Tags index page exists (/tags).");
 }
 
-// ----------------------------
-// 3) Validate RSS feed exists + contains links to posts
-// ----------------------------
+if (missingHtml === 0) ok("All required HTML routes exist (posts + /tags).");
+else fail(`${missingHtml} missing HTML route(s) detected.`);
 
+// ------------------------------------------------------------
+// Validate RSS feed (public/feed.xml)
+// ------------------------------------------------------------
 if (!exists(path.join(ROOT, PUBLIC_FEED))) {
-  fail(`Missing ${PUBLIC_FEED}.`);
+  fail(`Missing ${PUBLIC_FEED}. (It must be in /public to be served at /feed.xml)`);
 } else {
   const rss = readText(path.join(ROOT, PUBLIC_FEED));
+  let missingInFeed = 0;
 
-  // Check that feed contains at least as many /posts/YYYY/ links as we have slugs.
-  const postLinksInFeed = rss.match(/\/posts\/\d{4}\//g) || [];
-  if (postLinksInFeed.length < slugs.length) {
-    const diff = slugs.length - postLinksInFeed.length;
-    fail(
-      `RSS missing ${diff} post link(s). Found ${postLinksInFeed.length}, expected ${slugs.length}.`
-    );
-  } else {
-    ok("feed.xml includes links to all posts.");
+  // Prefer checking for the actual expected HTML routes (date-based), not just raw slugs.
+  for (const p of expectedHtmlPostPaths) {
+    // allow with or without trailing slash
+    const needle1 = `${p}/`;
+    const needle2 = p;
+    if (!rss.includes(needle1) && !rss.includes(needle2)) {
+      missingInFeed++;
+      console.error(`❌ feed.xml missing post URL: ${p}`);
+    }
   }
 
-  // Optional: check slugs appear somewhere in feed (may fail if your feed uses titles only).
-  // We'll keep this permissive: warn only (no fail).
-  const missingSlugs = slugs.filter((s) => !rss.includes(s));
-  if (missingSlugs.length === 0) {
-    ok("feed.xml includes all post slugs.");
-  } else {
-    console.warn(
-      `⚠️ feed.xml does not include ${missingSlugs.length} slug(s) as plain text (this may be OK for date-based URLs).`
-    );
+  if (missingInFeed === 0) ok("feed.xml includes links to all expected post URLs.");
+  else fail(`feed.xml missing ${missingInFeed} post URL(s).`);
+}
+
+// ------------------------------------------------------------
+// Validate sitemap.xml (public/sitemap.xml)
+// ------------------------------------------------------------
+if (!exists(path.join(ROOT, PUBLIC_SITEMAP))) {
+  fail(`Missing ${PUBLIC_SITEMAP}. (It must be in /public to be served at /sitemap.xml)`);
+} else {
+  const xml = readText(path.join(ROOT, PUBLIC_SITEMAP));
+  const locs = parseXmlLocs(xml);
+
+  // Normalize sitemap locs to paths
+  const sitemapPaths = new Set([...locs].map(normalizeUrlToPath));
+
+  let missingInSitemap = 0;
+
+  // Ensure sitemap includes these routes at minimum
+  const mustInclude = new Set([
+    "/", // home
+    "/tags",
+    "/feed.xml", // optional but useful
+  ]);
+
+  for (const m of mustInclude) {
+    // sitemap often lists "/feed.xml" or full url. We normalize to path above.
+    if (!sitemapPaths.has(normalizePath(m))) {
+      // Don't hard-fail on /feed.xml being absent from sitemap; warn only.
+      if (m === "/feed.xml") {
+        warn("sitemap.xml does not include /feed.xml (optional).");
+      } else {
+        missingInSitemap++;
+        console.error(`❌ sitemap.xml missing required route: ${m}`);
+      }
+    }
   }
+
+  // Ensure sitemap includes all expected post URLs (date-based)
+  for (const p of expectedHtmlPostPaths) {
+    // allow sitemap loc to be with trailing slash
+    const np = normalizePath(p);
+    if (!sitemapPaths.has(np)) {
+      missingInSitemap++;
+      console.error(`❌ sitemap.xml missing post URL: ${p}`);
+    }
+  }
+
+  if (missingInSitemap === 0) ok("sitemap.xml includes all required routes + all expected post URLs.");
+  else fail(`sitemap.xml missing ${missingInSitemap} route(s).`);
 }
 
-if (process.exitCode === 1) {
-  console.error("\n🧯 Fix the failures above, then re-run: npm run validate:links\n");
-  process.exit(1);
+// ------------------------------------------------------------
+// Final
+// ------------------------------------------------------------
+if (process.exitCode && process.exitCode !== 0) {
+  console.error("\n🚨 Fix the failures above, then re-run: npm run validate:links\n");
+} else {
+  ok("Internal links + HTML structure + RSS + sitemap validation passed.");
 }
-
-console.log("\n🎉 Internal links + HTML structure + RSS validation passed.\n");
