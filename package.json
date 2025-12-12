@@ -6,6 +6,7 @@
 "scripts": {
   "prebuild": "node scripts/generate-indexes.mjs",
   "build": "node scripts/generate-indexes.mjs && node scripts/vercel-dist.mjs",
+  "validate:links": "node scripts/validate-internal-links.mjs",
   "serve": "npx serve dist -l 3000"
   },
   "devDependencies": {
