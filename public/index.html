@@ -11,12 +11,12 @@
   <!-- Global site styles -->
   <link rel="stylesheet" href="/assets/css/main.css" />
 
-  <!-- Favicon -->
+  <!-- Favicon (NOTE: favicon should usually live under /assets/img or /favicon.ico, but leaving as-is) -->
   <link rel="icon" href="/assets/css/favicon.ico" sizes="any" />
 
   <!-- Home page layout tweaks -->
   <style>
-    <!-- … unchanged CSS … -->
+    /* … unchanged CSS … */
   </style>
 </head>
 <body>
@@ -32,13 +32,8 @@
         <a href="/archive.html">Archive</a>
         <a href="/about.html">About</a>
 
-        <!-- Profile pill for blog -->
+        <!-- Profile pill for blog (TEXT ONLY — IMAGE REMOVED) -->
         <div class="nav-profile">
-          <img
-            src="/assets/img/justine-profile.jpg"
-            alt="Justine Longla T."
-            class="nav-profile-avatar"
-          />
           <div class="nav-profile-text">
             <span class="nav-profile-eyebrow">BLOGS BY</span>
             <span class="nav-profile-name">Justine Longla T.</span>
@@ -47,10 +42,11 @@
       </nav>
     </div>
   </header>
+
   <!-- Work with Justine: profile + CTAs -->
   <section class="home-profile-cta" aria-labelledby="meet-justine">
     <div class="container home-profile-inner">
-      <!-- Photo -->
+      <!-- Photo (KEEP THIS ONE) -->
       <div class="home-profile-photo">
         <img
           src="/assets/img/justine-profile.jpg"
@@ -76,12 +72,14 @@
           >
             Intro call
           </a>
+
           <a
             href="https://justinelonglat-lane.com/resume"
             class="btn-cta"
           >
             Resume (PDF)
           </a>
+
           <!-- Brochure -> main site -->
           <a
             href="https://justinelonglat-lane.com/files/brochure-2025-11.pdf"
@@ -89,6 +87,7 @@
           >
             Brochure (PDF)
           </a>
+
           <a
             href="/docs/"
             class="btn-cta"
@@ -96,7 +95,6 @@
             Automation toolkit
           </a>
         </div>
-
       </div>
     </div>
   </section>
@@ -145,12 +143,15 @@
 
   <script>
     // ensure the current nav item is highlighted if your main.css supports it
-    const path = window.location.pathname;
-    // Example: add 'active' class to "Home" if at root
-    if (path === "/" || path === "") {
-      const homeLink = document.querySelector('.site-nav a[href="/"]');
-      homeLink?.classList.add("active");
-    }
+    (function () {
+      var path = window.location.pathname || "/";
+      if (path === "/" || path === "") {
+        // Your markup uses ".nav-right", not ".site-nav"
+        var homeLink = document.querySelector('.nav-right a[href="/"]');
+        if (homeLink) homeLink.classList.add("active");
+      }
+    })();
   </script>
+
 </body>
 </html>
