@@ -1,12 +1,12 @@
 {
-  "name": "jutellane-blogs",
+  "name": "justinelonglat-lane-blogs",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "prebuild": "node scripts/generate-indexes.mjs",
-    "build": "npm run prebuild",
-    "serve": "npx serve . -l 3000",
+    "build": "node scripts/generate-indexes.mjs",
+    "serve": "npx serve public -l 3000",
     "deploy": "echo \"(optional) run your gh-pages deploy here\""
   },
   "devDependencies": {
