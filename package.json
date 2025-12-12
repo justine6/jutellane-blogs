@@ -3,11 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "prebuild": "node scripts/generate-indexes.mjs",
-    "build": "node scripts/generate-indexes.mjs",
-    "serve": "npx serve public -l 3000",
-    "deploy": "echo \"(optional) run your gh-pages deploy here\""
+"scripts": {
+  "prebuild": "node scripts/generate-indexes.mjs",
+  "build": "node scripts/generate-indexes.mjs && node scripts/vercel-dist.mjs",
+  "serve": "npx serve dist -l 3000"
   },
   "devDependencies": {
     "cheerio": "^1.1.2",
