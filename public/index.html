@@ -1,44 +1,166 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Justine Longla T. — DevSecOps • Cloud • Sustainability</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Legacy favicon path for safety (GitHub Pages / project path) -->
+  <link rel="icon" href="/justinelonglat-lane-blogs/assets/css/favicon.ico?v=2">
 
-  <meta name="description"
-        content="DevSecOps, Cloud, and sustainability — projects, deep dives, and automation notes from Justine Longla T." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Justine Longla T. — DevSecOps • Cloud • Sustainability</title>
+  <meta
+    name="description"
+    content="DevSecOps, Cloud, and sustainability — projects, deep dives, and automation notes from Justine Longla T."
+  />
+  <meta name="tags" content="devsecops, cloud, automation, powershell, static-sites, ci/cd, scripting" />
+
+  <!-- Primary favicon (root-safe) -->
+  <link rel="icon" href="/assets/css/favicon.ico" sizes="any" />
 
   <!-- Global site styles -->
   <link rel="stylesheet" href="/assets/css/main.css" />
 
-  <!-- Favicon (NOTE: favicon should usually live under /assets/img or /favicon.ico, but leaving as-is) -->
-  <link rel="icon" href="/assets/css/favicon.ico" sizes="any" />
-
-  <!-- Home page layout tweaks -->
   <style>
-    /* … unchanged CSS … */
+    :root {
+      --bg: #ffffff;
+      --fg: #0f172a;
+      --muted: #475569;
+      --card: #f8fafc;
+      --chip: #e2e8f0;
+      --link: #2563eb;
+      --br: 14px;
+      --max: 1100px;
+
+      --nav-bg: rgba(15, 23, 42, 0.95);
+      --nav-border: rgba(148, 163, 184, 0.4);
+
+      --hero-top: #020617;
+      --hero-bot: #0b1120;
+
+      --pill-bg: rgba(15, 23, 42, 0.9);
+      --pill-border: rgba(148, 163, 184, 0.6);
+      --pill-text: #e5e7eb;
+
+      --accent-cyan: #22d3ee;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #020617;
+        --fg: #e5e7eb;
+        --muted: #9ca3af;
+        --card: #0b1120;
+        --chip: #111827;
+        --link: #7aa3ff;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    /* Light-touch safety styles for the hero section if main.css changes */
+    .home-profile-cta {
+      padding: 3.5rem 0 3rem;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56,189,248,.18), transparent 60%),
+        radial-gradient(circle at 80% 40%, rgba(34,211,238,.14), transparent 55%),
+        linear-gradient(180deg, rgba(2,6,23,.02), rgba(2,6,23,.06));
+    }
+    .home-profile-inner {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .home-profile-photo img {
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 3px solid rgba(56,189,248,.55);
+      box-shadow: 0 18px 45px rgba(2,6,23,.18);
+    }
+    .home-profile-copy .eyebrow{
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .75rem;
+      color: var(--muted);
+      margin: 0 0 .35rem;
+    }
+    .home-profile-copy h2{
+      margin: 0 0 .75rem;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.2;
+    }
+    .home-profile-blurb{
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+    .home-profile-buttons{
+      display:flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+    .btn-cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:.6rem .95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.35);
+      background: rgba(15,23,42,.86);
+      color: #e5e7eb;
+      text-decoration:none;
+      font-weight: 600;
+      font-size: .92rem;
+      transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+    }
+    .btn-cta:hover{
+      transform: translateY(-1px);
+      border-color: rgba(56,189,248,.6);
+      box-shadow: 0 12px 30px rgba(2,6,23,.25);
+    }
+    .btn-cta-primary{
+      background: linear-gradient(90deg, rgba(56,189,248,.95), rgba(34,211,238,.85));
+      color: #06121f;
+      border-color: transparent;
+    }
+
+    @media (max-width: 720px){
+      .home-profile-inner{
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .home-profile-photo{
+        display:flex;
+        justify-content:center;
+      }
+      .home-profile-buttons{
+        justify-content:center;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- === Site top bar / header === -->
+  <!-- Unified header (single-source look) -->
   <header class="site-header">
     <div class="container header-row">
-      <a class="site-logo" href="/">Jutellane Blog</a>
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="logo" />
+        <span class="brand-title">
+          Justine Longla T.
+          <span class="brand-subtitle">DevSecOps • Cloud • Sustainability</span>
+        </span>
+      </a>
 
-      <nav class="nav-right" aria-label="Primary">
-        <!-- existing blog nav links -->
+      <nav class="site-nav" aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/archive.html">Archive</a>
-        <a href="/about.html">About</a>
-
-        <!-- Profile pill for blog (TEXT ONLY — IMAGE REMOVED) -->
-        <div class="nav-profile">
-          <div class="nav-profile-text">
-            <span class="nav-profile-eyebrow">BLOGS BY</span>
-            <span class="nav-profile-name">Justine Longla T.</span>
-          </div>
-        </div>
+        <a href="/posts/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+        <a href="/docs/">Automation Toolkit</a>
       </nav>
     </div>
   </header>
@@ -46,7 +168,6 @@
   <!-- Work with Justine: profile + CTAs -->
   <section class="home-profile-cta" aria-labelledby="meet-justine">
     <div class="container home-profile-inner">
-      <!-- Photo (KEEP THIS ONE) -->
       <div class="home-profile-photo">
         <img
           src="/assets/img/justine-profile.jpg"
@@ -55,7 +176,6 @@
         />
       </div>
 
-      <!-- Text + buttons -->
       <div class="home-profile-copy">
         <p class="eyebrow">Work with Justine</p>
         <h2 id="meet-justine">Bring this DevSecOps playbook into your systems.</h2>
@@ -66,43 +186,18 @@
         </p>
 
         <div class="home-profile-buttons">
-          <a
-            href="https://justinelonglat-lane.com/booking"
-            class="btn-cta btn-cta-primary"
-          >
-            Intro call
-          </a>
-
-          <a
-            href="https://justinelonglat-lane.com/resume"
-            class="btn-cta"
-          >
-            Resume (PDF)
-          </a>
-
-          <!-- Brochure -> main site -->
-          <a
-            href="https://justinelonglat-lane.com/files/brochure-2025-11.pdf"
-            class="btn-cta"
-          >
-            Brochure (PDF)
-          </a>
-
-          <a
-            href="/docs/"
-            class="btn-cta"
-          >
-            Automation toolkit
-          </a>
+          <a href="https://justinelonglat-lane.com/booking" class="btn-cta btn-cta-primary">Intro call</a>
+          <a href="https://justinelonglat-lane.com/resume" class="btn-cta">Resume (PDF)</a>
+          <a href="https://justinelonglat-lane.com/files/brochure-2025-11.pdf" class="btn-cta">Brochure (PDF)</a>
+          <a href="/docs/" class="btn-cta">Automation toolkit</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Hero / introduction -->
-  <!-- … rest of file unchanged until footer … -->
+  <!-- (Optional) You can re-add your “Latest writing” / cards section below later -->
 
-  <footer class="site-footer">
+  <footer class="site-footer section-dark">
     <div class="footer-inner">
       <div class="footer-left">
         <div class="footer-brand">
@@ -133,25 +228,12 @@
     </div>
 
     <script>
-      // keep the footer year current
       (function () {
         var el = document.getElementById("footer-year");
         if (el) el.textContent = new Date().getFullYear();
       })();
     </script>
   </footer>
-
-  <script>
-    // ensure the current nav item is highlighted if your main.css supports it
-    (function () {
-      var path = window.location.pathname || "/";
-      if (path === "/" || path === "") {
-        // Your markup uses ".nav-right", not ".site-nav"
-        var homeLink = document.querySelector('.nav-right a[href="/"]');
-        if (homeLink) homeLink.classList.add("active");
-      }
-    })();
-  </script>
 
 </body>
 </html>

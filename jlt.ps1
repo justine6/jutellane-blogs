@@ -99,3 +99,4 @@ if ($exitCode -ne $null -and $exitCode -ne 0) {
   Write-Host "⚠ Tool exited with code $exitCode" -ForegroundColor Yellow
   exit $exitCode
 }
+

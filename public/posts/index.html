@@ -1,0 +1,110 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>All Blog Posts · Justine Longla T.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="All blog posts by Justine Longla T. — DevSecOps, Cloud, and Sustainability." />
+
+  <!-- Site-wide styling -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <!-- Safety styles so it still looks good even if main.css changes -->
+  <style>
+    .posts-shell{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem}
+    .posts-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+    .post-card{background:#0b1220;border:1px solid rgba(148,163,184,.18);border-radius:14px;padding:1rem;transition:transform .12s ease, box-shadow .12s ease}
+    .post-card:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(2,132,199,.18)}
+    .post-link{font-weight:650;text-decoration:none;color:#38bdf8}
+    .post-link:hover{text-decoration:underline}
+    .desc{color:rgba(226,232,240,.85);margin-top:.35rem}
+    .tags{color:rgba(148,163,184,.95);font-size:.875rem;margin-top:.35rem}
+    .empty{color:rgba(148,163,184,.95);font-style:italic}
+  </style>
+</head>
+
+<body>
+  <!-- Unified sticky header -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/logo.png" alt="logo" />
+        <span class="brand-title">
+          Justine Longla T.
+          <span class="brand-subtitle">DevSecOps • Cloud • Sustainability</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/posts/">All Blog Posts</a>
+        <a href="/projects/">Projects</a>
+        <a href="/docs/">Automation Toolkit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="posts-shell">
+    <h1>All Blog Posts</h1>
+    <ul id="list" class="posts-grid"></ul>
+  </main>
+
+  <footer class="site-footer section-dark">
+    <div class="container">
+      <p>
+        &copy; <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting.
+        All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var el = document.getElementById("footer-year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+
+  <script type="module">
+    async function main() {
+      const list = document.getElementById("list");
+      if (!list) return;
+
+      const res = await fetch("/_data/posts.json", { cache: "no-store" });
+
+      if (!res.ok) {
+        console.error("Failed to load posts.json", res.status);
+        list.innerHTML = '<li class="empty">Unable to load posts.</li>';
+        return;
+      }
+
+      const data = await res.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        list.innerHTML = '<li class="empty">No entries yet.</li>';
+        return;
+      }
+
+      data.forEach(x => {
+        const li = document.createElement("li");
+        li.className = "post-card";
+
+        const title = x.title ?? "Untitled";
+        const url = x.url ?? "#";
+        const desc = x.description ?? "";
+        const tags = Array.isArray(x.tags) ? x.tags : [];
+
+        li.innerHTML =
+          `<a class="post-link" href="${url}">${title}</a>` +
+          (desc ? `<div class="desc">${desc}</div>` : "") +
+          (tags.length ? `<div class="tags"># ${tags.join(", ")}</div>` : "");
+
+        list.appendChild(li);
+      });
+    }
+
+    main().catch(console.error);
+  </script>
+</body>
+</html>
